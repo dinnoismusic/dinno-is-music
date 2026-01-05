@@ -17,6 +17,7 @@
     --muted: #666666;
 }
 
+/* Reset y tipografía */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -78,6 +79,16 @@ nav a:hover {
     background: rgba(255,255,255,0.15); /* overlay sutil */
 }
 
+/* LOGO DR.REX */
+.hero-logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    height: 50px;
+    z-index: 10;
+}
+
+/* HERO CONTENT */
 .hero-content {
     position: relative;
     z-index: 2;
@@ -98,6 +109,7 @@ nav a:hover {
     color: var(--muted);
 }
 
+/* BOTONES */
 .buttons {
     display: flex;
     justify-content: center;
@@ -105,49 +117,30 @@ nav a:hover {
     flex-wrap: wrap;
 }
 
-/* BOTONES ESTILIZADOS */
 .btn {
     padding: 14px 32px;
     font-size: 1rem;
-    border-radius: 50px; /* estilo alargado tipo bala */
+    border-radius: 50px; /* forma alargada tipo bala */
     border: none;
     cursor: pointer;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* sombra suave inicial */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* sombra suave por defecto */
 }
 
-/* Botón gratuito */
-.btn-free {
+.btn-free, .btn-premium {
     background: #fff;
     color: #111;
 }
 
-.btn-free:hover {
-    background: #eee;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.15); /* sombra más intensa al pasar el mouse */
+.btn-free:hover, .btn-premium:hover {
+    background: #e0e0e0; /* un poquito más oscuro al pasar el mouse */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* sombra más intensa */
 }
 
-.btn-free:active {
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-    transform: translateY(1px);
-}
-
-/* Botón premium */
-.btn-premium {
-    background: #fff;
-    color: #111;
-}
-
-.btn-premium:hover {
-    background: #eee;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-}
-
-.btn-premium:active {
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-    transform: translateY(1px);
+.btn-free:active, .btn-premium:active {
+    box-shadow: 0 0 8px rgba(0,0,0,0.3) inset; /* efecto relieve al presionar */
 }
 
 /* CONTAINER */
@@ -259,23 +252,21 @@ h2 {
 .plugin-card a.free {
     background: #fff;
     color: #111;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .plugin-card a.free:hover {
-    background: #eee;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    background: #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .plugin-card a.premium {
     background: #fff;
     color: #111;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .plugin-card a.premium:hover {
-    background: #eee;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    background: #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .plugin-card:hover {
@@ -308,22 +299,6 @@ footer {
 .hero:hover {
     transform: scale(1.05);
 }
-
-/* SCROLL ANIMATION */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-50px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(50px); }
-    to { opacity: 1; transform: translateY(0); }
-}
 </style>
 </head>
 
@@ -338,6 +313,7 @@ footer {
 </nav>
 
 <header class="hero">
+  <img src="Logo Dr.Rex Plugin.png" alt="Logo Dr.Rex" class="hero-logo">
   <div class="hero-content">
     <h1>Dinno Is Music</h1>
     <p>Plugins de Audio & Herramientas de Sonido</p>
@@ -432,11 +408,11 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.2 });
 sections.forEach(section => observer.observe(section));
 
-// Hero parallax zoom al hacer scroll (AGRANDA)
+// Hero parallax zoom al hacer scroll
 window.addEventListener('scroll', () => {
     const hero = document.querySelector('.hero');
     let scroll = window.scrollY;
-    hero.style.transform = `scale(${1 + scroll / 3000})`;
+    hero.style.transform = `scale(${1 + scroll / 3000})`; // mantiene efecto de agrandarse
 });
 </script>
 
