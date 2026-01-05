@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dinno Is Music – Audio Plugins & Sound Tools</title>
+<title>Dinno Is Music – Plugins de Audio & Herramientas de Sonido</title>
 
 <!-- Tipografía moderna -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -75,7 +75,7 @@ nav a:hover {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.15); /* overlay sutil */
 }
 
 .hero-content {
@@ -105,23 +105,49 @@ nav a:hover {
     flex-wrap: wrap;
 }
 
+/* BOTONES ESTILIZADOS */
 .btn {
-    padding: 14px 40px;
+    padding: 14px 32px;
     font-size: 1rem;
-    border-radius: 50px; /* punta tipo bala */
+    border-radius: 50px; /* estilo alargado tipo bala */
     border: none;
     cursor: pointer;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s;
-    background: #fff;
-    color: #111;
-    box-shadow: inset 0 0 0 rgba(0,0,0,0); /* para efecto relieve */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* sombra suave inicial */
 }
 
-.btn:hover {
-    background: #e0e0e0;
-    box-shadow: inset 0 3px 6px rgba(0,0,0,0.2); /* efecto relieve */
+/* Botón gratuito */
+.btn-free {
+    background: #fff;
+    color: #111;
+}
+
+.btn-free:hover {
+    background: #eee;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15); /* sombra más intensa al pasar el mouse */
+}
+
+.btn-free:active {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    transform: translateY(1px);
+}
+
+/* Botón premium */
+.btn-premium {
+    background: #fff;
+    color: #111;
+}
+
+.btn-premium:hover {
+    background: #eee;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+
+.btn-premium:active {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    transform: translateY(1px);
 }
 
 /* CONTAINER */
@@ -233,21 +259,23 @@ h2 {
 .plugin-card a.free {
     background: #fff;
     color: #111;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .plugin-card a.free:hover {
-    background: #e0e0e0;
-    box-shadow: inset 0 3px 6px rgba(0,0,0,0.2);
+    background: #eee;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
 }
 
 .plugin-card a.premium {
     background: #fff;
     color: #111;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .plugin-card a.premium:hover {
-    background: #e0e0e0;
-    box-shadow: inset 0 3px 6px rgba(0,0,0,0.2);
+    background: #eee;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
 }
 
 .plugin-card:hover {
@@ -314,8 +342,8 @@ footer {
     <h1>Dinno Is Music</h1>
     <p>Plugins de Audio & Herramientas de Sonido</p>
     <div class="buttons">
-      <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn">Descargar Gratis</a>
-      <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn">Comprar Premium</a>
+      <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn btn-free">Descargar Gratis</a>
+      <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn btn-premium">Comprar Premium</a>
     </div>
   </div>
 </header>
@@ -389,7 +417,7 @@ Para consultas, colaboraciones o pedidos de plugins, escribime a
 </div>
 
 <footer>
-© 2026 Dinno Is Music — Audio Plugins & Herramientas de Sonido
+© 2026 Dinno Is Music — Plugins de Audio & Herramientas de Sonido
 </footer>
 
 <script>
@@ -404,11 +432,11 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.2 });
 sections.forEach(section => observer.observe(section));
 
-// Hero parallax (profundidad al scroll)
+// Hero parallax zoom al hacer scroll (AGRANDA)
 window.addEventListener('scroll', () => {
     const hero = document.querySelector('.hero');
     let scroll = window.scrollY;
-    hero.style.transform = `scale(${1 - scroll / 5000})`; // se hunde un poquito al bajar
+    hero.style.transform = `scale(${1 + scroll / 3000})`;
 });
 </script>
 
