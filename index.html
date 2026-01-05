@@ -1,208 +1,230 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinno Is Music – Audio Plugins & Sound Tools</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dinno Is Music – Audio Plugins & Sound Tools</title>
 
-    <!-- Tipografía moderna -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Tipografía moderna -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --bg: #0d0d0f;
-            --card: #15151a;
-            --accent: #7cffb2;
-            --text: #ffffff;
-            --muted: #a0a0a0;
-        }
+<style>
+:root {
+    --bg: #0d0d0f;
+    --card: #15151a;
+    --accent: #7cffb2;
+    --text: #ffffff;
+    --muted: #a0a0a0;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', Arial, Helvetica, sans-serif;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
+body {
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
 
-        header {
-            text-align: center;
-            padding: 120px 20px 80px;
-            background: var(--bg);
-        }
+/* NAVBAR */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: var(--bg);
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    z-index: 1000;
+    border-bottom: 1px solid #222;
+}
 
-        header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            animation: fadeInDown 1s ease forwards;
-        }
+nav a {
+    color: var(--text);
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 600;
+    transition: 0.3s;
+}
 
-        header p {
-            color: var(--muted);
-            font-size: 1.2rem;
-            animation: fadeIn 1.2s ease forwards;
-        }
+nav a:hover {
+    color: var(--accent);
+}
 
-        .buttons {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            animation: fadeInUp 1.5s ease forwards;
-        }
+/* HERO */
+.hero {
+    height: 100vh;
+    background-image: url('WIDER DR.REX.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    transition: transform 1.2s ease-out;
+}
 
-        .btn {
-            padding: 14px 28px;
-            font-size: 1rem;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            transition: 0.3s;
-        }
+.hero-content {
+    background: rgba(0,0,0,0.5);
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+}
 
-        .btn-free {
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-        }
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
 
-        .btn-free:hover {
-            background: var(--accent);
-            color: #000;
-        }
+.hero-content p {
+    color: var(--muted);
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
 
-        .btn-premium {
-            background: var(--accent);
-            color: #000;
-        }
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
 
-        .btn-premium:hover {
-            opacity: 0.85;
-        }
+.btn {
+    padding: 14px 28px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: 600;
+}
 
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--bg);
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-            z-index: 1000;
-            border-bottom: 1px solid #222;
-        }
+.btn-free {
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+}
 
-        nav a {
-            color: var(--text);
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
+.btn-free:hover {
+    background: var(--accent);
+    color: #000;
+}
 
-        nav a:hover {
-            color: var(--accent);
-        }
+.btn-premium {
+    background: var(--accent);
+    color: #000;
+}
 
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 40px 20px;
-        }
+.btn-premium:hover {
+    opacity: 0.85;
+}
 
-        section {
-            margin-top: 80px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
+/* CONTAINER */
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 80px 20px 40px;
+}
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+section {
+    margin-top: 80px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease;
+}
 
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-            background: #000;
-        }
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
 
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #000;
+}
 
-        .audio-box {
-            background: var(--card);
-            padding: 30px;
-            border-radius: 10px;
-            display: grid;
-            gap: 20px;
-            max-width: 700px;
-            margin: auto;
-        }
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
 
-        .audio-item p {
-            margin-bottom: 8px;
-            color: var(--muted);
-        }
+.audio-box {
+    background: var(--card);
+    padding: 30px;
+    border-radius: 10px;
+    display: grid;
+    gap: 20px;
+    max-width: 700px;
+    margin: auto;
+}
 
-        footer {
-            margin-top: 100px;
-            padding: 30px 20px;
-            text-align: center;
-            color: var(--muted);
-            font-size: 0.9rem;
-            border-top: 1px solid #222;
-        }
+.audio-item p {
+    margin-bottom: 8px;
+    color: var(--muted);
+}
 
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 2.2rem;
-            }
-            nav a {
-                margin: 0 10px;
-                font-size: 0.9rem;
-            }
-        }
+/* FOOTER */
+footer {
+    margin-top: 100px;
+    padding: 30px 20px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    border-top: 1px solid #222;
+}
 
-        /* Animaciones */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+/* MEDIA */
+@media (max-width: 600px) {
+    header h1, .hero-content h1 {
+        font-size: 2.2rem;
+    }
+    nav a {
+        margin: 0 10px;
+        font-size: 0.9rem;
+    }
+}
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+/* ANIMACIONES HERO */
+.hero:hover {
+    transform: scale(1.05);
+}
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+/* ANIMACIONES SECCIONES */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
 </head>
 
 <body>
@@ -215,94 +237,96 @@
     <a href="#contacto">Contacto</a>
 </nav>
 
-<header>
+<header class="hero">
+  <div class="hero-content">
     <h1>Dinno Is Music</h1>
     <p>Audio Plugins & Sound Tools</p>
-
     <div class="buttons">
-        <a href="#" class="btn btn-free">Descargar Plugin Free</a>
-        <a href="#" class="btn btn-premium">Comprar Plugin Premium</a>
-        <a href="https://www.youtube.com/@dinnoismusic" target="_blank" class="btn btn-free">YouTube</a>
-        <a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" class="btn btn-free">Instagram</a>
+      <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn btn-free">Descargar Gratis</a>
+      <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn btn-premium">Comprar Premium</a>
     </div>
+  </div>
 </header>
 
 <div class="container">
 
-    <section id="plugin-demo">
-        <h2>Plugin Demo</h2>
-        <div class="video-wrapper">
-            <!-- Reemplazá VIDEO_ID_AQUI por el ID real de YouTube -->
-            <iframe src="https://www.youtube.com/embed/VIDEO_ID_AQUI" allowfullscreen></iframe>
-        </div>
-    </section>
+<section id="plugin-demo">
+<h2>Plugin Demo</h2>
+<div class="video-wrapper">
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID_AQUI" allowfullscreen></iframe>
+</div>
+</section>
 
-    <section id="antes-despues">
-        <h2>Antes / Después</h2>
+<section id="antes-despues">
+<h2>Antes / Después</h2>
+<div class="audio-box">
+    <div class="audio-item">
+        <p>Antes</p>
+        <audio controls>
+            <source src="antes.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    <div class="audio-item">
+        <p>Después</p>
+        <audio controls>
+            <source src="despues.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+</div>
+</section>
 
-        <div class="audio-box">
-            <div class="audio-item">
-                <p>Antes</p>
-                <audio controls>
-                    <source src="antes.mp3" type="audio/mpeg">
-                </audio>
-            </div>
+<section id="sobre-mi">
+<h2>Sobre Mí</h2>
+<p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
+Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me encanta transformar sonidos y crear herramientas que ayuden a músicos como vos a mejorar su música.
+</p>
+</section>
 
-            <div class="audio-item">
-                <p>Después</p>
-                <audio controls>
-                    <source src="despues.mp3" type="audio/mpeg">
-                </audio>
-            </div>
-        </div>
-    </section>
+<section id="librerias">
+<h2>Librerías de Sonido</h2>
+<p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
+Próximamente podrás descargar packs de sonidos y samples creados por mí para tus producciones.
+</p>
+</section>
 
-    <section id="sobre-mi">
-        <h2>Sobre Mí</h2>
-        <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
-            Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me encanta transformar sonidos y crear herramientas que ayuden a músicos como vos a mejorar su música.
-        </p>
-    </section>
-
-    <section id="librerias">
-        <h2>Librerías de Sonido</h2>
-        <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
-            Próximamente podrás descargar packs de sonidos y samples creados por mí para tus producciones.
-        </p>
-    </section>
-
-    <section id="contacto">
-        <h2>Contacto & Redes</h2>
-        <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
-            Para consultas, colaboraciones o pedidos de plugins, escribime a 
-            <a href="mailto:dinnoismusic@gmail.com" style="color: var(--accent);">dinnoismusic@gmail.com</a>
-        </p>
-        <p style="text-align:center; margin-top: 15px;">
-            <a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="color: var(--accent); margin:0 10px;">YouTube</a> |
-            <a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram</a> |
-            <a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram Dr.Rex</a> |
-            <a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="color: var(--accent); margin:0 10px;">Facebook</a>
-        </p>
-    </section>
+<section id="contacto">
+<h2>Contacto & Redes</h2>
+<p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
+Para consultas, colaboraciones o pedidos de plugins, escribime a 
+<a href="mailto:dinnoismusic@gmail.com" style="color: var(--accent);">dinnoismusic@gmail.com</a>
+</p>
+<p style="text-align:center; margin-top: 15px;">
+<a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="color: var(--accent); margin:0 10px;">YouTube</a> |
+<a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram</a> |
+<a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram Dr.Rex</a> |
+<a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="color: var(--accent); margin:0 10px;">Facebook</a>
+</p>
+</section>
 
 </div>
 
 <footer>
-    © 2026 Dinno Is Music — Audio Plugins & Sound Tools
+© 2026 Dinno Is Music — Audio Plugins & Sound Tools
 </footer>
 
 <script>
-    // Animar secciones al hacer scroll
-    const sections = document.querySelectorAll('section');
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if(entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.2 });
+// Animar secciones al hacer scroll
+const sections = document.querySelectorAll('section');
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.2 });
+sections.forEach(section => observer.observe(section));
 
-    sections.forEach(section => observer.observe(section));
+// Hero parallax zoom al hacer scroll
+window.addEventListener('scroll', () => {
+    const hero = document.querySelector('.hero');
+    let scroll = window.scrollY;
+    hero.style.transform = `scale(${1 + scroll / 3000})`;
+});
 </script>
 
 </body>
