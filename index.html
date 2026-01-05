@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dinno Is Music – Plugins de Audio & Herramientas de Sonido</title>
+<title>Dinno Is Music – Audio Plugins & Sound Tools</title>
 
 <!-- Tipografía moderna -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -12,12 +12,11 @@
 :root {
     --bg: #ffffff;
     --card: #f5f5f5;
-    --accent: #111111;
+    --accent: #7cffb2;
     --text: #111111;
     --muted: #666666;
 }
 
-/* General */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -99,31 +98,30 @@ nav a:hover {
     color: var(--muted);
 }
 
-/* BOTONES */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
 .btn {
-    padding: 14px 28px;
+    padding: 14px 40px;
     font-size: 1rem;
-    border-radius: 8px;
-    border: 2px solid var(--accent);
+    border-radius: 50px; /* punta tipo bala */
+    border: none;
     cursor: pointer;
     text-decoration: none;
     font-weight: 600;
+    transition: all 0.3s;
     background: #fff;
     color: #111;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    box-shadow: inset 0 0 0 rgba(0,0,0,0); /* para efecto relieve */
 }
 
 .btn:hover {
-    background: #e6e6e6;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    transform: translateY(-2px);
-}
-
-.btn:active {
-    background: #d9d9d9;
-    box-shadow: inset 0 3px 6px rgba(0,0,0,0.2);
-    transform: translateY(1px);
+    background: #e0e0e0;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.2); /* efecto relieve */
 }
 
 /* CONTAINER */
@@ -188,7 +186,7 @@ h2 {
     color: var(--muted);
 }
 
-/* PLUGINS */
+/* PLUGINS DESTACADOS */
 .plugins-grid {
     display: flex;
     flex-wrap: wrap;
@@ -226,91 +224,38 @@ h2 {
 .plugin-card a {
     display: inline-block;
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: 50px;
     font-weight: 600;
     text-decoration: none;
     transition: 0.3s;
-    border: 2px solid #111;
-    color: #111;
+}
+
+.plugin-card a.free {
     background: #fff;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-}
-
-.plugin-card a:hover {
-    background: #e6e6e6;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    transform: translateY(-2px);
-}
-
-/* FORMULARIO NEWSLETTER */
-.newsletter {
-    text-align: center;
-    background: var(--card);
-    padding: 30px;
-    border-radius: 12px;
-    max-width: 500px;
-    margin: 40px auto;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-}
-
-.newsletter input[type="email"] {
-    padding: 12px;
-    width: 70%;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    margin-right: 10px;
-    font-size: 1rem;
-}
-
-.newsletter button {
-    padding: 12px 20px;
-    font-size: 1rem;
-    border-radius: 6px;
-    border: none;
-    background: #111;
-    color: #fff;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.newsletter button:hover {
-    background: #333;
-}
-
-/* LOGIN GOOGLE */
-.google-login {
-    display: flex;
-    justify-content: center;
-    margin-top: 25px;
-}
-
-.google-login button {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #fff;
-    border: 2px solid #111;
-    padding: 12px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
     color: #111;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-    transition: all 0.2s;
 }
 
-.google-login button:hover {
-    background: #e6e6e6;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    transform: translateY(-2px);
-}
-
-.google-login button:active {
-    background: #d9d9d9;
+.plugin-card a.free:hover {
+    background: #e0e0e0;
     box-shadow: inset 0 3px 6px rgba(0,0,0,0.2);
-    transform: translateY(1px);
 }
 
+.plugin-card a.premium {
+    background: #fff;
+    color: #111;
+}
+
+.plugin-card a.premium:hover {
+    background: #e0e0e0;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.2);
+}
+
+.plugin-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* FOOTER */
 footer {
     margin-top: 100px;
     padding: 40px 20px;
@@ -329,6 +274,27 @@ footer {
         margin: 0 10px;
         font-size: 0.9rem;
     }
+}
+
+/* ANIMACIONES HERO */
+.hero:hover {
+    transform: scale(1.05);
+}
+
+/* SCROLL ANIMATION */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
@@ -351,15 +317,6 @@ footer {
       <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn">Descargar Gratis</a>
       <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn">Comprar Premium</a>
     </div>
-    
-    <!-- LOGIN GOOGLE -->
-    <div class="google-login">
-        <button>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" alt="Google" width="20">
-            Iniciar sesión con Google
-        </button>
-    </div>
-    
   </div>
 </header>
 
@@ -404,23 +361,14 @@ Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me
         <img src="WIDER DR.REX.png" alt="Wider Dr.Rex">
         <h3>Wider Dr.Rex</h3>
         <p>Plugin gratuito para expandir tu sonido.</p>
-        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin">Descargar Gratis</a>
+        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="free">Descargar Gratis</a>
     </div>
     <div class="plugin-card">
         <img src="DRIVER DR.REX.png" alt="Drive Dr.Rex">
         <h3>Drive Dr.Rex</h3>
         <p>Plugin premium para añadir saturación y color a tu audio.</p>
-        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin">Comprar Premium</a>
+        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="premium">Comprar Premium</a>
     </div>
-</div>
-</section>
-
-<!-- NEWSLETTER -->
-<section id="newsletter">
-<h2>Suscribite a nuestro Newsletter</h2>
-<div class="newsletter">
-    <input type="email" placeholder="E-mail address">
-    <button>Suscribirme</button>
 </div>
 </section>
 
@@ -441,7 +389,7 @@ Para consultas, colaboraciones o pedidos de plugins, escribime a
 </div>
 
 <footer>
-© 2026 Dinno Is Music — Plugins de Audio & Herramientas de Sonido
+© 2026 Dinno Is Music — Audio Plugins & Herramientas de Sonido
 </footer>
 
 <script>
@@ -456,11 +404,11 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.2 });
 sections.forEach(section => observer.observe(section));
 
-// Hero parallax original: se agranda levemente al scrollear
+// Hero parallax (profundidad al scroll)
 window.addEventListener('scroll', () => {
     const hero = document.querySelector('.hero');
     let scroll = window.scrollY;
-    hero.style.transform = `scale(${1 + scroll / 3000})`;
+    hero.style.transform = `scale(${1 - scroll / 5000})`; // se hunde un poquito al bajar
 });
 </script>
 
