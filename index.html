@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dinno Is Music – Audio Plugins & Sound Tools</title>
+<title>Dinno Is Music – Plugins de Audio & Herramientas de Sonido</title>
 
 <!-- Tipografía moderna -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -60,7 +60,7 @@ nav a:hover {
 /* HERO */
 .hero {
     height: 100vh;
-    background-image: url('A_screenshot_of_Dinno_Is_Music_homepage_showcases_.png');
+    background-image: url('Fondo Abstracto.png');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -148,7 +148,7 @@ nav a:hover {
     padding: 80px 20px 40px;
 }
 
-/* SECTIONS */
+/* SECCIONES */
 section {
     margin-top: 80px;
     opacity: 0;
@@ -167,6 +167,7 @@ h2 {
     color: var(--text);
 }
 
+/* VIDEO */
 .video-wrapper {
     position: relative;
     padding-bottom: 56.25%;
@@ -185,6 +186,7 @@ h2 {
     border: 0;
 }
 
+/* AUDIO */
 .audio-box {
     background: var(--card);
     padding: 30px;
@@ -199,6 +201,71 @@ h2 {
 .audio-item p {
     margin-bottom: 8px;
     color: var(--muted);
+}
+
+/* PLUGINS DESTACADOS */
+.plugins-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.plugin-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    max-width: 250px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.plugin-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.plugin-card h3 {
+    margin-bottom: 10px;
+    color: var(--text);
+}
+
+.plugin-card p {
+    margin-bottom: 15px;
+    color: var(--muted);
+}
+
+.plugin-card a {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.plugin-card a.free {
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+}
+
+.plugin-card a.free:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.plugin-card a.premium {
+    background: var(--accent);
+    color: #fff;
+}
+
+.plugin-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
 /* FOOTER */
@@ -248,17 +315,17 @@ footer {
 <body>
 
 <nav>
-    <a href="#plugin-demo">Plugin Demo</a>
+    <a href="#plugin-demo">Demo</a>
     <a href="#antes-despues">Antes/Después</a>
     <a href="#sobre-mi">Sobre Mí</a>
-    <a href="#librerias">Librerías</a>
+    <a href="#plugins">Plugins</a>
     <a href="#contacto">Contacto</a>
 </nav>
 
 <header class="hero">
   <div class="hero-content">
     <h1>Dinno Is Music</h1>
-    <p>Audio Plugins & Sound Tools</p>
+    <p>Plugins de Audio & Herramientas de Sonido</p>
     <div class="buttons">
       <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn btn-free">Descargar Gratis</a>
       <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn btn-premium">Comprar Premium</a>
@@ -269,7 +336,7 @@ footer {
 <div class="container">
 
 <section id="plugin-demo">
-<h2>Plugin Demo</h2>
+<h2>Demo del Plugin</h2>
 <div class="video-wrapper">
     <iframe src="https://www.youtube.com/embed/VIDEO_ID_AQUI" allowfullscreen></iframe>
 </div>
@@ -300,11 +367,22 @@ Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me
 </p>
 </section>
 
-<section id="librerias">
-<h2>Librerías de Sonido</h2>
-<p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
-Próximamente podrás descargar packs de sonidos y samples creados por mí para tus producciones.
-</p>
+<section id="plugins">
+<h2>Plugins Destacados</h2>
+<div class="plugins-grid">
+    <div class="plugin-card">
+        <img src="WIDER DR.REX.png" alt="Wider Dr.Rex">
+        <h3>Wider Dr.Rex</h3>
+        <p>Plugin gratuito para expandir tu sonido.</p>
+        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="free">Descargar Gratis</a>
+    </div>
+    <div class="plugin-card">
+        <img src="DRIVER DR.REX.png" alt="Drive Dr.Rex">
+        <h3>Drive Dr.Rex</h3>
+        <p>Plugin premium para añadir saturación y color a tu audio.</p>
+        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="premium">Comprar Premium</a>
+    </div>
+</div>
 </section>
 
 <section id="contacto">
@@ -324,7 +402,7 @@ Para consultas, colaboraciones o pedidos de plugins, escribime a
 </div>
 
 <footer>
-© 2026 Dinno Is Music — Audio Plugins & Sound Tools
+© 2026 Dinno Is Music — Plugins de Audio & Herramientas de Sonido
 </footer>
 
 <script>
