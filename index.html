@@ -330,13 +330,6 @@ footer {
         font-size: 0.9rem;
     }
 }
-
-/* HERO PARALLAX INVERTIDO */
-window.addEventListener('scroll', () => {
-    const hero = document.querySelector('.hero');
-    let scroll = window.scrollY;
-    hero.style.transform = `scale(${1 - scroll / 3000})`; /* se hunde al scrollear */
-}
 </style>
 </head>
 
@@ -411,13 +404,13 @@ Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me
         <img src="WIDER DR.REX.png" alt="Wider Dr.Rex">
         <h3>Wider Dr.Rex</h3>
         <p>Plugin gratuito para expandir tu sonido.</p>
-        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="free">Descargar Gratis</a>
+        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin">Descargar Gratis</a>
     </div>
     <div class="plugin-card">
         <img src="DRIVER DR.REX.png" alt="Drive Dr.Rex">
         <h3>Drive Dr.Rex</h3>
         <p>Plugin premium para añadir saturación y color a tu audio.</p>
-        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="premium">Comprar Premium</a>
+        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin">Comprar Premium</a>
     </div>
 </div>
 </section>
@@ -463,11 +456,11 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.2 });
 sections.forEach(section => observer.observe(section));
 
-// Hero parallax invertido
+// Hero parallax original: se agranda levemente al scrollear
 window.addEventListener('scroll', () => {
     const hero = document.querySelector('.hero');
     let scroll = window.scrollY;
-    hero.style.transform = `scale(${1 - scroll / 3000})`;
+    hero.style.transform = `scale(${1 + scroll / 3000})`;
 });
 </script>
 
