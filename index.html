@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dinno Is Music – Plugins de Audio & Herramientas de Sonido</title>
 
+<!-- Tipografía moderna -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -39,36 +40,46 @@ nav {
     background: rgba(255,255,255,0.95);
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 14px 20px;
+    padding: 14px 0;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* Links */
-.nav-links {
+/* Links centrados en desktop */
+nav ul {
     display: flex;
     list-style: none;
     gap: 20px;
 }
 
-.nav-links li a {
-    text-decoration: none;
+nav ul li a {
     color: var(--text);
+    text-decoration: none;
     font-weight: 600;
     transition: 0.3s;
 }
 
-.nav-links li a:hover {
+nav ul li a:hover {
     color: var(--accent);
 }
 
-/* Botón hamburguesa */
-.nav-toggle {
+/* HAMBURGUESA */
+.hamburger {
     display: none;
-    font-size: 2rem;
+    flex-direction: column;
     cursor: pointer;
-    user-select: none;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    gap: 5px;
+    z-index: 1100;
+}
+
+.hamburger div {
+    width: 25px;
+    height: 3px;
+    background: var(--text);
+    transition: 0.3s;
 }
 
 /* HERO */
@@ -82,8 +93,6 @@ nav {
     align-items: center;
     position: relative;
     overflow: hidden;
-    transition: transform 1.2s ease-out;
-    z-index: 1;
 }
 
 .hero::after {
@@ -279,7 +288,7 @@ h2 {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.3); /* opacidad más baja para difuminar */
 }
 
 #librerias .content {
@@ -301,48 +310,35 @@ footer {
 }
 
 /* MEDIA QUERIES */
-@media (max-width: 768px) {
-    nav {
-        justify-content: space-between;
-        padding: 14px 20px;
-    }
-
-    .nav-links {
-        position: absolute;
+@media (max-width: 800px) {
+    /* Ocultar menu normal */
+    nav ul {
+        display: none;
+        flex-direction: column;
+        background: rgba(255,255,255,0.95);
+        position: fixed;
         top: 60px;
         right: 0;
         width: 200px;
-        background: rgba(255,255,255,0.95);
-        flex-direction: column;
-        align-items: center;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-        gap: 15px;
-        padding: 0;
+        padding: 20px;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+        z-index: 1000;
     }
-
-    .nav-links.active {
-        max-height: 500px;
-        padding: 15px 0;
+    nav ul.show {
+        display: flex;
     }
-
-    .nav-links li {
-        margin: 0;
-    }
-
-    .nav-toggle {
-        display: block;
-        font-size: 2rem;
-        cursor: pointer;
+    /* Mostrar hamburguesa */
+    .hamburger {
+        display: flex;
     }
 }
 </style>
 </head>
+
 <body>
 
 <nav>
-    <ul class="nav-links">
+    <ul>
         <li><a href="#plugin-demo">Demo</a></li>
         <li><a href="#antes-despues">Antes/Después</a></li>
         <li><a href="#sobre-mi">Sobre Mí</a></li>
@@ -350,7 +346,11 @@ footer {
         <li><a href="#librerias">Librerías</a></li>
         <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <div class="nav-toggle">&#9776;</div>
+    <div class="hamburger" id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 </nav>
 
 <header class="hero">
@@ -365,7 +365,8 @@ footer {
 </header>
 
 <div class="container">
-<!-- SECCIONES IGUALES QUE TENÍAS -->
+
+<!-- Secciones iguales a las que tenías -->
 <section id="plugin-demo">
 <h2>Demo del Plugin</h2>
 <div class="video-wrapper">
@@ -442,6 +443,7 @@ Para consultas, colaboraciones o pedidos de plugins, escribime a
 <a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="color: var(--accent); margin:0 10px;">Facebook</a>
 </p>
 </section>
+
 </div>
 
 <footer>
@@ -468,11 +470,10 @@ window.addEventListener('scroll', () => {
 });
 
 // Toggle hamburguesa
-const toggle = document.querySelector('.nav-toggle');
-const navLinks = document.querySelector('.nav-links');
-
-toggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
+const hamburger = document.getElementById('hamburger');
+const navUL = document.querySelector('nav ul');
+hamburger.addEventListener('click', () => {
+    navUL.classList.toggle('show');
 });
 </script>
 
