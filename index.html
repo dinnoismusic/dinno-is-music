@@ -15,7 +15,8 @@
     --accent: #7cffb2;
     --text: #111111;
     --muted: #666666;
-    --menu-bg: #2c2c2c;
+    --menu-bg: #222222;
+    --menu-text: #ffffff;
 }
 
 /* Reset y tipografía */
@@ -31,7 +32,7 @@ body {
     color: var(--text);
     line-height: 1.6;
     scroll-behavior: smooth;
-    overflow-x: hidden; /* evita scroll horizontal */
+    overflow-x: hidden; /* Evita scroll horizontal */
 }
 
 /* NAVBAR */
@@ -41,13 +42,15 @@ nav {
     width: 100%;
     background: rgba(255,255,255,0.95);
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; /* Menu a la derecha */
     align-items: center;
     padding: 14px 20px;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    gap: 10px;
 }
 
+/* Links centrados en desktop */
 nav ul {
     display: flex;
     list-style: none;
@@ -65,64 +68,70 @@ nav ul li a:hover {
     color: var(--accent);
 }
 
-/* HAMBURGUESA */
-.hamburger-container {
-    display: none;
-    align-items: center;
-    cursor: pointer;
-    gap: 10px;
-    z-index: 1100;
-}
-
-.hamburger-text {
+/* HAMBURGUESA + MENU WORD */
+.menu-label {
     color: var(--text);
     font-weight: 600;
-    font-size: 1rem;
+    margin-right: 8px;
+    cursor: pointer;
 }
 
 .hamburger {
-    display: flex;
+    display: none;
     flex-direction: column;
+    cursor: pointer;
     gap: 5px;
-    transition: all 0.3s ease;
+    z-index: 1100;
+    width: 25px;
 }
 
 .hamburger div {
     width: 25px;
     height: 3px;
     background: var(--text);
-    transition: all 0.3s ease;
+    transition: 0.3s;
 }
 
-/* transformacion a X */
+/* Transformaciones para X */
 .hamburger.active div:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
+
 .hamburger.active div:nth-child(2) {
     opacity: 0;
 }
+
 .hamburger.active div:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
+    transform: rotate(-45deg) translate(5px, -5px);
 }
 
 /* MENU DESPLEGABLE */
 nav ul.mobile-menu {
     display: none;
     flex-direction: column;
+    background: var(--menu-bg);
     position: fixed;
     top: 60px;
-    left: 0;
+    right: 0;
     width: 100%;
-    height: 50vh; /* mitad de la pantalla */
-    background: var(--menu-bg);
-    padding: 20px;
-    gap: 20px;
-    z-index: 1000;
+    max-height: 50vh; /* mitad de la pantalla */
+    overflow-y: auto;
+    padding: 20px 0;
+    z-index: 1050;
+    text-align: center;
+}
+
+nav ul.mobile-menu li {
+    margin: 15px 0;
 }
 
 nav ul.mobile-menu li a {
-    color: #fff;
+    color: var(--menu-text);
     font-size: 1.2rem;
+}
+
+nav ul.mobile-menu.show {
+    display: flex;
 }
 
 /* HERO */
@@ -145,6 +154,7 @@ nav ul.mobile-menu li a {
     background: rgba(255,255,255,0.15);
 }
 
+/* HERO CONTENT */
 .hero-content {
     position: relative;
     z-index: 2;
@@ -224,25 +234,25 @@ h2 {
 /* MEDIA QUERIES */
 @media (max-width: 800px) {
     nav ul {
-        display: none;
+        display: none; /* ocultar menu desktop */
     }
-    .hamburger-container {
+    .hamburger, .menu-label {
         display: flex;
+        align-items: center;
     }
 }
+
 </style>
 </head>
 
 <body>
 
 <nav>
-    <div class="hamburger-container" id="hamburgerContainer">
-        <span class="hamburger-text">Menu</span>
-        <div class="hamburger" id="hamburger">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+    <span class="menu-label">Menu</span>
+    <div class="hamburger" id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
     <ul class="mobile-menu" id="mobileMenu">
         <li><a href="#plugin-demo">Demo</a></li>
@@ -252,7 +262,7 @@ h2 {
         <li><a href="#librerias">Librerías</a></li>
         <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <ul class="desktop-menu">
+    <ul>
         <li><a href="#plugin-demo">Demo</a></li>
         <li><a href="#antes-despues">Antes/Después</a></li>
         <li><a href="#sobre-mi">Sobre Mí</a></li>
@@ -274,83 +284,7 @@ h2 {
 </header>
 
 <div class="container">
-<!-- Secciones como tenías -->
-<section id="plugin-demo">
-<h2>Demo del Plugin</h2>
-<div class="video-wrapper">
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID_AQUI" allowfullscreen></iframe>
-</div>
-</section>
-
-<section id="antes-despues">
-<h2>Antes / Después</h2>
-<div class="audio-box">
-    <div class="audio-item">
-        <p>Antes</p>
-        <audio controls>
-            <source src="antes.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-    <div class="audio-item">
-        <p>Después</p>
-        <audio controls>
-            <source src="despues.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-</div>
-</section>
-
-<section id="sobre-mi">
-<h2>Sobre Mí</h2>
-<p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
-Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me encanta transformar sonidos y crear herramientas que ayuden a músicos como vos a mejorar su música.
-</p>
-</section>
-
-<section id="plugins">
-<h2>Plugins Destacados</h2>
-<div class="plugins-grid">
-    <div class="plugin-card">
-        <img src="WIDER DR.REX.png" alt="Wider Dr.Rex">
-        <h3>Wider Dr.Rex</h3>
-        <p>Plugin gratuito para expandir tu sonido.</p>
-        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="free">Descargar Gratis</a>
-    </div>
-    <div class="plugin-card">
-        <img src="DRIVER DR.REX.png" alt="Drive Dr.Rex">
-        <h3>Drive Dr.Rex</h3>
-        <p>Plugin premium para añadir saturación y color a tu audio.</p>
-        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="premium">Comprar Premium</a>
-    </div>
-</div>
-</section>
-
-<section id="librerias">
-  <div class="content">
-    <h2>Librerías de Sonido</h2>
-    <p>Explorá nuestras librerías de sonidos separados por instrumentos y categorías: congas, guiro, kick, cencerros y más. Cada librería lista para usar en tus producciones.</p>
-    <div class="buttons" style="justify-content:center; margin-top:20px;">
-      <a href="#" class="btn btn-free">Ver Librería de Congas</a>
-      <a href="#" class="btn btn-free">Ver Librería de Guiro</a>
-      <a href="#" class="btn btn-free">Ver Librería de Kick</a>
-      <a href="#" class="btn btn-free">Ver Librería de Cencerros</a>
-    </div>
-  </div>
-</section>
-
-<section id="contacto">
-<h2>Contacto & Redes</h2>
-<p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
-Para consultas, colaboraciones o pedidos de plugins, escribime a 
-<a href="mailto:dinnoismusic@gmail.com" style="color: var(--accent);">dinnoismusic@gmail.com</a>
-</p>
-<p style="text-align:center; margin-top: 15px;">
-<a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="color: var(--accent); margin:0 10px;">YouTube</a> |
-<a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram</a> |
-<a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram Dr.Rex</a> |
-<a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="color: var(--accent); margin:0 10px;">Facebook</a>
-</p>
-</section>
+<!-- Aquí van todas tus secciones: demo, antes/despues, sobre mi, plugins, librerías, contacto -->
 </div>
 
 <footer>
@@ -358,30 +292,11 @@ Para consultas, colaboraciones o pedidos de plugins, escribime a
 </footer>
 
 <script>
-// Animar secciones al hacer scroll
-const sections = document.querySelectorAll('section');
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, { threshold: 0.2 });
-sections.forEach(section => observer.observe(section));
-
-// Hero parallax zoom al hacer scroll
-window.addEventListener('scroll', () => {
-    const hero = document.querySelector('.hero');
-    let scroll = window.scrollY;
-    hero.style.transform = `scale(${1 + scroll / 3000})`;
-});
-
 // Toggle hamburguesa
 const hamburger = document.getElementById('hamburger');
-const hamburgerContainer = document.getElementById('hamburgerContainer');
 const mobileMenu = document.getElementById('mobileMenu');
 
-hamburgerContainer.addEventListener('click', () => {
+hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     mobileMenu.classList.toggle('show');
 });
