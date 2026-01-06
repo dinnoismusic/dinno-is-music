@@ -33,29 +33,45 @@ body {
 }
 
 /* NAVBAR */
-nav {
+nav.navbar {
     position: fixed;
     top: 0;
     width: 100%;
     background: rgba(255,255,255,0.95);
     display: flex;
-    justify-content: center;
-    padding: 14px 0;
-    z-index: 1000;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 1010;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    transition: 0.3s;
 }
 
-nav a {
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
     color: var(--text);
     text-decoration: none;
-    margin: 0 20px;
     font-weight: 600;
     transition: 0.3s;
 }
 
-nav a:hover {
+.nav-links a:hover {
     color: var(--accent);
+}
+
+/* BOTON HAMBURGUESA */
+.nav-toggle {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    user-select: none;
 }
 
 /* LOGO FIJO */
@@ -63,7 +79,7 @@ nav a:hover {
     position: fixed;   /* completamente fijo */
     top: 5px;          /* un poco más arriba */
     left: 20px;
-    height: 80px;      /* más grande */
+    height: 80px;      /* tamaño original */
     z-index: 1010;
     margin: 0;
     transform: none;
@@ -252,22 +268,12 @@ h2 {
     transition: 0.3s;
 }
 
-.plugin-card a.free {
+.plugin-card a.free, .plugin-card a.premium {
     background: #fff;
     color: #111;
 }
 
-.plugin-card a.free:hover {
-    background: #e0e0e0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-.plugin-card a.premium {
-    background: #fff;
-    color: #111;
-}
-
-.plugin-card a.premium:hover {
+.plugin-card a.free:hover, .plugin-card a.premium:hover {
     background: #e0e0e0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
@@ -291,7 +297,7 @@ h2 {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(255,255,255,0.3); /* opacidad más baja para difuminar */
+    background: rgba(255,255,255,0.3); /* opacidad difusa */
 }
 
 #librerias .content {
@@ -312,7 +318,36 @@ footer {
     border-top: 1px solid #ddd;
 }
 
-/* MEDIA */
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+    /* Ajuste logo */
+    .hero-logo {
+        height: 60px;
+    }
+    /* Menu responsive */
+    .nav-links {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: rgba(255,255,255,0.95);
+        flex-direction: column;
+        align-items: center;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    .nav-links li {
+        margin: 15px 0;
+    }
+    .nav-links.active {
+        max-height: 500px;
+    }
+    .nav-toggle {
+        display: block;
+    }
+}
+
 @media (max-width: 600px) {
     header h1, .hero-content h1 {
         font-size: 2.2rem;
@@ -332,16 +367,22 @@ footer {
 
 <body>
 
-<!-- LOGO FIJO -->
-<img src="logo-sin-fondo.png" alt="Logo Dr.Rex" class="hero-logo">
-
-<nav>
-    <a href="#plugin-demo">Demo</a>
-    <a href="#antes-despues">Antes/Después</a>
-    <a href="#sobre-mi">Sobre Mí</a>
-    <a href="#plugins">Plugins</a>
-    <a href="#librerias">Librerías</a>
-    <a href="#contacto">Contacto</a>
+<!-- NAVBAR + LOGO FIJO -->
+<nav class="navbar">
+  <img src="logo-sin-fondo.png" alt="Logo Dr.Rex" class="hero-logo">
+  
+  <!-- Botón hamburguesa -->
+  <div class="nav-toggle" id="nav-toggle">&#9776;</div>
+  
+  <!-- Links -->
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#plugin-demo">Demo</a></li>
+    <li><a href="#antes-despues">Antes/Después</a></li>
+    <li><a href="#sobre-mi">Sobre Mí</a></li>
+    <li><a href="#plugins">Plugins</a></li>
+    <li><a href="#librerias">Librerías</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
 </nav>
 
 <header class="hero">
@@ -457,6 +498,14 @@ window.addEventListener('scroll', () => {
     const hero = document.querySelector('.hero');
     let scroll = window.scrollY;
     hero.style.transform = `scale(${1 + scroll / 3000})`;
+});
+
+// Menu hamburguesa
+const navToggle = document.getElementById('nav-toggle');
+const navLinks = document.getElementById('nav-links');
+
+navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
 });
 </script>
 
