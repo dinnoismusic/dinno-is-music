@@ -70,6 +70,7 @@ nav a:hover {
     position: relative;
     overflow: hidden;
     transition: transform 1.2s ease-out;
+    z-index: 1;
 }
 
 .hero::after {
@@ -274,6 +275,31 @@ h2 {
     box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
+/* NUEVA SECCION LIBRERIAS */
+#librerias {
+    position: relative;
+    background-image: url('imagen-pagina-2.png');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 20px;
+    z-index: 1;
+}
+
+#librerias::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.2);
+}
+
+#librerias .content {
+    position: relative;
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+    color: #111;
+}
+
 /* FOOTER */
 footer {
     margin-top: 100px;
@@ -314,7 +340,7 @@ footer {
 </nav>
 
 <header class="hero">
-  <img src="Logo Dr.Rex Plugin.png" alt="Logo Dr.Rex" class="hero-logo">
+  <img src="logo-sin-fondo.png" alt="Logo Dr.Rex" class="hero-logo">
   <div class="hero-content">
     <h1>Dinno Is Music</h1>
     <p>Plugins de Audio & Herramientas de Sonido</p>
@@ -377,19 +403,8 @@ Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me
 </div>
 </section>
 
-<!-- SECCION LIBRERIAS -->
-<section id="librerias" style="
-    position: relative;
-    background-image: url('imagen-pagina-2.png');
-    background-size: cover;
-    background-position: center;
-    padding: 80px 20px;
-">
-  <!-- Overlay -->
-  <div style="position:absolute; inset:0; background: rgba(255,255,255,0.5);"></div>
-
-  <!-- Contenido -->
-  <div style="position:relative; max-width:900px; margin:auto; text-align:center; color:#000; text-shadow:0 1px 3px rgba(255,255,255,0.6);">
+<section id="librerias">
+  <div class="content">
     <h2>Librerías de Sonido</h2>
     <p>Explorá nuestras librerías de sonidos separados por instrumentos y categorías: congas, guiro, kick, cencerros y más. Cada librería lista para usar en tus producciones.</p>
     <div class="buttons" style="justify-content:center; margin-top:20px;">
