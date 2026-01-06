@@ -2,10 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Dinno Is Music – Plugins de Audio & Herramientas de Sonido</title>
 
-<!-- Tipografía moderna -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -15,24 +14,22 @@
     --accent: #7cffb2;
     --text: #111111;
     --muted: #666666;
-    --menu-bg: #222222;
-    --menu-text: #ffffff;
+    --menu-bg: #333333; /* menú desplegable gris oscuro */
 }
 
-/* Reset y tipografía */
+/* Reset */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, sans-serif;
 }
 
 body {
     background: var(--bg);
     color: var(--text);
-    line-height: 1.6;
+    overflow-x: hidden;
     scroll-behavior: smooth;
-    overflow-x: hidden; /* Evita scroll horizontal */
 }
 
 /* NAVBAR */
@@ -42,96 +39,105 @@ nav {
     width: 100%;
     background: rgba(255,255,255,0.95);
     display: flex;
-    justify-content: flex-end; /* Menu a la derecha */
+    justify-content: space-between;
     align-items: center;
     padding: 14px 20px;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    gap: 10px;
 }
 
-/* Links centrados en desktop */
-nav ul {
+nav ul.desktop {
     display: flex;
     list-style: none;
     gap: 20px;
 }
 
-nav ul li a {
+nav ul.desktop li a {
     color: var(--text);
     text-decoration: none;
     font-weight: 600;
     transition: 0.3s;
 }
 
-nav ul li a:hover {
+nav ul.desktop li a:hover {
     color: var(--accent);
 }
 
-/* HAMBURGUESA + MENU WORD */
-.menu-label {
+/* HAMBURGUESA */
+.hamburger-wrapper {
+    display: none;
+    cursor: pointer;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.hamburger-text {
     color: var(--text);
     font-weight: 600;
-    margin-right: 8px;
-    cursor: pointer;
 }
 
 .hamburger {
-    display: none;
+    display: flex;
     flex-direction: column;
-    cursor: pointer;
     gap: 5px;
-    z-index: 1100;
     width: 25px;
+    height: 18px;
+    justify-content: space-between;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
 .hamburger div {
-    width: 25px;
     height: 3px;
     background: var(--text);
-    transition: 0.3s;
+    transition: all 0.3s ease;
 }
 
-/* Transformaciones para X */
+/* Animación X */
 .hamburger.active div:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
-
 .hamburger.active div:nth-child(2) {
     opacity: 0;
 }
-
 .hamburger.active div:nth-child(3) {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* MENU DESPLEGABLE */
-nav ul.mobile-menu {
-    display: none;
+/* MENÚ DESPLEGABLE MÓVIL */
+nav ul.mobile {
+    display: flex;
     flex-direction: column;
-    background: var(--menu-bg);
     position: fixed;
-    top: 60px;
+    top: -100vh; /* empezamos fuera de pantalla arriba */
     right: 0;
     width: 100%;
-    max-height: 50vh; /* mitad de la pantalla */
+    height: 100vh;
+    background: var(--menu-bg);
+    z-index: 1000;
+    padding-top: 80px;
+    align-items: center;
+    gap: 0;
+    transition: top 0.5s ease;
     overflow-y: auto;
-    padding: 20px 0;
-    z-index: 1050;
+}
+
+nav ul.mobile.show {
+    top: 0; /* baja desde arriba cubriendo todo */
+}
+
+nav ul.mobile li {
+    width: 100%;
     text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.2); /* líneas suaves */
 }
 
-nav ul.mobile-menu li {
-    margin: 15px 0;
-}
-
-nav ul.mobile-menu li a {
-    color: var(--menu-text);
-    font-size: 1.2rem;
-}
-
-nav ul.mobile-menu.show {
-    display: flex;
+nav ul.mobile li a {
+    display: block;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 20px 0;
 }
 
 /* HERO */
@@ -154,7 +160,6 @@ nav ul.mobile-menu.show {
     background: rgba(255,255,255,0.15);
 }
 
-/* HERO CONTENT */
 .hero-content {
     position: relative;
     z-index: 2;
@@ -166,7 +171,6 @@ nav ul.mobile-menu.show {
     font-size: 3rem;
     margin-bottom: 15px;
     font-weight: 700;
-    color: var(--text);
 }
 
 .hero-content p {
@@ -205,14 +209,13 @@ nav ul.mobile-menu.show {
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* CONTAINER */
+/* SECCIONES */
 .container {
     max-width: 1100px;
     margin: auto;
     padding: 80px 20px 40px;
 }
 
-/* SECCIONES */
 section {
     margin-top: 80px;
     opacity: 0;
@@ -228,33 +231,25 @@ section.visible {
 h2 {
     text-align: center;
     margin-bottom: 30px;
-    color: var(--text);
 }
 
 /* MEDIA QUERIES */
 @media (max-width: 800px) {
-    nav ul {
-        display: none; /* ocultar menu desktop */
+    nav ul.desktop {
+        display: none;
     }
-    .hamburger, .menu-label {
+    .hamburger-wrapper {
         display: flex;
-        align-items: center;
     }
 }
-
 </style>
 </head>
 
 <body>
 
 <nav>
-    <span class="menu-label">Menu</span>
-    <div class="hamburger" id="hamburger">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-    <ul class="mobile-menu" id="mobileMenu">
+    <!-- Links Desktop -->
+    <ul class="desktop">
         <li><a href="#plugin-demo">Demo</a></li>
         <li><a href="#antes-despues">Antes/Después</a></li>
         <li><a href="#sobre-mi">Sobre Mí</a></li>
@@ -262,7 +257,19 @@ h2 {
         <li><a href="#librerias">Librerías</a></li>
         <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <ul>
+
+    <!-- Hamburguesa móvil -->
+    <div class="hamburger-wrapper">
+        <span class="hamburger-text">Menu</span>
+        <div class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <!-- Menú móvil desplegable -->
+    <ul class="mobile" id="mobileMenu">
         <li><a href="#plugin-demo">Demo</a></li>
         <li><a href="#antes-despues">Antes/Después</a></li>
         <li><a href="#sobre-mi">Sobre Mí</a></li>
@@ -277,14 +284,46 @@ h2 {
     <h1>Dinno Is Music</h1>
     <p>Plugins de Audio & Herramientas de Sonido</p>
     <div class="buttons">
-      <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn btn-free">Descargar Gratis</a>
-      <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn btn-premium">Comprar Premium</a>
+      <a href="#" class="btn btn-free">Descargar Gratis</a>
+      <a href="#" class="btn btn-premium">Comprar Premium</a>
     </div>
   </div>
 </header>
 
 <div class="container">
-<!-- Aquí van todas tus secciones: demo, antes/despues, sobre mi, plugins, librerías, contacto -->
+
+<section id="plugin-demo">
+<h2>Demo del Plugin</h2>
+<div class="video-wrapper">
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID_AQUI" allowfullscreen></iframe>
+</div>
+</section>
+
+<section id="antes-despues">
+<h2>Antes / Después</h2>
+<div class="audio-box">
+    <div class="audio-item">
+        <p>Antes</p>
+        <audio controls>
+            <source src="antes.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    <div class="audio-item">
+        <p>Después</p>
+        <audio controls>
+            <source src="despues.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+</div>
+</section>
+
+<section id="sobre-mi">
+<h2>Sobre Mí</h2>
+<p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
+Hola, soy Dinno, productor musical y creador de plugins de audio innovadores.
+</p>
+</section>
+
 </div>
 
 <footer>
@@ -292,10 +331,25 @@ h2 {
 </footer>
 
 <script>
-// Toggle hamburguesa
+// Animar secciones
+const sections = document.querySelectorAll('section');
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+}, { threshold: 0.2 });
+sections.forEach(section => observer.observe(section));
+
+// Hero parallax zoom
+window.addEventListener('scroll', () => {
+    const hero = document.querySelector('.hero');
+    let scroll = window.scrollY;
+    hero.style.transform = `scale(${1 + scroll / 3000})`;
+});
+
+// Toggle hamburguesa con animación desde arriba
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
-
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     mobileMenu.classList.toggle('show');
