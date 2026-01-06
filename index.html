@@ -58,6 +58,15 @@ nav a:hover {
     color: var(--accent);
 }
 
+/* LOGO FIJO */
+.hero-logo {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    height: 50px;
+    z-index: 1010; /* siempre por encima de nav */
+}
+
 /* HERO */
 .hero {
     height: 100vh;
@@ -78,15 +87,6 @@ nav a:hover {
     position: absolute;
     inset: 0;
     background: rgba(255,255,255,0.15);
-}
-
-/* LOGO DR.REX */
-.hero-logo {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    height: 50px;
-    z-index: 1010; /* antes era 10, ahora está por encima del nav */
 }
 
 /* HERO CONTENT */
@@ -330,6 +330,9 @@ footer {
 
 <body>
 
+<!-- LOGO FIJO -->
+<img src="logo-sin-fondo.png" alt="Logo Dr.Rex" class="hero-logo">
+
 <nav>
     <a href="#plugin-demo">Demo</a>
     <a href="#antes-despues">Antes/Después</a>
@@ -340,7 +343,6 @@ footer {
 </nav>
 
 <header class="hero">
-  <img src="logo-sin-fondo.png" alt="Logo Dr.Rex" class="hero-logo">
   <div class="hero-content">
     <h1>Dinno Is Music</h1>
     <p>Plugins de Audio & Herramientas de Sonido</p>
