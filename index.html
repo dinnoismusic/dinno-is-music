@@ -76,7 +76,7 @@ nav a:hover {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(255,255,255,0.15); /* overlay sutil */
+    background: rgba(255,255,255,0.15);
 }
 
 /* LOGO DR.REX */
@@ -120,13 +120,13 @@ nav a:hover {
 .btn {
     padding: 14px 32px;
     font-size: 1rem;
-    border-radius: 50px; /* forma alargada tipo bala */
+    border-radius: 50px;
     border: none;
     cursor: pointer;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* sombra suave por defecto */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 .btn-free, .btn-premium {
@@ -135,12 +135,12 @@ nav a:hover {
 }
 
 .btn-free:hover, .btn-premium:hover {
-    background: #e0e0e0; /* un poquito más oscuro al pasar el mouse */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* sombra más intensa */
+    background: #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .btn-free:active, .btn-premium:active {
-    box-shadow: 0 0 8px rgba(0,0,0,0.3) inset; /* efecto relieve al presionar */
+    box-shadow: 0 0 8px rgba(0,0,0,0.3) inset;
 }
 
 /* CONTAINER */
@@ -309,6 +309,7 @@ footer {
     <a href="#antes-despues">Antes/Después</a>
     <a href="#sobre-mi">Sobre Mí</a>
     <a href="#plugins">Plugins</a>
+    <a href="#librerias">Librerías</a>
     <a href="#contacto">Contacto</a>
 </nav>
 
@@ -376,6 +377,21 @@ Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me
 </div>
 </section>
 
+<!-- NUEVA SECCION LIBRERIAS -->
+<section id="librerias" style="position:relative; background-image:url('IMAGEN PAGINA 2'); background-size:cover; background-position:center; padding:80px 20px;">
+  <div style="position:absolute; inset:0; background: rgba(255,255,255,0.2);"></div>
+  <div style="position:relative; max-width:900px; margin:auto; text-align:center; color:#111;">
+    <h2>Librerías de Sonido</h2>
+    <p>Explorá nuestras librerías de sonidos separados por instrumentos y categorías: congas, guiro, kick, cencerros y más. Cada librería lista para usar en tus producciones.</p>
+    <div class="buttons" style="justify-content:center; margin-top:20px;">
+      <a href="#" class="btn btn-free">Ver Librería de Congas</a>
+      <a href="#" class="btn btn-free">Ver Librería de Guiro</a>
+      <a href="#" class="btn btn-free">Ver Librería de Kick</a>
+      <a href="#" class="btn btn-free">Ver Librería de Cencerros</a>
+    </div>
+  </div>
+</section>
+
 <section id="contacto">
 <h2>Contacto & Redes</h2>
 <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
@@ -412,7 +428,7 @@ sections.forEach(section => observer.observe(section));
 window.addEventListener('scroll', () => {
     const hero = document.querySelector('.hero');
     let scroll = window.scrollY;
-    hero.style.transform = `scale(${1 + scroll / 3000})`; // mantiene efecto de agrandarse
+    hero.style.transform = `scale(${1 + scroll / 3000})`;
 });
 </script>
 
