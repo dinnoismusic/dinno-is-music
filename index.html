@@ -15,7 +15,7 @@
     --accent: #7cffb2;
     --text: #111111;
     --muted: #666666;
-    --menu-bg: rgba(20,20,20,0.95);
+    --menu-bg: #222222; /* gris uniforme sólido */
 }
 
 /* Reset y tipografía */
@@ -112,20 +112,20 @@ nav ul li a:hover {
     top: -100%;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: var(--menu-bg);
+    height: 55%; /* un poco más de la mitad */
+    background: var(--menu-bg); /* gris sólido */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 20px;
-    transition: top 0.5s ease;
+    transition: top 0.5s ease; /* animación de “bajar desde arriba” */
     z-index: 1050;
     padding-top: 60px; /* espacio para botón */
 }
 
 .overlay.show {
-    top: 0;
+    top: 0; /* baja desde arriba */
 }
 
 .overlay a {
@@ -140,7 +140,7 @@ nav ul li a:hover {
 }
 
 .overlay a + a {
-    border-top: 1px solid rgba(255,255,255,0.3);
+    border-top: 1px solid rgba(255,255,255,0.2); /* divisiones suaves */
 }
 
 /* HERO */
@@ -414,7 +414,6 @@ footer {
 
 <div class="container">
 
-<!-- Secciones iguales a las que tenías -->
 <section id="plugin-demo">
 <h2>Demo del Plugin</h2>
 <div class="video-wrapper">
