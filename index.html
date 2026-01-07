@@ -13,7 +13,7 @@
     --card: #f9f9f9;
     --text: #333333;
     --muted: #666666;
-    --ff-blue: #00a0ff; /* Azul característico FabFilter */
+    --ff-blue: #00a0ff;
     --ff-blue-hover: #0080cc;
     --ff-border: #cccccc;
     --menu-bg: #222222;
@@ -48,25 +48,26 @@ nav {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(255,255,255,0.98);
+    background: transparent; /* quitamos franja blanca */
     display: flex;
-    justify-content: center; /* centramos menú en web */
-    align-items: center;
-    padding: 12px 25px;
+    justify-content: center; /* centramos horizontal */
+    align-items: center;     /* centramos vertical */
+    padding: 15px 25px;
     z-index: 2000;
-    border-bottom: 1px solid #eeeeee;
+    border-bottom: none; /* quitamos línea gris */
 }
 
 .nav-left {
     display: flex;
-    gap: 20px;
+    gap: 25px;
 }
 
 .nav-left a {
     text-decoration: none;
     color: var(--text);
-    font-weight: 500;
-    font-size: 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 10px 15px;
     transition: color 0.2s;
 }
 
@@ -74,10 +75,9 @@ nav {
     color: var(--ff-blue);
 }
 
+/* HAMBURGER (solo para móvil) */
 .hamburger-wrapper {
-    display: none; /* solo móvil */
-    position: absolute;
-    right: 25px;
+    display: none; /* oculto en web */
     align-items: center;
     cursor: pointer;
     gap: 10px;
@@ -156,7 +156,7 @@ nav {
     letter-spacing: 1px;
 }
 
-/* --- BOTONES RESTAURADOS A ESTILO ORIGINAL --- */
+/* BOTONES HERO */
 .buttons {
     display: flex;
     justify-content: center;
@@ -288,9 +288,16 @@ footer {
 }
 
 /* RESPONSIVE */
-@media (max-width: 900px) {
-    .nav-left { display: none; }
-    .hamburger-wrapper { display: flex; }
+@media (max-width: 992px) {
+    nav {
+        justify-content: flex-end; /* en tablet/móvil ponemos hamburguesa */
+    }
+    .nav-left {
+        display: none;
+    }
+    .hamburger-wrapper {
+        display: flex;
+    }
 }
 
 @media (max-width: 600px) {
@@ -335,10 +342,10 @@ footer {
         <div class="hero-content">
             <h1>Wider Dr.Rex</h1>
             <p>high-quality stereo plug-in</p>
-            <div class="buttons">
-                <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn btn-free">Descargar Gratis</a>
-                <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn btn-premium">Comprar Premium</a>
-            </div>
+           <div class="buttons">
+    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn btn-free">Descargar Gratis</a>
+    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn btn-premium">Comprar Premium</a>
+</div>
         </div>
     </header>
 
@@ -395,16 +402,16 @@ Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me
 </section>
 
 <section id="librerias">
-<div class="content">
-<h2>Librerías de Sonido</h2>
-<p>Explorá nuestras librerías de sonidos separados por instrumentos y categorías: conga, guiro, kick, cencerro y más. Cada librería lista para usar en tus producciones.</p>
-<div class="buttons" style="justify-content:center; margin-top:20px;">
-  <a href="#" class="btn btn-free">Conga</a>
-  <a href="#" class="btn btn-free">Guiro</a>
-  <a href="#" class="btn btn-free">Kick</a>
-  <a href="#" class="btn btn-free">Cencerro</a>
-</div>
-</div>
+  <div class="content">
+    <h2>Librerías de Sonido</h2>
+    <p>Explorá nuestras librerías de sonidos separados por instrumentos y categorías: conga, guiro, kick, cencerro y más. Cada librería lista para usar en tus producciones.</p>
+    <div class="buttons" style="justify-content:center; margin-top:20px;">
+      <a href="#" class="btn btn-free">Conga</a>
+      <a href="#" class="btn btn-free">Guiro</a>
+      <a href="#" class="btn btn-free">Kick</a>
+      <a href="#" class="btn btn-free">Cencerro</a>
+    </div>
+  </div>
 </section>
 
 <section id="contacto">
@@ -424,7 +431,7 @@ Para consultas, colaboraciones o pedidos de plugins, escribime a
 </div>
 
 <footer>
-© 2026 DINNO IS MUSIC. All rights reserved. Professional Audio Tools.
+    © 2026 DINNO IS MUSIC. All rights reserved. Professional Audio Tools.
 </footer>
 
 </div>
@@ -439,7 +446,7 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 sections.forEach(s => observer.observe(s));
 
-// Menu Toggle
+// Menu Toggle (solo para móvil)
 const menuBtn = document.getElementById('menuBtn');
 const menuOverlay = document.getElementById('menuOverlay');
 menuBtn.addEventListener('click', () => {
