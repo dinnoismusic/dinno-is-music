@@ -50,7 +50,7 @@ nav {
     width: 100%;
     background: rgba(255,255,255,0.98);
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* centramos menú en web */
     align-items: center;
     padding: 12px 25px;
     z-index: 2000;
@@ -75,7 +75,9 @@ nav {
 }
 
 .hamburger-wrapper {
-    display: none;
+    display: none; /* solo móvil */
+    position: absolute;
+    right: 25px;
     align-items: center;
     cursor: pointer;
     gap: 10px;
@@ -286,7 +288,7 @@ footer {
 }
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .nav-left { display: none; }
     .hamburger-wrapper { display: flex; }
 }
@@ -333,21 +335,96 @@ footer {
         <div class="hero-content">
             <h1>Wider Dr.Rex</h1>
             <p>high-quality stereo plug-in</p>
-           <div class="buttons">
-    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn btn-free">Descargar Gratis</a>
-    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn btn-premium">Comprar Premium</a>
-</div>
-
+            <div class="buttons">
+                <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn btn-free">Descargar Gratis</a>
+                <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn btn-premium">Comprar Premium</a>
+            </div>
         </div>
     </header>
 
 <div class="container">
-<!-- CONTENIDO SECCIONES IGUAL QUE ANTES -->
-<!-- ... mantengo el resto igual ... -->
+
+<section id="plugin-demo">
+<h2>Demo del Plugin</h2>
+<div class="video-wrapper">
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID_AQUI" allowfullscreen></iframe>
+</div>
+</section>
+
+<section id="antes-despues">
+<h2>Antes / Después</h2>
+<div class="audio-box">
+    <div class="audio-item">
+        <p>Antes</p>
+        <audio controls>
+            <source src="antes.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    <div class="audio-item">
+        <p>Después</p>
+        <audio controls>
+            <source src="despues.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+</div>
+</section>
+
+<section id="sobre-mi">
+<h2>Sobre Mí</h2>
+<p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
+Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me encanta transformar sonidos y crear herramientas que ayuden a músicos como vos a mejorar su música.
+</p>
+</section>
+
+<section id="plugins">
+<h2>Plugins Destacados</h2>
+<div class="plugins-grid">
+    <div class="plugin-card">
+        <img src="WIDER DR.REX.png" alt="Wider Dr.Rex">
+        <h3>Wider Dr.Rex</h3>
+        <p>Plugin gratuito para expandir tu sonido.</p>
+        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="free">Descargar Gratis</a>
+    </div>
+    <div class="plugin-card">
+        <img src="DRIVER DR.REX.png" alt="Drive Dr.Rex">
+        <h3>Drive Dr.Rex</h3>
+        <p>Plugin premium para añadir saturación y color a tu audio.</p>
+        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="premium">Comprar Premium</a>
+    </div>
+</div>
+</section>
+
+<section id="librerias">
+<div class="content">
+<h2>Librerías de Sonido</h2>
+<p>Explorá nuestras librerías de sonidos separados por instrumentos y categorías: conga, guiro, kick, cencerro y más. Cada librería lista para usar en tus producciones.</p>
+<div class="buttons" style="justify-content:center; margin-top:20px;">
+  <a href="#" class="btn btn-free">Conga</a>
+  <a href="#" class="btn btn-free">Guiro</a>
+  <a href="#" class="btn btn-free">Kick</a>
+  <a href="#" class="btn btn-free">Cencerro</a>
+</div>
+</div>
+</section>
+
+<section id="contacto">
+<h2>Contacto & Redes</h2>
+<p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
+Para consultas, colaboraciones o pedidos de plugins, escribime a 
+<a href="mailto:dinnoismusic@gmail.com" style="color: var(--accent);">dinnoismusic@gmail.com</a>
+</p>
+<p style="text-align:center; margin-top: 15px;">
+<a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="color: var(--accent); margin:0 10px;">YouTube</a> |
+<a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram</a> |
+<a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram Dr.Rex</a> |
+<a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="color: var(--accent); margin:0 10px;">Facebook</a>
+</p>
+</section>
+
 </div>
 
 <footer>
-    © 2026 DINNO IS MUSIC. All rights reserved. Professional Audio Tools.
+© 2026 DINNO IS MUSIC. All rights reserved. Professional Audio Tools.
 </footer>
 
 </div>
