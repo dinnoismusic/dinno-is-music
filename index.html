@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Wider Dr.Rex – high-quality stereo plug-in</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -25,12 +25,17 @@
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
 }
 
+html, body {
+    width: 100%;
+    overflow-x: hidden; /* Bloqueo estricto de movimiento lateral */
+    position: relative;
+}
+
 body {
     background: var(--bg);
     color: var(--text);
     line-height: 1.6;
     scroll-behavior: smooth;
-    overflow-x: hidden; /* evita deslizar horizontal */
 }
 
 /* NAVBAR */
@@ -40,29 +45,11 @@ nav {
     width: 100%;
     background: rgba(255,255,255,0.95);
     display: flex;
-    justify-content: flex-end; /* menú a la derecha */
+    justify-content: flex-end;
     align-items: center;
     padding: 14px 20px;
-    z-index: 2000; /* más alto que overlay */
+    z-index: 2000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-/* Links desktop */
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 20px;
-}
-
-nav ul li a {
-    color: var(--text);
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-nav ul li a:hover {
-    color: var(--accent);
 }
 
 /* HAMBURGUESA */
@@ -71,14 +58,13 @@ nav ul li a:hover {
     align-items: center;
     cursor: pointer;
     gap: 8px;
-    z-index: 2100; /* encima del overlay */
+    z-index: 2100;
 }
 
 .hamburger-wrapper span {
     color: var(--text);
     font-weight: 600;
     font-size: 16px;
-    z-index: 2100;
 }
 
 .hamburger {
@@ -95,7 +81,6 @@ nav ul li a:hover {
     transition: all 0.3s;
 }
 
-/* X animada */
 .hamburger.active div:nth-child(1) {
     transform: rotate(45deg) translate(5px,5px);
 }
@@ -106,22 +91,22 @@ nav ul li a:hover {
     transform: rotate(-45deg) translate(5px,-5px);
 }
 
-/* OVERLAY MENU */
+/* OVERLAY MENU AJUSTADO */
 .overlay {
     position: fixed;
     top: -100%;
     left: 0;
     width: 100%;
-    height: 80vh; /* más grande para cubrir hasta Contacto */
+    height: 100vh; /* Ocupa el alto total para evitar fugas */
     background: var(--menu-bg);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 20px;
-    transition: top 0.5s ease;
+    gap: 15px;
+    transition: top 0.5s ease-in-out;
     z-index: 1000;
-    padding-top: 60px; /* espacio para menú y hamburguesa */
+    padding: 0 20px;
 }
 
 .overlay.show {
@@ -132,20 +117,21 @@ nav ul li a:hover {
     color: #fff;
     text-decoration: none;
     font-weight: 400;
-    font-size: 18px;
-    position: relative;
-    padding: 10px 0;
-    width: 80%;
+    font-size: 1.2rem;
+    padding: 12px 0;
+    width: 100%;
+    max-width: 300px;
     text-align: center;
 }
 
 .overlay a + a {
-    border-top: 1px solid rgba(255,255,255,0.2); /* divisiones suaves */
+    border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 /* HERO */
 .hero {
     height: 100vh;
+    width: 100%;
     background-image: url('Fondo Abstracto.png');
     background-size: cover;
     background-position: center;
@@ -160,28 +146,28 @@ nav ul li a:hover {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.3); /* Ajustado para resaltar el texto blanco/amarillo */
+    background: rgba(0,0,0,0.3);
 }
 
-/* HERO CONTENT */
 .hero-content {
     position: relative;
     z-index: 2;
     text-align: center;
-    max-width: 900px;
+    width: 100%;
+    padding: 0 20px;
 }
 
 .hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 15px;
+    font-size: clamp(2rem, 10vw, 3.5rem);
+    margin-bottom: 10px;
     font-weight: 700;
-    color: #ffffff; /* Texto en blanco */
+    color: #ffffff;
 }
 
 .hero-content p {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 5vw, 1.4rem);
     margin-bottom: 25px;
-    color: #ffff00; /* Texto en amarillo */
+    color: #ffff00;
     font-weight: 600;
 }
 
@@ -189,20 +175,20 @@ nav ul li a:hover {
 .buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
 .btn {
-    padding: 14px 32px;
-    font-size: 1rem;
+    padding: 12px 28px;
+    font-size: 0.95rem;
     border-radius: 50px;
     border: none;
     cursor: pointer;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .btn-free, .btn-premium {
@@ -212,21 +198,22 @@ nav ul li a:hover {
 
 .btn-free:hover, .btn-premium:hover {
     background: #e0e0e0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
 }
 
 /* CONTAINER */
 .container {
+    width: 100%;
     max-width: 1100px;
     margin: auto;
-    padding: 80px 20px 40px;
+    padding: 60px 20px;
 }
 
 /* SECCIONES */
 section {
-    margin-top: 80px;
+    margin-top: 60px;
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(30px);
     transition: all 0.8s ease;
 }
 
@@ -237,8 +224,8 @@ section.visible {
 
 h2 {
     text-align: center;
-    margin-bottom: 30px;
-    color: var(--text);
+    margin-bottom: 25px;
+    font-size: clamp(1.5rem, 6vw, 2rem);
 }
 
 /* VIDEO */
@@ -253,37 +240,36 @@ h2 {
 
 .video-wrapper iframe {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
+    top: 0; left: 0; width: 100%; height: 100%;
 }
 
 /* AUDIO */
 .audio-box {
     background: var(--card);
-    padding: 30px;
+    padding: 20px;
     border-radius: 12px;
     display: grid;
-    gap: 20px;
+    gap: 15px;
     max-width: 700px;
     margin: auto;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
 .audio-item p {
-    margin-bottom: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
     color: var(--muted);
 }
 
-/* PLUGINS DESTACADOS */
+audio {
+    width: 100%;
+}
+
+/* PLUGINS GRID */
 .plugins-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 30px;
-    margin-top: 30px;
+    gap: 20px;
 }
 
 .plugin-card {
@@ -291,66 +277,33 @@ h2 {
     border-radius: 12px;
     padding: 20px;
     text-align: center;
-    max-width: 250px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-    transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%;
+    max-width: 280px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .plugin-card img {
     width: 100%;
-    border-radius: 10px;
-    margin-bottom: 15px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 12px;
 }
 
-.plugin-card h3 {
-    margin-bottom: 10px;
-    color: var(--text);
-}
-
-.plugin-card p {
-    margin-bottom: 15px;
-    color: var(--muted);
-}
-
-.plugin-card a {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.plugin-card a.free, .plugin-card a.premium {
-    background: #fff;
-    color: #111;
-}
-
-.plugin-card a.free:hover, .plugin-card a.premium:hover {
-    background: #e0e0e0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-.plugin-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-}
-
-/* NUEVA SECCION LIBRERIAS */
+/* LIBRERIAS */
 #librerias {
     position: relative;
     background-image: url('imagen-pagina-2.png');
     background-size: cover;
     background-position: center;
-    padding: 80px 20px;
-    z-index: 1;
+    padding: 60px 20px;
+    width: 100%;
 }
 
 #librerias::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.4);
 }
 
 #librerias .content {
@@ -358,23 +311,27 @@ h2 {
     max-width: 900px;
     margin: auto;
     text-align: center;
-    color: #111;
 }
 
 /* FOOTER */
 footer {
-    margin-top: 100px;
     padding: 40px 20px;
     text-align: center;
     color: var(--muted);
-    font-size: 0.9rem;
-    border-top: 1px solid #ddd;
+    font-size: 0.85rem;
+    border-top: 1px solid #eee;
 }
 
-/* MEDIA QUERIES */
-@media (max-width: 800px) {
-    nav ul {
-        display: none;
+/* CORRECCIÓN SCROLL MOBILE */
+@media (max-width: 480px) {
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .btn {
+        width: 100%;
+        max-width: 250px;
+        text-align: center;
     }
 }
 </style>
@@ -454,13 +411,13 @@ Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me
         <img src="WIDER DR.REX.png" alt="Wider Dr.Rex">
         <h3>Wider Dr.Rex</h3>
         <p>Plugin gratuito para expandir tu sonido.</p>
-        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="free">Descargar Gratis</a>
+        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn btn-free" style="margin-top:10px; display:inline-block; border:1px solid #ddd;">Descargar</a>
     </div>
     <div class="plugin-card">
         <img src="DRIVER DR.REX.png" alt="Drive Dr.Rex">
         <h3>Drive Dr.Rex</h3>
-        <p>Plugin premium para añadir saturación y color a tu audio.</p>
-        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="premium">Comprar Premium</a>
+        <p>Plugin premium para añadir saturación y color.</p>
+        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn btn-premium" style="margin-top:10px; display:inline-block; border:1px solid #ddd;">Comprar</a>
     </div>
 </div>
 </section>
@@ -468,12 +425,12 @@ Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me
 <section id="librerias">
   <div class="content">
     <h2>Librerías de Sonido</h2>
-    <p>Explorá nuestras librerías de sonidos separados por instrumentos y categorías: congas, guiro, kick, cencerros y más. Cada librería lista para usar en tus producciones.</p>
+    <p>Explorá nuestras librerías de sonidos separados por instrumentos y categorías: congas, guiro, kick, cencerros y más.</p>
     <div class="buttons" style="justify-content:center; margin-top:20px;">
-      <a href="#" class="btn btn-free">Ver Librería de Congas</a>
-      <a href="#" class="btn btn-free">Ver Librería de Guiro</a>
-      <a href="#" class="btn btn-free">Ver Librería de Kick</a>
-      <a href="#" class="btn btn-free">Ver Librería de Cencerros</a>
+      <a href="#" class="btn btn-free" style="border:1px solid #ddd;">Congas</a>
+      <a href="#" class="btn btn-free" style="border:1px solid #ddd;">Guiro</a>
+      <a href="#" class="btn btn-free" style="border:1px solid #ddd;">Kick</a>
+      <a href="#" class="btn btn-free" style="border:1px solid #ddd;">Cencerros</a>
     </div>
   </div>
 </section>
@@ -482,14 +439,14 @@ Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me
 <h2>Contacto & Redes</h2>
 <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
 Para consultas, colaboraciones o pedidos de plugins, escribime a 
-<a href="mailto:dinnoismusic@gmail.com" style="color: var(--accent);">dinnoismusic@gmail.com</a>
+<a href="mailto:dinnoismusic@gmail.com" style="color: var(--text); font-weight:700;">dinnoismusic@gmail.com</a>
 </p>
-<p style="text-align:center; margin-top: 15px;">
-<a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="color: var(--accent); margin:0 10px;">YouTube</a> |
-<a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram</a> |
-<a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram Dr.Rex</a> |
-<a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="color: var(--accent); margin:0 10px;">Facebook</a>
-</p>
+<div style="text-align:center; margin-top: 20px; display:flex; flex-wrap:wrap; justify-content:center; gap:15px;">
+    <a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="text-decoration:none; color:var(--text); font-weight:600;">YouTube</a>
+    <a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="text-decoration:none; color:var(--text); font-weight:600;">Instagram</a>
+    <a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="text-decoration:none; color:var(--text); font-weight:600;">Dr.Rex IG</a>
+    <a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="text-decoration:none; color:var(--text); font-weight:600;">Facebook</a>
+</div>
 </section>
 
 </div>
@@ -507,24 +464,42 @@ const observer = new IntersectionObserver(entries => {
             entry.target.classList.add('visible');
         }
     });
-}, { threshold: 0.2 });
+}, { threshold: 0.1 });
 sections.forEach(section => observer.observe(section));
 
-// Hero parallax zoom al hacer scroll
+// Hero parallax zoom al hacer scroll (limitado para evitar saltos en mobile)
 window.addEventListener('scroll', () => {
     const hero = document.querySelector('.hero');
     let scroll = window.scrollY;
-    hero.style.transform = `scale(${1 + scroll / 3000})`;
+    if (scroll < 1000) {
+        hero.style.transform = `scale(${1 + scroll / 5000})`;
+    }
 });
 
 // Toggle hamburguesa y overlay
 const hamburgerWrapper = document.getElementById('hamburger-wrapper');
 const hamburger = document.getElementById('hamburger');
 const overlay = document.getElementById('overlay');
+const links = document.querySelectorAll('.overlay a');
 
 hamburgerWrapper.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     overlay.classList.toggle('show');
+    // Bloquear scroll cuando el menú está abierto
+    if(overlay.classList.contains('show')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Cerrar menú al hacer click en un link
+links.forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        overlay.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    });
 });
 </script>
 
