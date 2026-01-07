@@ -137,7 +137,7 @@ nav {
     letter-spacing: 1px;
 }
 
-/* --- BOTONES ESTILO FABFILTER --- */
+/* --- BOTONES RESTAURADOS A ESTILO ORIGINAL --- */
 .buttons {
     display: flex;
     justify-content: center;
@@ -147,43 +147,33 @@ nav {
 
 .btn {
     display: inline-block;
-    padding: 12px 28px;
-    font-size: 14px;
+    padding: 14px 32px;
+    font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
-    border-radius: 4px; /* FabFilter usa bordes menos redondeados, más pro */
-    transition: all 0.2s ease;
+    border-radius: 50px; /* redondeado como antes */
+    transition: all 0.3s ease;
     cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* sombra suave */
 }
 
-/* Botón Estilo "Download" (Blanco/Gris) */
 .btn-free {
-    background: #ffffff;
-    color: #333;
-    border: 1px solid var(--ff-border);
+    background: #fff;
+    color: #111;
+    border: none;
 }
 
-.btn-free:hover {
-    background: #f2f2f2;
-    border-color: #999;
-}
-
-/* Botón Estilo "Buy" (Azul FabFilter) */
 .btn-premium {
     background: var(--ff-blue);
-    color: #ffffff;
-    border: 1px solid var(--ff-blue);
+    color: #fff;
+    border: none;
 }
 
-.btn-premium:hover {
-    background: var(--ff-blue-hover);
-    border-color: var(--ff-blue-hover);
-    box-shadow: 0 2px 8px rgba(0, 160, 255, 0.3);
+.btn-free:hover, .btn-premium:hover {
+    background: #e0e0e0; /* gris claro en hover */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* sombra más marcada al hover */
 }
 
-/* Efecto al presionar (Active) */
 .btn:active {
     transform: translateY(1px);
 }
