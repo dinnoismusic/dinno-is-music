@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Wider Dr.Rex – high-quality stereo plug-in</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -15,6 +15,10 @@
     --text: #111111;
     --muted: #666666;
     --menu-bg: #222222;
+    /* Colores FabFilter */
+    --ff-blue: #00a0ff;
+    --ff-blue-hover: #0080cc;
+    --ff-border: #cccccc;
 }
 
 /* RESET ESTRÍCTO ANTIDESBORDE */
@@ -33,6 +37,7 @@ html, body {
     background: var(--bg);
 }
 
+/* Contenedor principal para bloquear movimiento lateral */
 .main-wrapper {
     width: 100%;
     max-width: 100vw;
@@ -170,35 +175,53 @@ nav {
     font-weight: 600;
 }
 
-/* BOTONES (Restaurados) */
+/* BOTONES ESTILO FABFILTER */
 .buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
 .btn {
-    padding: 14px 32px;
-    font-size: 1rem;
-    border-radius: 50px;
+    padding: 12px 28px;
+    font-size: 0.9rem;
+    border-radius: 4px; /* Esquinas FabFilter */
     border: none;
     cursor: pointer;
     text-decoration: none;
     font-weight: 600;
-    transition: all 0.3s;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-block;
 }
 
-.btn-free, .btn-premium {
-    background: #fff;
+.btn-free {
+    background: #ffffff;
     color: #111;
+    border: 1px solid var(--ff-border);
 }
 
-.btn-free:hover, .btn-premium:hover {
-    background: #e0e0e0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    transform: translateY(-2px);
+.btn-free:hover {
+    background: #f2f2f2;
+    border-color: #999;
+}
+
+.btn-premium {
+    background: var(--ff-blue);
+    color: #ffffff;
+    border: 1px solid var(--ff-blue);
+}
+
+.btn-premium:hover {
+    background: var(--ff-blue-hover);
+    border-color: var(--ff-blue-hover);
+    box-shadow: 0 4px 12px rgba(0, 160, 255, 0.3);
+}
+
+.btn:active {
+    transform: translateY(1px); /* Efecto de pulsación pro */
 }
 
 /* SECCIONES */
@@ -235,7 +258,7 @@ h2 {
     position: relative;
     padding-bottom: 56.25%;
     height: 0;
-    border-radius: 12px;
+    border-radius: 8px;
     background: #000;
     overflow: hidden;
 }
@@ -249,10 +272,10 @@ h2 {
 .audio-box {
     background: var(--card);
     padding: 30px;
-    border-radius: 12px;
+    border-radius: 8px;
     max-width: 700px;
     margin: auto;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     display: grid;
     gap: 20px;
 }
@@ -270,18 +293,23 @@ audio { width: 100%; }
 
 .plugin-card {
     background: var(--card);
-    border-radius: 12px;
-    padding: 20px;
+    border-radius: 8px;
+    padding: 25px;
     text-align: center;
     width: 100%;
     max-width: 280px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    border: 1px solid #eee;
+    transition: border-color 0.3s;
+}
+
+.plugin-card:hover {
+    border-color: var(--ff-blue);
 }
 
 .plugin-card img {
     width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 4px;
     margin-bottom: 15px;
 }
 
@@ -311,17 +339,16 @@ audio { width: 100%; }
 
 /* FOOTER */
 footer {
-    padding: 40px 20px;
+    padding: 60px 20px;
     text-align: center;
     color: var(--muted);
     font-size: 0.85rem;
     border-top: 1px solid #eee;
-    width: 100%;
 }
 
 @media (max-width: 480px) {
     .buttons { flex-direction: column; align-items: center; }
-    .btn { width: 100%; max-width: 250px; text-align: center; }
+    .btn { width: 100%; max-width: 280px; text-align: center; }
 }
 </style>
 </head>
@@ -398,13 +425,13 @@ footer {
                     <img src="WIDER DR.REX.png" alt="Wider Dr.Rex">
                     <h3>Wider Dr.Rex</h3>
                     <p>Plugin gratuito para expandir tu sonido.</p>
-                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn btn-free" style="margin-top:10px; border:1px solid #ddd;">Descargar</a>
+                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn btn-free" style="margin-top:10px;">Descargar</a>
                 </div>
                 <div class="plugin-card">
                     <img src="DRIVER DR.REX.png" alt="Drive Dr.Rex">
                     <h3>Drive Dr.Rex</h3>
                     <p>Plugin premium para añadir saturación y color.</p>
-                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn btn-premium" style="margin-top:10px; border:1px solid #ddd;">Comprar</a>
+                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn btn-premium" style="margin-top:10px;">Comprar</a>
                 </div>
             </div>
         </section>
@@ -414,10 +441,10 @@ footer {
                 <h2>Librerías de Sonido</h2>
                 <p>Explorá nuestras librerías de sonidos: congas, guiro, kick, cencerros y más.</p>
                 <div class="buttons" style="justify-content:center; margin-top:20px;">
-                    <a href="#" class="btn btn-free" style="border:1px solid #ddd;">Congas</a>
-                    <a href="#" class="btn btn-free" style="border:1px solid #ddd;">Guiro</a>
-                    <a href="#" class="btn btn-free" style="border:1px solid #ddd;">Kick</a>
-                    <a href="#" class="btn btn-free" style="border:1px solid #ddd;">Cencerros</a>
+                    <a href="#" class="btn btn-free">Congas</a>
+                    <a href="#" class="btn btn-free">Guiro</a>
+                    <a href="#" class="btn btn-free">Kick</a>
+                    <a href="#" class="btn btn-free">Cencerros</a>
                 </div>
             </div>
         </section>
@@ -426,20 +453,20 @@ footer {
             <h2>Contacto & Redes</h2>
             <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
                 Para consultas, colaboraciones o pedidos de plugins, escribime a 
-                <a href="mailto:dinnoismusic@gmail.com" style="color: var(--text); font-weight:700;">dinnoismusic@gmail.com</a>
+                <a href="mailto:dinnoismusic@gmail.com" style="color: var(--ff-blue); font-weight:700; text-decoration: none;">dinnoismusic@gmail.com</a>
             </p>
-            <div style="text-align:center; margin-top: 20px; display:flex; flex-wrap:wrap; justify-content:center; gap:15px;">
-                <a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="text-decoration:none; color:var(--text); font-weight:600;">YouTube</a>
-                <a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="text-decoration:none; color:var(--text); font-weight:600;">Instagram</a>
-                <a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="text-decoration:none; color:var(--text); font-weight:600;">Dr.Rex IG</a>
-                <a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="text-decoration:none; color:var(--text); font-weight:600;">Facebook</a>
+            <div style="text-align:center; margin-top: 30px; display:flex; flex-wrap:wrap; justify-content:center; gap:20px;">
+                <a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="text-decoration:none; color:var(--text); font-weight:600; font-size: 14px; text-transform: uppercase;">YouTube</a>
+                <a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="text-decoration:none; color:var(--text); font-weight:600; font-size: 14px; text-transform: uppercase;">Instagram</a>
+                <a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="text-decoration:none; color:var(--text); font-weight:600; font-size: 14px; text-transform: uppercase;">Dr.Rex IG</a>
+                <a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="text-decoration:none; color:var(--text); font-weight:600; font-size: 14px; text-transform: uppercase;">Facebook</a>
             </div>
         </section>
 
     </div>
 
     <footer>
-        © 2026 Dinno Is Music — Plugins de Audio & Herramientas de Sonido
+        © 2026 DINNO IS MUSIC — PROFESSIONAL AUDIO TOOLS
     </footer>
 
 </div>
