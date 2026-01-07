@@ -11,9 +11,9 @@
 :root {
     --bg: #ffffff;
     --card: #f9f9f9;
-    --text: #333333;
+    --text: #ffffff; /* blanco para letras sobre hero */
     --muted: #666666;
-    --ff-blue: #00a0ff;
+    --ff-blue: #00a0ff; /* Azul característico FabFilter */
     --ff-blue-hover: #0080cc;
     --ff-border: #cccccc;
     --menu-bg: #222222;
@@ -48,39 +48,22 @@ nav {
     position: fixed;
     top: 0;
     width: 100%;
-    background: transparent; /* quitamos franja blanca */
     display: flex;
-    justify-content: center; /* centramos horizontal */
-    align-items: center;     /* centramos vertical */
-    padding: 15px 25px;
+    justify-content: center; /* centrado */
+    align-items: center;
+    padding: 12px 25px;
     z-index: 2000;
-    border-bottom: none; /* quitamos línea gris */
 }
 
-.nav-left {
-    display: flex;
-    gap: 25px;
-}
-
-.nav-left a {
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 600;
-    font-size: 1.1rem;
-    padding: 10px 15px;
-    transition: color 0.2s;
-}
-
-.nav-left a:hover {
-    color: var(--ff-blue);
-}
-
-/* HAMBURGER (solo para móvil) */
 .hamburger-wrapper {
-    display: none; /* oculto en web */
+    display: flex;
     align-items: center;
     cursor: pointer;
     gap: 10px;
+}
+
+.hamburger-wrapper span {
+    color: var(--text);
 }
 
 .hamburger div {
@@ -89,6 +72,17 @@ nav {
     background: var(--text);
     margin: 4px 0;
     transition: 0.3s;
+}
+
+/* Transformación X */
+.hamburger.open div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.open div:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.open div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
 }
 
 /* OVERLAY MENU */
@@ -156,7 +150,7 @@ nav {
     letter-spacing: 1px;
 }
 
-/* BOTONES HERO */
+/* --- BOTONES RESTAURADOS A ESTILO ORIGINAL --- */
 .buttons {
     display: flex;
     justify-content: center;
@@ -170,10 +164,10 @@ nav {
     font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
-    border-radius: 50px;
+    border-radius: 50px; /* redondeado como antes */
     transition: all 0.3s ease;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* sombra suave */
 }
 
 .btn-free {
@@ -189,8 +183,8 @@ nav {
 }
 
 .btn-free:hover, .btn-premium:hover {
-    background: #e0e0e0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    background: #e0e0e0; /* gris claro en hover */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* sombra más marcada al hover */
 }
 
 .btn:active {
@@ -288,18 +282,9 @@ footer {
 }
 
 /* RESPONSIVE */
-@media (max-width: 992px) {
-    nav {
-        justify-content: flex-end; /* en tablet/móvil ponemos hamburguesa */
-    }
-    .nav-left {
-        display: none;
-    }
-    .hamburger-wrapper {
-        display: flex;
-    }
+@media (max-width: 900px) {
+    nav { justify-content: flex-end; } /* móvil sigue a la derecha */
 }
-
 @media (max-width: 600px) {
     .buttons { flex-direction: column; }
     .btn { width: 100%; text-align: center; }
@@ -312,15 +297,6 @@ footer {
 <div class="main-wrapper">
 
     <nav>
-        <div class="nav-left">
-            <a href="#plugin-demo">Demo</a>
-            <a href="#antes-despues">Antes / Después</a>
-            <a href="#sobre-mi">Sobre Mí</a>
-            <a href="#plugins">Plugins</a>
-            <a href="#librerias">Librerías</a>
-            <a href="#contacto">Contacto</a>
-        </div>
-
         <div class="hamburger-wrapper" id="menuBtn">
             <span style="font-weight: 500; font-size: 14px;">MENU</span>
             <div class="hamburger">
@@ -346,9 +322,9 @@ footer {
     <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn btn-free">Descargar Gratis</a>
     <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn btn-premium">Comprar Premium</a>
 </div>
+
         </div>
     </header>
-
 <div class="container">
 
 <section id="plugin-demo">
@@ -400,8 +376,9 @@ Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me
     </div>
 </div>
 </section>
+   
 
-<section id="librerias">
+       <section id="librerias">
   <div class="content">
     <h2>Librerías de Sonido</h2>
     <p>Explorá nuestras librerías de sonidos separados por instrumentos y categorías: conga, guiro, kick, cencerro y más. Cada librería lista para usar en tus producciones.</p>
@@ -428,7 +405,8 @@ Para consultas, colaboraciones o pedidos de plugins, escribime a
 </p>
 </section>
 
-</div>
+
+    </div>
 
 <footer>
     © 2026 DINNO IS MUSIC. All rights reserved. Professional Audio Tools.
@@ -446,11 +424,14 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 sections.forEach(s => observer.observe(s));
 
-// Menu Toggle (solo para móvil)
+// Menu Toggle (solo móvil) con animación X
 const menuBtn = document.getElementById('menuBtn');
 const menuOverlay = document.getElementById('menuOverlay');
+const hamburger = menuBtn.querySelector('.hamburger');
+
 menuBtn.addEventListener('click', () => {
     menuOverlay.classList.toggle('show');
+    hamburger.classList.toggle('open'); // agrega clase open para X
     document.body.style.overflow = menuOverlay.classList.contains('show') ? 'hidden' : 'auto';
 });
 
@@ -458,6 +439,7 @@ menuBtn.addEventListener('click', () => {
 document.querySelectorAll('.overlay a').forEach(link => {
     link.addEventListener('click', () => {
         menuOverlay.classList.remove('show');
+        hamburger.classList.remove('open');
         document.body.style.overflow = 'auto';
     });
 });
