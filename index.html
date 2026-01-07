@@ -34,6 +34,7 @@ html, body {
     position: relative;
     background: var(--bg);
     color: var(--text);
+    scroll-behavior: smooth;
 }
 
 .main-wrapper {
@@ -148,45 +149,53 @@ nav {
     letter-spacing: 1px;
 }
 
-/* --- BOTONES RESTAURADOS A ESTILO ORIGINAL --- */
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.btn {
+/* BOTÓN EXPLORAR */
+.btn-explorar {
     display: inline-block;
-    padding: 14px 32px;
-    font-size: 1rem;
+    padding: 14px 40px;
+    font-size: 1.1rem;
     font-weight: 600;
     text-decoration: none;
-    border-radius: 50px; /* redondeado como antes */
+    border-radius: 50px;
     transition: all 0.3s ease;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* sombra suave */
-}
-
-.btn-free {
     background: #fff;
     color: #111;
     border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-.btn-premium {
+.btn-explorar:hover {
     background: var(--ff-blue);
     color: #fff;
-    border: none;
+    transform: translateY(-2px);
 }
 
-.btn-free:hover, .btn-premium:hover {
-    background: #e0e0e0; /* gris claro en hover */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* sombra más marcada al hover */
+/* BOTONES DE ACCIÓN (CARDS) */
+.btn-action {
+    display: inline-block;
+    padding: 12px 28px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    margin-top: 15px;
 }
 
-.btn:active {
-    transform: translateY(1px);
+.btn-free-card {
+    background: #444;
+    color: #fff;
+}
+
+.btn-premium-card {
+    background: var(--ff-blue);
+    color: #fff;
+}
+
+.btn-action:hover {
+    filter: brightness(1.2);
+    transform: scale(1.05);
 }
 
 /* SECCIONES */
@@ -218,15 +227,15 @@ h2 {
 /* PLUGINS GRID */
 .plugins-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
 }
 
 .plugin-card {
     background: var(--card);
     border: 1px solid #eee;
-    padding: 25px;
-    border-radius: 8px;
+    padding: 30px;
+    border-radius: 12px;
     text-align: center;
     transition: border-color 0.3s;
 }
@@ -237,8 +246,18 @@ h2 {
 
 .plugin-card img {
     width: 100%;
-    border-radius: 4px;
+    border-radius: 6px;
     margin-bottom: 20px;
+}
+
+.plugin-card h3 {
+    margin-bottom: 10px;
+}
+
+.plugin-card .desc {
+    font-size: 0.95rem;
+    color: var(--muted);
+    min-height: 50px;
 }
 
 /* AUDIO & VIDEO */
@@ -270,6 +289,25 @@ h2 {
     text-align: center;
 }
 
+.lib-btns {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.btn-lib {
+    background: #fff;
+    color: #111;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 1px solid #eee;
+}
+
 /* FOOTER */
 footer {
     padding: 50px 20px;
@@ -281,8 +319,8 @@ footer {
 
 /* RESPONSIVE */
 @media (max-width: 600px) {
-    .buttons { flex-direction: column; }
-    .btn { width: 100%; text-align: center; }
+    .hero-content h1 { font-size: 2.5rem; }
+    .btn-explorar { width: 80%; }
 }
 </style>
 </head>
@@ -313,93 +351,91 @@ footer {
         <div class="hero-content">
             <h1>Wider Dr.Rex</h1>
             <p>high-quality stereo plug-in</p>
-           <div class="buttons">
-    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn btn-free">Descargar Gratis</a>
-    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn btn-premium">Comprar Premium</a>
-</div>
-
+            <div class="buttons">
+                <a href="#plugins" class="btn-explorar">EXPLORAR</a>
+            </div>
         </div>
     </header>
-<div class="container">
 
-<section id="plugin-demo">
-<h2>Demo del Plugin</h2>
-<div class="video-wrapper">
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID_AQUI" allowfullscreen></iframe>
-</div>
-</section>
+    <div class="container">
 
-<section id="antes-despues">
-<h2>Antes / Después</h2>
-<div class="audio-box">
-    <div class="audio-item">
-        <p>Antes</p>
-        <audio controls>
-            <source src="antes.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-    <div class="audio-item">
-        <p>Después</p>
-        <audio controls>
-            <source src="despues.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-</div>
-</section>
+        <section id="plugin-demo">
+            <h2>Demo del Plugin</h2>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/VIDEO_ID_AQUI" allowfullscreen></iframe>
+            </div>
+        </section>
 
-<section id="sobre-mi">
-<h2>Sobre Mí</h2>
-<p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
-Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me encanta transformar sonidos y crear herramientas que ayuden a músicos como vos a mejorar su música.
-</p>
-</section>
+        <section id="antes-despues">
+            <h2>Antes / Después</h2>
+            <div class="audio-box">
+                <div class="audio-item">
+                    <p>Antes</p>
+                    <audio controls style="width:100%;">
+                        <source src="antes.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+                <div class="audio-item" style="margin-top:20px;">
+                    <p>Después</p>
+                    <audio controls style="width:100%;">
+                        <source src="despues.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+        </section>
 
-<section id="plugins">
-<h2>Plugins Destacados</h2>
-<div class="plugins-grid">
-    <div class="plugin-card">
-        <img src="WIDER DR.REX.png" alt="Wider Dr.Rex">
-        <h3>Wider Dr.Rex</h3>
-        <p>Plugin gratuito para expandir tu sonido.</p>
-        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="free">Descargar Gratis</a>
-    </div>
-    <div class="plugin-card">
-        <img src="DRIVER DR.REX.png" alt="Drive Dr.Rex">
-        <h3>Drive Dr.Rex</h3>
-        <p>Plugin premium para añadir saturación y color a tu audio.</p>
-        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="premium">Comprar Premium</a>
-    </div>
-</div>
-</section>
-   
+        <section id="sobre-mi">
+            <h2>Sobre Mí</h2>
+            <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted); line-height: 1.6;">
+            Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me encanta transformar sonidos y crear herramientas que ayuden a músicos como vos a mejorar su música.
+            </p>
+        </section>
 
-       <section id="librerias">
-  <div class="content">
-    <h2>Librerías de Sonido</h2>
-    <p>Explorá nuestras librerías de sonidos separados por instrumentos y categorías: conga, guiro, kick, cencerro y más. Cada librería lista para usar en tus producciones.</p>
-    <div class="buttons" style="justify-content:center; margin-top:20px;">
-      <a href="#" class="btn btn-free">Conga</a>
-      <a href="#" class="btn btn-free">Guiro</a>
-      <a href="#" class="btn btn-free">Kick</a>
-      <a href="#" class="btn btn-free">Cencerro</a>
-    </div>
-  </div>
-</section>
+        <section id="plugins">
+            <h2>Plugins Destacados</h2>
+            <div class="plugins-grid">
+                <div class="plugin-card">
+                    <img src="WIDER DR.REX.png" alt="Wider Dr.Rex">
+                    <h3>Wider Dr.Rex</h3>
+                    <p class="desc">Plugin gratuito para expandir tu sonido.</p>
+                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn-action btn-free-card">Descargar Gratis</a>
+                </div>
+
+                <div class="plugin-card">
+                    <img src="DRIVER DR.REX.png" alt="Drive Dr.Rex">
+                    <h3>Obtene también Drive Dr.Rex</h3>
+                    <p class="desc">Plugin premium para añadir saturación y color a tu audio.</p>
+                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card">Comprar Premium</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="librerias">
+            <div class="content">
+                <h2>Librerías de Sonido</h2>
+                <p>Explorá nuestras librerías de sonidos separados por instrumentos y categorías. Cada librería lista para usar en tus producciones.</p>
+                <div class="lib-btns">
+                    <a href="#" class="btn-lib">Conga</a>
+                    <a href="#" class="btn-lib">Guiro</a>
+                    <a href="#" class="btn-lib">Kick</a>
+                    <a href="#" class="btn-lib">Cencerro</a>
+                </div>
+            </div>
+        </section>
 
         <section id="contacto">
-<h2>Contacto & Redes</h2>
-<p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
-Para consultas, colaboraciones o pedidos de plugins, escribime a 
-<a href="mailto:dinnoismusic@gmail.com" style="color: var(--accent);">dinnoismusic@gmail.com</a>
-</p>
-<p style="text-align:center; margin-top: 15px;">
-<a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="color: var(--accent); margin:0 10px;">YouTube</a> |
-<a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram</a> |
-<a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram Dr.Rex</a> |
-<a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="color: var(--accent); margin:0 10px;">Facebook</a>
-</p>
-</section>
-
+            <h2>Contacto & Redes</h2>
+            <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
+            Para consultas, colaboraciones o pedidos de plugins, escribime a <br>
+            <a href="mailto:dinnoismusic@gmail.com" style="color: var(--ff-blue); text-decoration: none; font-weight: 600;">dinnoismusic@gmail.com</a>
+            </p>
+            <p style="text-align:center; margin-top: 25px;">
+                <a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">YouTube</a> |
+                <a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Instagram</a> |
+                <a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Instagram Dr.Rex</a> |
+                <a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Facebook</a>
+            </p>
+        </section>
 
     </div>
 
@@ -419,13 +455,13 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 sections.forEach(s => observer.observe(s));
 
-// Menu Toggle con animación de X
+// Menu Toggle
 const menuBtn = document.getElementById('menuBtn');
 const menuOverlay = document.getElementById('menuOverlay');
 
 menuBtn.addEventListener('click', () => {
     menuOverlay.classList.toggle('show');
-    menuBtn.classList.toggle('active'); // <- activa la X
+    menuBtn.classList.toggle('active');
     document.body.style.overflow = menuOverlay.classList.contains('show') ? 'hidden' : 'auto';
 });
 
@@ -433,7 +469,7 @@ menuBtn.addEventListener('click', () => {
 document.querySelectorAll('.overlay a').forEach(link => {
     link.addEventListener('click', () => {
         menuOverlay.classList.remove('show');
-        menuBtn.classList.remove('active'); // <- quita la X
+        menuBtn.classList.remove('active');
         document.body.style.overflow = 'auto';
     });
 });
