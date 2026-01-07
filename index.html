@@ -69,7 +69,18 @@ nav {
     height: 2px;
     background: var(--text);
     margin: 4px 0;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+}
+
+/* Animación X */
+.hamburger-wrapper.active .hamburger div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger-wrapper.active .hamburger div:nth-child(2) {
+    opacity: 0;
+}
+.hamburger-wrapper.active .hamburger div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
 }
 
 /* OVERLAY MENU */
@@ -408,11 +419,13 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 sections.forEach(s => observer.observe(s));
 
-// Menu Toggle
+// Menu Toggle con animación de X
 const menuBtn = document.getElementById('menuBtn');
 const menuOverlay = document.getElementById('menuOverlay');
+
 menuBtn.addEventListener('click', () => {
     menuOverlay.classList.toggle('show');
+    menuBtn.classList.toggle('active'); // <- activa la X
     document.body.style.overflow = menuOverlay.classList.contains('show') ? 'hidden' : 'auto';
 });
 
@@ -420,6 +433,7 @@ menuBtn.addEventListener('click', () => {
 document.querySelectorAll('.overlay a').forEach(link => {
     link.addEventListener('click', () => {
         menuOverlay.classList.remove('show');
+        menuBtn.classList.remove('active'); // <- quita la X
         document.body.style.overflow = 'auto';
     });
 });
