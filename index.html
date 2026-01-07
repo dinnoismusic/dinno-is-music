@@ -15,7 +15,7 @@
     --accent: #7cffb2;
     --text: #111111;
     --muted: #666666;
-    --menu-bg: #222222; /* gris uniforme sólido */
+    --menu-bg: #222222;
 }
 
 /* Reset y tipografía */
@@ -31,7 +31,7 @@ body {
     color: var(--text);
     line-height: 1.6;
     scroll-behavior: smooth;
-    overflow-x: hidden; /* evita deslizar horizontal */
+    overflow-x: hidden;
 }
 
 /* NAVBAR */
@@ -41,14 +41,13 @@ nav {
     width: 100%;
     background: rgba(255,255,255,0.95);
     display: flex;
-    justify-content: flex-end; /* menú a la derecha */
+    justify-content: flex-end;
     align-items: center;
     padding: 14px 20px;
-    z-index: 2000; /* más alto que overlay */
+    z-index: 2000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* Links desktop */
 nav ul {
     display: flex;
     list-style: none;
@@ -72,14 +71,12 @@ nav ul li a:hover {
     align-items: center;
     cursor: pointer;
     gap: 8px;
-    z-index: 2100; /* encima del overlay */
+    z-index: 2100;
 }
 
 .hamburger-wrapper span {
-    color: var(--text);
     font-weight: 600;
     font-size: 16px;
-    z-index: 2100;
 }
 
 .hamburger {
@@ -113,7 +110,7 @@ nav ul li a:hover {
     top: -100%;
     left: 0;
     width: 100%;
-    height: 80vh; /* más grande para cubrir hasta Contacto */
+    height: 80vh;
     background: var(--menu-bg);
     display: flex;
     justify-content: center;
@@ -122,7 +119,7 @@ nav ul li a:hover {
     gap: 20px;
     transition: top 0.5s ease;
     z-index: 1000;
-    padding-top: 60px; /* espacio para menú y hamburguesa */
+    padding-top: 60px;
 }
 
 .overlay.show {
@@ -134,14 +131,13 @@ nav ul li a:hover {
     text-decoration: none;
     font-weight: 400;
     font-size: 18px;
-    position: relative;
-    padding: 10px 0;
     width: 80%;
     text-align: center;
+    padding: 10px 0;
 }
 
 .overlay a + a {
-    border-top: 1px solid rgba(255,255,255,0.2); /* divisiones suaves */
+    border-top: 1px solid rgba(255,255,255,0.2);
 }
 
 /* HERO */
@@ -150,18 +146,12 @@ nav ul li a:hover {
     background-image: url('Fondo Abstracto.png');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     overflow: hidden;
-}
-
-.hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.15);
 }
 
 /* HERO CONTENT */
@@ -215,164 +205,21 @@ nav ul li a:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* CONTAINER */
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 80px 20px 40px;
-}
+/* MOBILE HERO */
+@media (max-width: 768px) {
+    .hero {
+        height: 75vh;
+        background-size: contain;
+    }
 
-/* SECCIONES */
-section {
-    margin-top: 80px;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.8s ease;
-}
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
 
-section.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+    .hero-content p {
+        font-size: 1rem;
+    }
 
-h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: var(--text);
-}
-
-/* VIDEO */
-.video-wrapper {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    border-radius: 12px;
-    background: #000;
-}
-
-.video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-/* AUDIO */
-.audio-box {
-    background: var(--card);
-    padding: 30px;
-    border-radius: 12px;
-    display: grid;
-    gap: 20px;
-    max-width: 700px;
-    margin: auto;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-}
-
-.audio-item p {
-    margin-bottom: 8px;
-    color: var(--muted);
-}
-
-/* PLUGINS DESTACADOS */
-.plugins-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 30px;
-}
-
-.plugin-card {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    max-width: 250px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.plugin-card img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 15px;
-}
-
-.plugin-card h3 {
-    margin-bottom: 10px;
-    color: var(--text);
-}
-
-.plugin-card p {
-    margin-bottom: 15px;
-    color: var(--muted);
-}
-
-.plugin-card a {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.plugin-card a.free, .plugin-card a.premium {
-    background: #fff;
-    color: #111;
-}
-
-.plugin-card a.free:hover, .plugin-card a.premium:hover {
-    background: #e0e0e0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-.plugin-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-}
-
-/* NUEVA SECCION LIBRERIAS */
-#librerias {
-    position: relative;
-    background-image: url('imagen-pagina-2.png');
-    background-size: cover;
-    background-position: center;
-    padding: 80px 20px;
-    z-index: 1;
-}
-
-#librerias::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.3);
-}
-
-#librerias .content {
-    position: relative;
-    max-width: 900px;
-    margin: auto;
-    text-align: center;
-    color: #111;
-}
-
-/* FOOTER */
-footer {
-    margin-top: 100px;
-    padding: 40px 20px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.9rem;
-    border-top: 1px solid #ddd;
-}
-
-/* MEDIA QUERIES */
-@media (max-width: 800px) {
     nav ul {
         display: none;
     }
@@ -412,7 +259,6 @@ footer {
     </div>
   </div>
 </header>
-
 <div class="container">
 
 <section id="plugin-demo">
@@ -456,6 +302,7 @@ Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me
         <p>Plugin gratuito para expandir tu sonido.</p>
         <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="free">Descargar Gratis</a>
     </div>
+
     <div class="plugin-card">
         <img src="DRIVER DR.REX.png" alt="Drive Dr.Rex">
         <h3>Drive Dr.Rex</h3>
@@ -468,7 +315,11 @@ Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me
 <section id="librerias">
   <div class="content">
     <h2>Librerías de Sonido</h2>
-    <p>Explorá nuestras librerías de sonidos separados por instrumentos y categorías: congas, guiro, kick, cencerros y más. Cada librería lista para usar en tus producciones.</p>
+    <p>
+      Explorá nuestras librerías de sonidos separados por instrumentos y categorías:
+      congas, guiro, kick, cencerros y más. Cada librería lista para usar en tus producciones.
+    </p>
+
     <div class="buttons" style="justify-content:center; margin-top:20px;">
       <a href="#" class="btn btn-free">Ver Librería de Congas</a>
       <a href="#" class="btn btn-free">Ver Librería de Guiro</a>
@@ -481,10 +332,13 @@ Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me
 <section id="contacto">
 <h2>Contacto & Redes</h2>
 <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
-Para consultas, colaboraciones o pedidos de plugins, escribime a 
-<a href="mailto:dinnoismusic@gmail.com" style="color: var(--accent);">dinnoismusic@gmail.com</a>
+Para consultas, colaboraciones o pedidos de plugins, escribime a
+<a href="mailto:dinnoismusic@gmail.com" style="color: var(--accent);">
+dinnoismusic@gmail.com
+</a>
 </p>
-<p style="text-align:center; margin-top: 15px;">
+
+<p style="text-align:center; margin-top:15px;">
 <a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="color: var(--accent); margin:0 10px;">YouTube</a> |
 <a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram</a> |
 <a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="color: var(--accent); margin:0 10px;">Instagram Dr.Rex</a> |
@@ -508,6 +362,7 @@ const observer = new IntersectionObserver(entries => {
         }
     });
 }, { threshold: 0.2 });
+
 sections.forEach(section => observer.observe(section));
 
 // Hero parallax zoom al hacer scroll
