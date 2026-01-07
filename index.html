@@ -244,18 +244,27 @@ h2 {
     border-color: var(--ff-blue);
 }
 
-/* EFECTO DE HUNDIMIENTO SOLICITADO */
+/* Imagen con link y efecto hundido */
+.plugin-card a.img-link {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
 .plugin-card img {
     width: 100%;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Transición suave */
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+/* Efecto al pasar el mouse por el card o el link */
 .plugin-card:hover img {
-    transform: scale(0.96); /* Se "hunde" hacia adentro */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* La sombra disminuye al hundirse */
+    transform: scale(0.96);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .plugin-card h3 {
@@ -403,17 +412,21 @@ footer {
             <h2>Plugins Destacados</h2>
             <div class="plugins-grid">
                 <div class="plugin-card">
-                    <img src="WIDER DR.REX.png" alt="Wider Dr.Rex">
+                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="img-link" target="_blank">
+                        <img src="WIDER DR.REX.png" alt="Wider Dr.Rex">
+                    </a>
                     <h3>Wider Dr.Rex</h3>
                     <p class="desc">Plugin gratuito para expandir tu sonido.</p>
-                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn-action btn-free-card">Descargar Gratis</a>
+                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn-action btn-free-card" target="_blank">Descargar Gratis</a>
                 </div>
 
                 <div class="plugin-card">
-                    <img src="DRIVER DR.REX.png" alt="Drive Dr.Rex">
+                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="img-link" target="_blank">
+                        <img src="DRIVER DR.REX.png" alt="Drive Dr.Rex">
+                    </a>
                     <h3>Obtene también Drive Dr.Rex</h3>
                     <p class="desc">Plugin premium para añadir saturación y color a tu audio.</p>
-                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card">Comprar Premium</a>
+                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card" target="_blank">Comprar Premium</a>
                 </div>
             </div>
         </section>
