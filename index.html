@@ -505,11 +505,26 @@ document.querySelectorAll('.overlay a').forEach(link => {
     });
 });
 
-// === HERO PARALLAX + ZOOM INVERSO ===
+// === HERO PARALLAX + ZOOM SOLO EN FONDO ===
+const heroBg = document.createElement('div');
+heroBg.classList.add('hero-bg');
+heroBg.style.position = 'absolute';
+heroBg.style.inset = '0';
+heroBg.style.background = "url('Fondo Abstracto.png') center/cover no-repeat";
+heroBg.style.transform = 'scale(1.15)'; // zoom inicial
+heroBg.style.transition = 'transform 0.2s ease-out';
+heroBg.style.zIndex = '1';
+
 const hero = document.querySelector('.hero');
-let scrollY = 0;
-let current = 0;
-const initialScale = 1.05; // zoom inicial al cargar
+hero.style.position = 'relative';
+hero.style.overflow = 'hidden';
+hero.insertBefore(heroBg, hero.firstChild);
+
+const heroContent = hero.querySelector('.hero-content');
+heroContent.style.position = 'relative';
+heroContent.style.zIndex = '2';
+
+let scrollY = 0, current = 0;
 
 window.addEventListener('scroll', () => {
     scrollY = window.scrollY;
@@ -520,12 +535,10 @@ function lerp(start, end, factor) {
 }
 
 function animateHero() {
-    current = lerp(current, scrollY, 0.08); // suavizado del scroll
-    // Movimiento de fondo (parallax)
-    hero.style.backgroundPosition = `center ${current * 0.3}px`;
-    // Zoom inverso: comienza más grande y se reduce al tamaño normal
-    const scale = Math.max(initialScale - current * 0.0008, 1); 
-    hero.style.transform = `scale(${scale})`;
+    current = lerp(current, scrollY, 0.08);
+    // Zoom del fondo, sin mover el hero completo
+    const scaleValue = Math.max(1, 1.15 - current * 0.0012);
+    heroBg.style.transform = `scale(${scaleValue})`;
     requestAnimationFrame(animateHero);
 }
 
