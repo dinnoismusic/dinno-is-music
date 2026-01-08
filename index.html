@@ -505,7 +505,7 @@ footer {
     });
   });
 
-  // === HERO PARALLAX + ZOOM MÁS FUERTE Y SUAVE ===
+  // === HERO PARALLAX + ZOOM MÁS RÁPIDO ===
   const hero = document.querySelector('.hero');
   const heroBg = document.createElement('div');
 
@@ -513,8 +513,8 @@ footer {
   heroBg.style.position = 'absolute';
   heroBg.style.inset = '0';
   heroBg.style.background = "url('Fondo Abstracto.png') center/cover no-repeat";
-  heroBg.style.transform = 'scale(1.5)'; // ⚡ Zoom inicial mucho mayor
-  heroBg.style.transition = 'transform 0.2s ease-out';
+  heroBg.style.transform = 'scale(1.5)'; // ⚡ Zoom inicial
+  heroBg.style.transition = 'transform 0.1s ease-out'; // transicion más rápida
   heroBg.style.zIndex = '1';
 
   hero.style.position = 'relative';
@@ -536,15 +536,16 @@ footer {
   }
 
   function animateHero() {
-    current = lerp(current, scrollY, 0.04); // ⚡ factor más pequeño → movimiento más lento
-    // Zoom del fondo: empieza muy grande y baja lentamente
-    const scaleValue = Math.max(1, 1.5 - current * 0.0012); // ajusta 1.5 y 0.0012 para zoom más dramático y lento
+    current = lerp(current, scrollY, 0.12); // ⚡ más rápido, sube y baja más rápido
+    // Zoom del fondo: empieza muy grande y baja rápidamente
+    const scaleValue = Math.max(1, 1.5 - current * 0.002); // ajusta para mayor velocidad
     heroBg.style.transform = `scale(${scaleValue})`;
     requestAnimationFrame(animateHero);
   }
 
   animateHero();
 </script>
+
 
 
 
