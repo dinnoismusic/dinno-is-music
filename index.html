@@ -505,10 +505,11 @@ document.querySelectorAll('.overlay a').forEach(link => {
     });
 });
 
-// === HERO PARALLAX + ZOOM ===
+// === HERO PARALLAX + ZOOM INVERSO ===
 const hero = document.querySelector('.hero');
 let scrollY = 0;
 let current = 0;
+const initialScale = 1.05; // zoom inicial al cargar
 
 window.addEventListener('scroll', () => {
     scrollY = window.scrollY;
@@ -519,17 +520,18 @@ function lerp(start, end, factor) {
 }
 
 function animateHero() {
-    current = lerp(current, scrollY, 0.08); // suavizado
+    current = lerp(current, scrollY, 0.08); // suavizado del scroll
     // Movimiento de fondo (parallax)
     hero.style.backgroundPosition = `center ${current * 0.3}px`;
-    // Zoom suave
-    const scale = 1 + current * 0.0008; // ajusta factor para más/menos zoom
+    // Zoom inverso: comienza más grande y se reduce al tamaño normal
+    const scale = Math.max(initialScale - current * 0.0008, 1); 
     hero.style.transform = `scale(${scale})`;
     requestAnimationFrame(animateHero);
 }
 
 animateHero();
 </script>
+
 
 </body>
 </html>
