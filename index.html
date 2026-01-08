@@ -537,7 +537,7 @@ function lerp(start, end, factor) {
 function animateHero() {
     current = lerp(current, scrollY, 0.12); // factor más alto = zoom más rápido
     // Zoom: empieza grande y se reduce al bajar scroll
-    const scaleValue = Math.max(1, 1.50 - current * 0.002); 
+    const scaleValue = Math.max(1, 1.35 - current * 0.002); 
     heroBg.style.transform = `scale(${scaleValue})`;
     // Parallax vertical suave
     heroBg.style.backgroundPosition = `center ${current * 0.25}px`;
