@@ -477,60 +477,75 @@ footer {
 </div>
 
 <script>
-// Fade-in effect on scroll
-const sections = document.querySelectorAll('section');
-const observer = new IntersectionObserver(entries => {
+  // === FADE-IN EFFECT ON SCROLL ===
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-        if(entry.isIntersecting) entry.target.classList.add('visible');
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-}, { threshold: 0.1 });
-sections.forEach(s => observer.observe(s));
+  }, { threshold: 0.1 });
+  sections.forEach(s => observer.observe(s));
 
-// Menu Toggle
-const menuBtn = document.getElementById('menuBtn');
-const menuOverlay = document.getElementById('menuOverlay');
+  // === MENU TOGGLE ===
+  const menuBtn = document.getElementById('menuBtn');
+  const menuOverlay = document.getElementById('menuOverlay');
 
-menuBtn.addEventListener('click', () => {
+  menuBtn.addEventListener('click', () => {
     menuOverlay.classList.toggle('show');
     menuBtn.classList.toggle('active');
     document.body.style.overflow = menuOverlay.classList.contains('show') ? 'hidden' : 'auto';
-});
+  });
 
-// Close menu on link click
-document.querySelectorAll('.overlay a').forEach(link => {
+  // Close menu on link click
+  document.querySelectorAll('.overlay a').forEach(link => {
     link.addEventListener('click', () => {
-        menuOverlay.classList.remove('show');
-        menuBtn.classList.remove('active');
-        document.body.style.overflow = 'auto';
+      menuOverlay.classList.remove('show');
+      menuBtn.classList.remove('active');
+      document.body.style.overflow = 'auto';
     });
-});
+  });
 
-// === HERO ZOOM INICIAL FUERTE FIJO ===
-const heroBg = document.createElement('div');
-heroBg.classList.add('hero-bg');
-heroBg.style.position = 'absolute';
-heroBg.style.inset = '0';
-heroBg.style.background = "url('Fondo Abstracto.png') center/cover no-repeat";
-heroBg.style.transform = 'scale(1.5)'; // ⚡ Zoom inicial grande
-heroBg.style.transition = 'transform 0.4s ease-out'; // transición rápida
-heroBg.style.zIndex = '1';
+  // === HERO PARALLAX + ZOOM MÁS FUERTE Y SUAVE ===
+  const hero = document.querySelector('.hero');
+  const heroBg = document.createElement('div');
 
-const hero = document.querySelector('.hero');
-hero.style.position = 'relative';
-hero.style.overflow = 'hidden';
-hero.insertBefore(heroBg, hero.firstChild);
+  heroBg.classList.add('hero-bg');
+  heroBg.style.position = 'absolute';
+  heroBg.style.inset = '0';
+  heroBg.style.background = "url('Fondo Abstracto.png') center/cover no-repeat";
+  heroBg.style.transform = 'scale(1.5)'; // ⚡ Zoom inicial mucho mayor
+  heroBg.style.transition = 'transform 0.2s ease-out';
+  heroBg.style.zIndex = '1';
 
-const heroContent = hero.querySelector('.hero-content');
-heroContent.style.position = 'relative';
-heroContent.style.zIndex = '2';
+  hero.style.position = 'relative';
+  hero.style.overflow = 'hidden';
+  hero.insertBefore(heroBg, hero.firstChild);
 
-// Animación para reducir el zoom al tamaño normal
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        heroBg.style.transform = 'scale(1)'; // escala normal
-    }, 100); // espera 100ms para que cargue la página
-});
+  const heroContent = hero.querySelector('.hero-content');
+  heroContent.style.position = 'relative';
+  heroContent.style.zIndex = '2';
+
+  let scrollY = 0, current = 0;
+
+  window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
+  });
+
+  function lerp(start, end, factor) {
+    return start + (end - start) * factor;
+  }
+
+  function animateHero() {
+    current = lerp(current, scrollY, 0.04); // ⚡ factor más pequeño → movimiento más lento
+    // Zoom del fondo: empieza muy grande y baja lentamente
+    const scaleValue = Math.max(1, 1.5 - current * 0.0012); // ajusta 1.5 y 0.0012 para zoom más dramático y lento
+    heroBg.style.transform = `scale(${scaleValue})`;
+    requestAnimationFrame(animateHero);
+  }
+
+  animateHero();
 </script>
+
 
 
 </script>
