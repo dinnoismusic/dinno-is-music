@@ -505,13 +505,13 @@ document.querySelectorAll('.overlay a').forEach(link => {
     });
 });
 
-// === HERO PARALLAX + ZOOM SOLO EN FONDO ===
+// === HERO PARALLAX + ZOOM MÁS FUERTE AL INICIO ===
 const heroBg = document.createElement('div');
 heroBg.classList.add('hero-bg');
 heroBg.style.position = 'absolute';
 heroBg.style.inset = '0';
 heroBg.style.background = "url('Fondo Abstracto.png') center/cover no-repeat";
-heroBg.style.transform = 'scale(1.15)'; // zoom inicial
+heroBg.style.transform = 'scale(1.25)'; // ⚡ Zoom inicial más grande
 heroBg.style.transition = 'transform 0.2s ease-out';
 heroBg.style.zIndex = '1';
 
@@ -536,14 +536,15 @@ function lerp(start, end, factor) {
 
 function animateHero() {
     current = lerp(current, scrollY, 0.08);
-    // Zoom del fondo, sin mover el hero completo
-    const scaleValue = Math.max(1, 1.15 - current * 0.0012);
+    // Zoom del fondo: empieza grande y se va reduciendo
+    const scaleValue = Math.max(1, 1.25 - current * 0.0015); // ajusta 1.25 y 0.0015 para más/menos zoom
     heroBg.style.transform = `scale(${scaleValue})`;
     requestAnimationFrame(animateHero);
 }
 
 animateHero();
 </script>
+
 
 
 </body>
