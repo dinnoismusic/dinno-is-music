@@ -505,14 +505,14 @@ document.querySelectorAll('.overlay a').forEach(link => {
     });
 });
 
-// === HERO PARALLAX + ZOOM MÁS FUERTE Y SUAVE ===
+// === HERO ZOOM INICIAL FUERTE FIJO ===
 const heroBg = document.createElement('div');
 heroBg.classList.add('hero-bg');
 heroBg.style.position = 'absolute';
 heroBg.style.inset = '0';
 heroBg.style.background = "url('Fondo Abstracto.png') center/cover no-repeat";
-heroBg.style.transform = 'scale(1.5)'; // ⚡ Zoom inicial mucho mayor
-heroBg.style.transition = 'transform 0.2s ease-out';
+heroBg.style.transform = 'scale(1.5)'; // ⚡ Zoom inicial grande
+heroBg.style.transition = 'transform 0.4s ease-out'; // transición rápida
 heroBg.style.zIndex = '1';
 
 const hero = document.querySelector('.hero');
@@ -524,26 +524,14 @@ const heroContent = hero.querySelector('.hero-content');
 heroContent.style.position = 'relative';
 heroContent.style.zIndex = '2';
 
-let scrollY = 0, current = 0;
-
-window.addEventListener('scroll', () => {
-    scrollY = window.scrollY;
+// Animación para reducir el zoom al tamaño normal
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        heroBg.style.transform = 'scale(1)'; // escala normal
+    }, 100); // espera 100ms para que cargue la página
 });
-
-function lerp(start, end, factor) {
-    return start + (end - start) * factor;
-}
-
-function animateHero() {
-    current = lerp(current, scrollY, 0.04); // ⚡ factor más pequeño → movimiento más lento
-    // Zoom del fondo: empieza muy grande y baja lentamente
-    const scaleValue = Math.max(1, 1.5 - current * 0.0012); // ajusta 1.5 y 0.0012 para zoom más dramático y lento
-    heroBg.style.transform = `scale(${scaleValue})`;
-    requestAnimationFrame(animateHero);
-}
-
-animateHero();
 </script>
+
 
 </script>
 
