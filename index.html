@@ -303,36 +303,64 @@ h2 {
     border: 1px solid #eee;
 }
 
-/* LIBRERIAS SECTION */
-#librerias {
-    background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url('imagen-pagina-2.png') center/cover;
-    padding: 100px 20px;
+/* LIBRERÍAS - ESTILOS NUEVOS */
+.libraries {
+    padding: 80px 20px;
+    background: #ffffff;
+}
+
+.libraries h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
     text-align: center;
 }
 
-.lib-btns {
+.libraries-scroll {
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 20px;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
 }
 
-.btn-lib {
-    background: #fff;
-    color: #111;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: 500;
-    font-size: 0.9rem;
+/* Scrollbar para Chrome/Safari */
+.libraries-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.libraries-scroll::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.library-card {
+    min-width: 260px;
+    background: #f9f9f9;
+    border-radius: 14px;
+    padding: 15px;
+    text-align: center;
+    scroll-snap-align: start;
+    transition: transform 0.3s ease;
     border: 1px solid #eee;
-    transition: all 0.3s ease;
 }
 
-.btn-lib:hover {
-    background: var(--ff-blue);
-    color: #fff;
+.library-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--ff-blue);
+}
+
+.library-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.library-card p {
+    font-weight: 500;
+    color: var(--text);
 }
 
 /* FOOTER */
@@ -441,21 +469,26 @@ footer {
             </div>
         </section>
         
-     <section id="librerias">
-    <div class="content">
-        <h2>Librerías de Sonido</h2>
-        <p>Explorá nuestras librerías de sonidos separados por instrumentos y categorías. Cada librería lista para usar en tus producciones.</p>
-        <div class="lib-btns">
-            <!-- Botón con link de pago MercadoPago -->
-            <a href="https://mpago.la/1ki4g1o" class="btn-lib" target="_blank">Conga</a>
+        <section id="librerias" class="libraries">
+          <h2>Librerías de Sonido</h2>
 
-            <!-- Botones listos para agregar links más adelante -->
-            <a href="#" class="btn-lib">Guiro</a>
-            <a href="#" class="btn-lib">Kick</a>
-            <a href="#" class="btn-lib">Cencerro</a>
-        </div>
-    </div>
-</section>
+          <div class="libraries-scroll">
+            <div class="library-card">
+              <img src="DIINO PACK MACHINE.png" alt="Diino Pack Machine">
+              <p>Diino Pack Machine</p>
+            </div>
+
+            <div class="library-card">
+              <img src="Libreria Vol 1 Dinno Is Music.png" alt="Librería Vol 1">
+              <p>Librería Vol 1</p>
+            </div>
+
+            <div class="library-card">
+              <img src="libreria flocklore.png" alt="Librería Flocklore">
+              <p>Librería Flocklore</p>
+            </div>
+          </div>
+        </section>
 
         <section id="contacto">
             <h2>Contacto & Redes</h2>
@@ -548,13 +581,6 @@ footer {
 
   animateHero();
 </script>
-
-
-
-
-</script>
-
-
 
 </body>
 </html>
