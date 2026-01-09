@@ -1,6 +1,8 @@
+<!DOCTYPE html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Dinno Is Music</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,7 +13,7 @@
     --card: #f9f9f9;
     --text: #333333;
     --muted: #666666;
-    --ff-blue: #00a0ff;
+    --ff-blue: #00a0ff; /* Azul característico FabFilter */
     --ff-blue-hover: #0080cc;
     --ff-border: #cccccc;
     --menu-bg: #222222;
@@ -23,24 +25,24 @@
     margin: 0;
     padding: 0;
     font-family: 'Poppins', Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent; /* Elimina flash azul en móviles al tocar */
 }
 
 html, body {
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden;
+    overflow-x: hidden; /* CRÍTICO PARA MÓVIL: Evita scroll horizontal */
     position: relative;
     background: var(--bg);
     color: var(--text);
     scroll-behavior: smooth;
 }
 
-/* WRAPPER PRINCIPAL */
 .main-wrapper {
     width: 100%;
-    max-width: 100vw;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 /* NAVBAR */
@@ -52,18 +54,18 @@ nav {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 12px 25px;
+    padding: 12px 20px; /* Reducido levemente padding lateral */
     z-index: 2000;
     border-bottom: 1px solid #eeeeee;
 }
 
-/* HAMBURGUESA */
 .hamburger-wrapper {
     display: flex;
     align-items: center;
     cursor: pointer;
     gap: 10px;
 }
+
 .hamburger div {
     width: 22px;
     height: 2px;
@@ -71,6 +73,8 @@ nav {
     margin: 4px 0;
     transition: all 0.3s ease;
 }
+
+/* Animación X */
 .hamburger-wrapper.active .hamburger div:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
@@ -87,7 +91,8 @@ nav {
     top: -100%;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100vh; /* Fallback */
+    height: 100dvh; /* Dynamic Viewport Height para móviles */
     background: var(--menu-bg);
     display: flex;
     justify-content: center;
@@ -111,16 +116,14 @@ nav {
 
 /* HERO */
 .hero {
-    height: 100vh;
+    height: 100vh; /* Fallback */
+    height: 100dvh; /* Mejor ajuste en móviles con barras de navegación */
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     text-align: center;
     overflow: hidden;
-    background: url('Fondo Abstracto.png') center/cover no-repeat; /* ⚡ cargado desde CSS */
-    transform: scale(1.5); /* zoom inicial */
-    transition: transform 0.1s ease-out;
 }
 
 .hero::after {
@@ -128,31 +131,34 @@ nav {
     position: absolute;
     inset: 0;
     background: rgba(0,0,0,0.35);
-    z-index: 1;
+    pointer-events: none; /* Permite scroll sobre el overlay */
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
     padding: 0 20px;
-    margin-top: 100px;
+    margin-top: 60px; /* Ajuste para que no choque con navbar */
+    width: 100%;
 }
 
 .hero-content h1 {
-    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-size: clamp(2rem, 8vw, 4rem); /* Clamp ajustado para móviles pequeños */
     color: #fff;
     font-weight: 700;
     margin-bottom: 5px;
+    line-height: 1.2;
 }
+
 .hero-content p {
-    font-size: clamp(1rem, 4vw, 1.3rem);
+    font-size: clamp(0.9rem, 4vw, 1.3rem);
     color: #ffff00;
     font-weight: 500;
     margin-bottom: 35px;
     letter-spacing: 1px;
 }
 
-/* BOTONES HERO */
+/* BOTÓN EXPLORAR */
 .btn-explorar {
     display: inline-block;
     padding: 14px 40px;
@@ -166,15 +172,14 @@ nav {
     color: #111;
     border: none;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    max-width: 300px;
-    width: 100%;
+    -webkit-appearance: none; /* Fix botones iOS */
 }
+
 .btn-explorar:hover {
     background: var(--ff-blue);
     color: #fff;
     transform: translateY(-2px);
 }
-
 
 /* BOTONES DE ACCIÓN (CARDS) */
 .btn-action {
@@ -186,12 +191,17 @@ nav {
     border-radius: 50px;
     transition: all 0.3s ease;
     margin-top: 15px;
-    max-width: 250px;
-    width: 100%;
 }
 
-.btn-free-card { background: #444; color: #fff; }
-.btn-premium-card { background: var(--ff-blue); color: #fff; }
+.btn-free-card {
+    background: #444;
+    color: #fff;
+}
+
+.btn-premium-card {
+    background: var(--ff-blue);
+    color: #fff;
+}
 
 .btn-action:hover {
     filter: brightness(1.2);
@@ -200,35 +210,49 @@ nav {
 
 /* SECCIONES */
 .container {
+    width: 100%;
     max-width: 1050px;
     margin: auto;
-    padding: 80px 20px;
+    padding: 60px 20px; /* Padding vertical reducido levemente */
+    overflow: hidden; /* Previene desborde de contenido interno */
 }
 
 section {
-    margin-bottom: 100px;
+    margin-bottom: 80px;
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.8s ease;
 }
-section.visible { opacity: 1; transform: translateY(0); }
 
-h2 { text-align: center; font-size: 1.8rem; margin-bottom: 40px; font-weight: 600; }
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-/* PLUGINS GRID */
+h2 {
+    text-align: center;
+    font-size: clamp(1.5rem, 5vw, 1.8rem); /* Responsive title sizing */
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+/* PLUGINS GRID - OPTIMIZADO PARA MÓVIL */
 .plugins-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
+    /* Cambio crítico: minmax reducido a 260px para celulares angostos */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    width: 100%;
 }
 
 .plugin-card {
     background: var(--card);
     border: 1px solid #eee;
-    padding: 30px;
+    padding: 25px 20px; /* Padding lateral reducido */
     border-radius: 12px;
     text-align: center;
     transition: border-color 0.3s, transform 0.3s;
+    width: 100%; /* Asegura ancho completo en grid */
 }
 
 .plugin-card:hover {
@@ -247,8 +271,9 @@ h2 { text-align: center; font-size: 1.8rem; margin-bottom: 40px; font-weight: 60
 
 .plugin-card img {
     width: 100%;
+    height: auto; /* Mantiene ratio */
     display: block;
-    transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.3s;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
@@ -257,56 +282,116 @@ h2 { text-align: center; font-size: 1.8rem; margin-bottom: 40px; font-weight: 60
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-.plugin-card h3 { margin-bottom: 10px; }
-.plugin-card .desc { font-size: 0.95rem; color: var(--muted); min-height: 50px; }
+.plugin-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.plugin-card .desc {
+    font-size: 0.95rem;
+    color: var(--muted);
+    min-height: auto; /* Auto altura en móvil */
+    margin-bottom: 15px;
+}
 
 /* AUDIO & VIDEO */
-.video-wrapper { position: relative; padding-bottom: 56.25%; background: #000; border-radius: 8px; overflow: hidden; }
-.video-wrapper iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+.video-wrapper iframe {
+    position: absolute;
+    top:0; left:0; width:100%; height:100%; border:0;
+}
 
 .audio-box {
     background: var(--card);
-    padding: 30px;
+    padding: 20px;
     border-radius: 8px;
     max-width: 600px;
     margin: auto;
     border: 1px solid #eee;
+    width: 100%;
 }
 
 /* LIBRERÍAS */
 .libraries {
-    padding: 80px 20px;
+    padding: 60px 0; /* Padding lateral quitado para permitir scroll completo */
     background: #ffffff;
+    width: 100%;
 }
 
-.libraries h2 { font-size: 28px; margin-bottom: 25px; text-align: center; }
+.libraries h2 {
+    padding: 0 20px;
+}
 
 .libraries-scroll {
     display: flex;
-    flex-wrap: nowrap;
-    gap: 20px;
+    gap: 15px;
     overflow-x: auto;
+    padding: 10px 20px 25px 20px; /* Padding para mostrar sombras y scroll */
     scroll-snap-type: x mandatory;
-    padding-bottom: 15px;
-    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+    -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+}
+
+/* Scrollbar para Chrome/Safari */
+.libraries-scroll::-webkit-scrollbar {
+    height: 6px; /* Más sutil */
+}
+
+.libraries-scroll::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
 }
 
 .library-card {
-    flex: 0 0 auto;
-    min-width: 260px;
-    max-width: 260px;
+    min-width: 220px; /* Reducido para que quepan más en pantallas pequeñas */
+    max-width: 220px;
     background: #f9f9f9;
     border-radius: 14px;
     padding: 15px;
     text-align: center;
-    scroll-snap-align: start;
+    scroll-snap-align: center; /* Centrar al hacer scroll */
     transition: transform 0.3s ease;
     border: 1px solid #eee;
 }
 
-.library-card:hover { transform: translateY(-5px); border-color: var(--ff-blue); }
-.library-card img { width: 100%; border-radius: 10px; margin-bottom: 10px; display: block; }
-.library-card p { font-weight: 500; color: var(--text); }
+.library-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--ff-blue);
+}
+
+.library-card img {
+    width: 100%;
+    aspect-ratio: 1/1; /* Cuadrado perfecto */
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.library-card p {
+    font-weight: 500;
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+/* CONTACTO */
+#contacto p {
+    word-break: break-word; /* Evita que correos largos rompan el layout */
+    padding: 0 10px;
+}
+
+#contacto a {
+    display: inline-block;
+    margin-bottom: 5px;
+}
 
 /* FOOTER */
 footer {
@@ -317,24 +402,38 @@ footer {
     border-top: 1px solid #eee;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-    .plugins-grid { gap: 30px; }
-    .library-card { min-width: 220px; max-width: 220px; }
-}
+/* ===== MEDIA QUERIES FINALES PARA AJUSTE FINO ===== */
+@media (max-width: 480px) {
+    .container {
+        padding: 40px 15px;
+    }
+    
+    .plugins-grid {
+        grid-template-columns: 1fr; /* Una sola columna en móviles muy chicos */
+    }
 
-@media (max-width: 600px) {
-    .hero { height: calc(100vh - 60px); }
-    .hero-content { margin-top: 20px; padding: 0 15px; }
-    .hero-content h1 { font-size: 2rem; }
-    .hero-content p { font-size: 1rem; }
-    .btn-explorar, .btn-action { width: 90%; }
-    .libraries { padding: 50px 10px; }
-    .libraries-scroll { gap: 15px; }
-    .library-card { min-width: 180px; max-width: 200px; }
-    .library-card img { height: 120px; object-fit: cover; }
-    .libraries h2 { font-size: 24px; }
-    .library-card p { font-size: 0.9rem; }
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+    
+    .btn-explorar {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .audio-box {
+        padding: 15px;
+    }
+
+    /* Ajuste de enlaces redes sociales para que no se amontonen */
+    #contacto p:last-child {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    #contacto p:last-child a {
+        margin: 0;
+    }
 }
 </style>
 </head>
@@ -346,7 +445,9 @@ footer {
     <nav>
         <div class="hamburger-wrapper" id="menuBtn">
             <span style="font-weight: 500; font-size: 14px;">MENU</span>
-            <div class="hamburger"><div></div><div></div><div></div></div>
+            <div class="hamburger">
+                <div></div><div></div><div></div>
+            </div>
         </div>
     </nav>
 
@@ -370,7 +471,7 @@ footer {
     </header>
 
     <div class="container">
-        <!-- Secciones igual que tu código original -->
+
         <section id="plugin-demo">
             <h2>Demo del Plugin</h2>
             <div class="video-wrapper">
@@ -383,11 +484,15 @@ footer {
             <div class="audio-box">
                 <div class="audio-item">
                     <p>Antes</p>
-                    <audio controls style="width:100%;"><source src="antes.mp3" type="audio/mpeg"></audio>
+                    <audio controls style="width:100%;">
+                        <source src="antes.mp3" type="audio/mpeg">
+                    </audio>
                 </div>
                 <div class="audio-item" style="margin-top:20px;">
                     <p>Después</p>
-                    <audio controls style="width:100%;"><source src="despues.mp3" type="audio/mpeg"></audio>
+                    <audio controls style="width:100%;">
+                        <source src="despues.mp3" type="audio/mpeg">
+                    </audio>
                 </div>
             </div>
         </section>
@@ -415,42 +520,46 @@ footer {
                     <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="img-link" target="_blank">
                         <img src="DRIVER DR.REX.png" alt="Drive Dr.Rex">
                     </a>
-                    <h3>Obtene también Drive Dr.Rex</h3>
-                    <p class="desc">Plugin premium para añadir saturación y color a tu audio.</p>
+                    <h3>Drive Dr.Rex</h3>
+                    <p class="desc">Añadí saturación y color analógico a tus mezclas.</p>
                     <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card" target="_blank">Comprar Premium</a>
                 </div>
             </div>
         </section>
         
-        <section id="librerias" class="libraries">
-          <h2>Librerías de Sonido</h2>
+        </div> <div class="libraries-wrapper" style="width:100%; max-width:100vw; overflow:hidden;">
+            <section id="librerias" class="libraries">
+              <h2>Librerías de Sonido</h2>
+    
+              <div class="libraries-scroll">
+                <div class="library-card">
+                  <img src="DIINO PACK MACHINE.png" alt="Diino Pack Machine">
+                  <p>Diino Pack Machine</p>
+                </div>
+    
+                <div class="library-card">
+                  <img src="Libreria Vol 1 Dinno Is Music.png" alt="Librería Vol 1">
+                  <p>Librería Vol 1</p>
+                </div>
+    
+                <div class="library-card">
+                  <img src="libreria flocklore.png" alt="Librería Flocklore">
+                  <p>Librería Flocklore</p>
+                </div>
+              </div>
+            </section>
+        </div>
 
-          <div class="libraries-scroll">
-            <div class="library-card">
-              <img src="DIINO PACK MACHINE.png" alt="Diino Pack Machine">
-              <p>Diino Pack Machine</p>
-            </div>
-            <div class="library-card">
-              <img src="Libreria Vol 1 Dinno Is Music.png" alt="Librería Vol 1">
-              <p>Librería Vol 1</p>
-            </div>
-            <div class="library-card">
-              <img src="libreria flocklore.png" alt="Librería Flocklore">
-              <p>Librería Flocklore</p>
-            </div>
-          </div>
-        </section>
-
-        <section id="contacto">
+        <div class="container"> <section id="contacto">
             <h2>Contacto & Redes</h2>
             <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
             Para consultas, colaboraciones o pedidos de plugins, escribime a <br>
             <a href="mailto:dinnoismusic@gmail.com" style="color: var(--ff-blue); text-decoration: none; font-weight: 600;">dinnoismusic@gmail.com</a>
             </p>
             <p style="text-align:center; margin-top: 25px;">
-                <a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">YouTube</a> |
-                <a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Instagram</a> |
-                <a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Instagram Dr.Rex</a> |
+                <a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">YouTube</a> 
+                <a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Instagram</a> 
+                <a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Instagram Dr.Rex</a> 
                 <a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Facebook</a>
             </p>
         </section>
@@ -464,7 +573,7 @@ footer {
 </div>
 
 <script>
-  // FADE-IN SECCIONES
+  // === FADE-IN EFFECT ON SCROLL ===
   const sections = document.querySelectorAll('section');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -492,7 +601,7 @@ footer {
     });
   });
 
-  // === HERO PARALLAX + ZOOM MÁS RÁPIDO ===
+  // === HERO PARALLAX + ZOOM MÁS RÁPIDO (OPTIMIZADO PARA MÓVIL) ===
   const hero = document.querySelector('.hero');
   const heroBg = document.createElement('div');
 
@@ -500,8 +609,9 @@ footer {
   heroBg.style.position = 'absolute';
   heroBg.style.inset = '0';
   heroBg.style.background = "url('Fondo Abstracto.png') center/cover no-repeat";
-  heroBg.style.transform = 'scale(1.5)'; // ⚡ Zoom inicial
-  heroBg.style.transition = 'transform 0.1s ease-out'; // transicion más rápida
+  heroBg.style.transform = 'scale(1.5) translateZ(0)'; // translateZ fuerza GPU
+  heroBg.style.willChange = 'transform'; // Optimización para móviles
+  heroBg.style.transition = 'transform 0.1s linear'; // Suaviza el scroll rápido
   heroBg.style.zIndex = '1';
 
   hero.style.position = 'relative';
@@ -512,7 +622,8 @@ footer {
   heroContent.style.position = 'relative';
   heroContent.style.zIndex = '2';
 
-  let scrollY = 0, current = 0;
+  let scrollY = 0;
+  let current = 0;
 
   window.addEventListener('scroll', () => {
     scrollY = window.scrollY;
@@ -523,11 +634,20 @@ footer {
   }
 
   function animateHero() {
-    current = lerp(current, scrollY, 0.12); // ⚡ más rápido, sube y baja más rápido
-    // Zoom del fondo: empieza muy grande y baja rápidamente
+    // Si estamos en móvil y pasamos el hero, paramos el cálculo para ahorrar batería
+    if (window.innerWidth < 768 && scrollY > window.innerHeight) {
+        requestAnimationFrame(animateHero);
+        return;
+    }
+
+    current = lerp(current, scrollY, 0.12);
+    
+    // Zoom lógico modificado para evitar glitches en iOS
     const scaleValue = Math.max(1, Math.min(1.2, 1.5 - current * 0.002));
-     // ajusta para mayor velocidad
-    heroBg.style.transform = `scale(${scaleValue})`;
+    
+    // Usamos translate3d para mejor rendimiento en móviles
+    heroBg.style.transform = `scale(${scaleValue}) translate3d(0,0,0)`;
+    
     requestAnimationFrame(animateHero);
   }
 
