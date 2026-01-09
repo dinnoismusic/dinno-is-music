@@ -303,7 +303,7 @@ h2 {
     border: 1px solid #eee;
 }
 
-/* LIBRERÍAS - ESTILOS NUEVOS */
+/* LIBRERÍAS - ESTILOS NUEVOS RESPONSIVOS */
 .libraries {
     padding: 80px 20px;
     background: #ffffff;
@@ -337,6 +337,7 @@ h2 {
 
 .library-card {
     min-width: 260px;
+    max-width: 260px;
     background: #f9f9f9;
     border-radius: 14px;
     padding: 15px;
@@ -362,6 +363,36 @@ h2 {
     font-weight: 500;
     color: var(--text);
 }
+
+/* ===== RESPONSIVE MÓVILES ===== */
+@media (max-width: 600px) {
+    .libraries {
+        padding: 50px 10px;
+    }
+
+    .libraries-scroll {
+        gap: 15px;
+    }
+
+    .library-card {
+        min-width: 180px;
+        max-width: 200px;
+    }
+
+    .library-card img {
+        height: 120px;
+        object-fit: cover;
+    }
+
+    .libraries h2 {
+        font-size: 24px;
+    }
+
+    .library-card p {
+        font-size: 0.9rem;
+    }
+}
+
 
 /* FOOTER */
 footer {
