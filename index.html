@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Dinno Is Music</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,13 +13,13 @@
     --card: #f9f9f9;
     --text: #333333;
     --muted: #666666;
-    --ff-blue: #00a0ff;
+    --ff-blue: #00a0ff; /* Azul característico FabFilter */
     --ff-blue-hover: #0080cc;
     --ff-border: #cccccc;
     --menu-bg: #222222;
 }
 
-/* RESET */
+/* RESET ESTRÍCTO */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -31,14 +31,10 @@ html, body {
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
+    position: relative;
     background: var(--bg);
     color: var(--text);
     scroll-behavior: smooth;
-}
-
-/* FIX: evita que el navbar tape el contenido */
-body {
-    padding-top: 65px;
 }
 
 .main-wrapper {
@@ -104,7 +100,6 @@ nav {
     z-index: 1000;
 }
 .overlay.show { top: 0; }
-
 .overlay a {
     color: #fff;
     text-decoration: none;
@@ -119,14 +114,14 @@ nav {
 
 /* HERO */
 .hero {
-    min-height: 100dvh; /* FIX móvil */
+    height: 100vh;
+    background: url('Fondo Abstracto.png') no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     text-align: center;
     transition: transform 0.2s ease-out;
-    /* background: url('Fondo Abstracto.png') no-repeat center/cover; */
 }
 
 .hero::after {
@@ -140,6 +135,7 @@ nav {
     position: relative;
     z-index: 2;
     padding: 0 20px;
+    margin-top: 100px;
 }
 
 .hero-content h1 {
@@ -205,7 +201,6 @@ nav {
     filter: brightness(1.2);
     transform: scale(1.05);
 }
-
 
 /* SECCIONES */
 .container {
@@ -320,14 +315,14 @@ h2 {
     text-align: center;
 }
 
-/* Scroll horizontal */
 .libraries-scroll {
     display: flex;
     gap: 20px;
     overflow-x: auto;
     padding-bottom: 15px;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; /* suaviza scroll en móviles */
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
 }
 
 /* Scrollbar para Chrome/Safari */
@@ -340,9 +335,7 @@ h2 {
     border-radius: 4px;
 }
 
-/* Cada tarjeta */
 .library-card {
-    flex: 0 0 auto; /* ⚡ fuerza que no se comprima y respete el min-width */
     min-width: 260px;
     background: #f9f9f9;
     border-radius: 14px;
@@ -369,14 +362,6 @@ h2 {
     font-weight: 500;
     color: var(--text);
 }
-
-/* Ajuste móvil: tarjetas más pequeñas si hace falta */
-@media (max-width: 600px) {
-    .library-card {
-        min-width: 200px;
-    }
-}
-
 
 /* FOOTER */
 footer {
@@ -484,50 +469,40 @@ footer {
             </div>
         </section>
         
-<section id="librerias" class="libraries">
-  <h2>Librerías de Sonido</h2>
+        <section id="librerias" class="libraries">
+          <h2>Librerías de Sonido</h2>
 
-  <div class="libraries-scroll">
-    <div class="library-card">
-      <img src="DIINO PACK MACHINE.png" alt="Diino Pack Machine">
-      <p>Diino Pack Machine</p>
-      <button class="btn-action btn-free-card">
-        Comprar / Descargar
-      </button>
-    </div>
+          <div class="libraries-scroll">
+            <div class="library-card">
+              <img src="DIINO PACK MACHINE.png" alt="Diino Pack Machine">
+              <p>Diino Pack Machine</p>
+            </div>
 
-    <div class="library-card">
-      <img src="Libreria Vol 1 Dinno Is Music.png" alt="Librería Vol 1">
-      <p>Librería Vol 1</p>
-      <button class="btn-action btn-free-card">
-        Comprar / Descargar
-      </button>
-    </div>
+            <div class="library-card">
+              <img src="Libreria Vol 1 Dinno Is Music.png" alt="Librería Vol 1">
+              <p>Librería Vol 1</p>
+            </div>
 
-    <div class="library-card">
-      <img src="libreria flocklore.png" alt="Librería Flocklore">
-      <p>Librería Flocklore</p>
-      <button class="btn-action btn-free-card">
-        Comprar / Descargar
-      </button>
-    </div>
-  </div>
-</section>
+            <div class="library-card">
+              <img src="libreria flocklore.png" alt="Librería Flocklore">
+              <p>Librería Flocklore</p>
+            </div>
+          </div>
+        </section>
 
-<section id="contacto">
-  <h2>Contacto & Redes</h2>
-  <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
-    Para consultas, colaboraciones o pedidos de plugins, escribime a <br>
-    <a href="mailto:dinnoismusic@gmail.com" style="color: var(--ff-blue); text-decoration: none; font-weight: 600;">dinnoismusic@gmail.com</a>
-  </p>
-  <p style="text-align:center; margin-top: 25px;">
-    <a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">YouTube</a> |
-    <a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Instagram</a> |
-    <a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Instagram Dr.Rex</a> |
-    <a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Facebook</a>
-  </p>
-</section>
-
+        <section id="contacto">
+            <h2>Contacto & Redes</h2>
+            <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">
+            Para consultas, colaboraciones o pedidos de plugins, escribime a <br>
+            <a href="mailto:dinnoismusic@gmail.com" style="color: var(--ff-blue); text-decoration: none; font-weight: 600;">dinnoismusic@gmail.com</a>
+            </p>
+            <p style="text-align:center; margin-top: 25px;">
+                <a href="https://www.youtube.com/@dinnoismusic" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">YouTube</a> |
+                <a href="https://www.instagram.com/dinnoismusic/?hl=es" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Instagram</a> |
+                <a href="https://www.instagram.com/dr.rexplugin/" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Instagram Dr.Rex</a> |
+                <a href="https://www.facebook.com/people/Dinno-Is-Music/100063526420236/" target="_blank" style="color: var(--text); margin:0 10px; text-decoration: none;">Facebook</a>
+            </p>
+        </section>
 
     </div>
 
@@ -606,11 +581,6 @@ footer {
 
   animateHero();
 </script>
-
-
-
-
-
 
 </body>
 </html>
