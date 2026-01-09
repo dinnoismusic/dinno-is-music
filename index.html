@@ -316,14 +316,14 @@ h2 {
     text-align: center;
 }
 
+/* Scroll horizontal */
 .libraries-scroll {
     display: flex;
     gap: 20px;
     overflow-x: auto;
     padding-bottom: 15px;
     scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
-    scrollbar-color: #ccc transparent;
+    -webkit-overflow-scrolling: touch; /* suaviza scroll en móviles */
 }
 
 /* Scrollbar para Chrome/Safari */
@@ -336,7 +336,9 @@ h2 {
     border-radius: 4px;
 }
 
+/* Cada tarjeta */
 .library-card {
+    flex: 0 0 auto; /* ⚡ fuerza que no se comprima y respete el min-width */
     min-width: 260px;
     background: #f9f9f9;
     border-radius: 14px;
@@ -363,6 +365,14 @@ h2 {
     font-weight: 500;
     color: var(--text);
 }
+
+/* Ajuste móvil: tarjetas más pequeñas si hace falta */
+@media (max-width: 600px) {
+    .library-card {
+        min-width: 200px;
+    }
+}
+
 
 /* FOOTER */
 footer {
@@ -471,25 +481,38 @@ footer {
         </section>
         
     <section id="librerias" class="libraries">
-          <h2>Librerías de Sonido</h2>
+  <h2>Librerías de Sonido</h2>
 
-          <div class="libraries-scroll">
-            <div class="library-card">
-              <img src="DIINO PACK MACHINE.png" alt="Diino Pack Machine">
-              <p>Diino Pack Machine</p>
-            </div>
+  <div class="libraries-scroll">
+    <div class="library-card">
+      <img src="DIINO PACK MACHINE.png" alt="Diino Pack Machine">
+      <p>Diino Pack Machine</p>
+      <button class="btn-action btn-free-card">
+        Comprar / Descargar
+        <!-- Agregar link aquí si se quiere usar <a href="LINK_AQUI"></a> -->
+      </button>
+    </div>
 
-            <div class="library-card">
-              <img src="Libreria Vol 1 Dinno Is Music.png" alt="Librería Vol 1">
-              <p>Librería Vol 1</p>
-            </div>
+    <div class="library-card">
+      <img src="Libreria Vol 1 Dinno Is Music.png" alt="Librería Vol 1">
+      <p>Librería Vol 1</p>
+      <button class="btn-action btn-free-card">
+        Comprar / Descargar
+        <!-- Agregar link aquí si se quiere usar <a href="LINK_AQUI"></a> -->
+      </button>
+    </div>
 
-            <div class="library-card">
-              <img src="libreria flocklore.png" alt="Librería Flocklore">
-              <p>Librería Flocklore</p>
-            </div>
-          </div>
-        </section>
+    <div class="library-card">
+      <img src="libreria flocklore.png" alt="Librería Flocklore">
+      <p>Librería Flocklore</p>
+      <button class="btn-action btn-free-card">
+        Comprar / Descargar
+        <!-- Agregar link aquí si se quiere usar <a href="LINK_AQUI"></a> -->
+      </button>
+    </div>
+  </div>
+</section>
+
 
         <section id="contacto">
             <h2>Contacto & Redes</h2>
