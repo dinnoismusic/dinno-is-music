@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Dinno Is Music</title>
- 
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -303,57 +303,16 @@ h2 {
     border: 1px solid #eee;
 }
 
-/* LIBRERIAS SECTION */
-#librerias {
-    background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url('imagen-pagina-2.png') center/cover;
-    padding: 100px 20px;
-    text-align: center;
-}
-
-.lib-btns {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-
-.btn-lib {
-    background: #fff;
-    color: #111;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: 500;
-    font-size: 0.9rem;
-    border: 1px solid #eee;
-    transition: all 0.3s ease;
-}
-
-.btn-lib:hover {
-    background: var(--ff-blue);
-    color: #fff;
-}
-
-/* FOOTER */
-footer {
-    padding: 50px 20px;
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--muted);
-    border-top: 1px solid #eee;
-}
-/* ===== LIBRERÍAS SCROLL HORIZONTAL ===== */
+/* LIBRERÍAS - ESTILOS NUEVOS */
 .libraries {
-    padding: 100px 20px;
+    padding: 80px 20px;
     background: #ffffff;
-    text-align: center;
 }
 
 .libraries h2 {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-    font-weight: 600;
+    font-size: 28px;
+    margin-bottom: 25px;
+    text-align: center;
 }
 
 .libraries-scroll {
@@ -366,10 +325,11 @@ footer {
     scrollbar-color: #ccc transparent;
 }
 
-/* Scrollbar Chrome / Safari */
+/* Scrollbar para Chrome/Safari */
 .libraries-scroll::-webkit-scrollbar {
     height: 8px;
 }
+
 .libraries-scroll::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 4px;
@@ -382,7 +342,7 @@ footer {
     padding: 15px;
     text-align: center;
     scroll-snap-align: start;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease;
     border: 1px solid #eee;
 }
 
@@ -401,6 +361,15 @@ footer {
 .library-card p {
     font-weight: 500;
     color: var(--text);
+}
+
+/* FOOTER */
+footer {
+    padding: 50px 20px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+    border-top: 1px solid #eee;
 }
 
 /* RESPONSIVE */
@@ -500,29 +469,26 @@ footer {
             </div>
         </section>
         
-        <section id="librerias" class="libraries">
-    <h2>Librerías de Sonido</h2>
+    <section id="librerias" class="libraries">
+          <h2>Librerías de Sonido</h2>
 
-    <div class="libraries-scroll">
+          <div class="libraries-scroll">
+            <div class="library-card">
+              <img src="DIINO PACK MACHINE.png" alt="Diino Pack Machine">
+              <p>Diino Pack Machine</p>
+            </div>
 
-        <div class="library-card">
-            <img src="DIINO PACK MACHINE.png" alt="Diino Pack Machine">
-            <p>Diino Pack Machine</p>
-        </div>
+            <div class="library-card">
+              <img src="Libreria Vol 1 Dinno Is Music.png" alt="Librería Vol 1">
+              <p>Librería Vol 1</p>
+            </div>
 
-        <div class="library-card">
-            <img src="Libreria Vol 1 Dinno Is Music.png" alt="Librería Vol 1">
-            <p>Librería Vol 1</p>
-        </div>
-
-        <div class="library-card">
-            <img src="libreria flocklore.png" alt="Librería Flocklore">
-            <p>Librería Flocklore</p>
-        </div>
-
-    </div>
-</section>
-
+            <div class="library-card">
+              <img src="libreria flocklore.png" alt="Librería Flocklore">
+              <p>Librería Flocklore</p>
+            </div>
+          </div>
+        </section>
 
         <section id="contacto">
             <h2>Contacto & Redes</h2>
