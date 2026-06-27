@@ -13,6 +13,7 @@
 <meta property="og:url" content="https://dinnoismusic.com/">
 
 <link rel="icon" type="image/png" href="logo-sin-fondo.png">
+<link rel="preload" as="image" href="Fondo-Abstracto.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -176,7 +177,7 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
 .social-links a { color: var(--text); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
 .social-links a:hover { color: var(--ff-blue); }
 
-@media (max-width: 480px) { .container { padding: 40px 15px; } .plugins-grid { grid-template-columns: 1fr; } .about-box img { width: 120px; height: 120px; } }
+@media (max-width: 480px) { .container { padding: 40px 15px; } .plugins-grid { grid-template-columns: 1fr; } .about-box img { width: 120px; height: 120px; } .social-links { flex-wrap: wrap; gap: 12px 18px; } }
 
 .float-ig {
     position: fixed;
@@ -320,6 +321,13 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
   menuBtn.addEventListener('click', () => {
     menuOverlay.classList.toggle('show');
     menuBtn.classList.toggle('active');
+  });
+
+  document.querySelectorAll('.overlay a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuOverlay.classList.remove('show');
+      menuBtn.classList.remove('active');
+    });
   });
 
   const heroBg = document.getElementById('heroBg');
