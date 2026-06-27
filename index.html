@@ -177,6 +177,23 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
 .social-links a:hover { color: var(--ff-blue); }
 
 @media (max-width: 480px) { .container { padding: 40px 15px; } .plugins-grid { grid-template-columns: 1fr; } .about-box img { width: 120px; height: 120px; } }
+
+.float-ig {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    z-index: 1500;
+    text-decoration: none;
+}
+.float-ig svg { width: 28px; height: 28px; fill: #fff; }
 </style>
 </head>
 
@@ -216,8 +233,7 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
         <section id="plugin-demo">
             <h2>Demo del Plugin</h2>
             <div class="video-wrapper">
-                <!-- IMPORTANTE: reemplazá VIDEO_ID_AQUI por el ID real de tu video de YouTube -->
-                <iframe src="https://www.youtube.com/embed/VIDEO_ID_AQUI" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/kGxzkAeb94o" allowfullscreen></iframe>
             </div>
         </section>
 
@@ -237,7 +253,7 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
             <h2>Sobre Mí</h2>
             <div class="about-box">
                 <img src="logo-sin-fondo.png" alt="Dinno">
-                <p>Hola, soy Dinno, productor musical y creador de plugins de audio innovadores. Me especializo en herramientas de procesamiento de sonido pensadas para hacer más simple y profesional el trabajo de otros productores. A través de Dinno Is Music comparto plugins, librerías de sonido y recursos creados con el mismo cuidado que pongo en mi propia música.</p>
+                <p>Hola, soy Dinno, productor musical nacido en Buenos Aires, Argentina, con más de 23 años de trayectoria en la música. A lo largo de este camino me especialicé en herramientas de procesamiento de sonido pensadas para hacer más simple y profesional el trabajo de otros productores. A través de Dinno Is Music comparto plugins, librerías de sonido y recursos creados con el mismo cuidado que pongo en mi propia música.</p>
             </div>
         </section>
 
@@ -248,14 +264,14 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
                     <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" target="_blank"><img src="wider-dr-rex.png" alt="Wider Dr.Rex"></a>
                     <h3>Wider Dr.Rex</h3>
                     <p>Plugin gratuito.</p>
-                    <p class="specs">VST3 / AU · Win / Mac</p>
+                    <p class="specs">VST3 · Windows</p>
                     <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn-action btn-free-card" target="_blank">Descargar</a>
                 </div>
                 <div class="plugin-card">
                     <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" target="_blank"><img src="driver-dr-rex.png" alt="Drive Dr.Rex"></a>
                     <h3>Drive Dr.Rex</h3>
                     <p>Saturación analógica.</p>
-                    <p class="specs">VST3 / AU · Win / Mac</p>
+                    <p class="specs">VST3 · Windows · USD $5</p>
                     <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card" target="_blank">Comprar</a>
                 </div>
             </div>
@@ -265,7 +281,7 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
     <section id="librerias" class="libraries">
         <h2>Librerías de Sonido</h2>
         <div class="libraries-scroll">
-            <div class="library-card"><img src="diino-pack-machine.png" alt="Diino Pack Machine"><p>Diino Pack Machine</p></div>
+            <div class="library-card"><img src="dinno-pack-machine.png" alt="Dinno Pack Machine"><p>Dinno Pack Machine</p></div>
             <div class="library-card"><img src="Libreria-Vol-1-Dinno-Is-Music.png" alt="Librería Vol 1"><p>Librería Vol 1</p></div>
             <div class="library-card"><img src="libreria-flocklore.png" alt="Librería Flocklore"><p>Librería Flocklore</p></div>
         </div>
@@ -279,12 +295,17 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
     </div>
     <footer>
         <div class="social-links">
-            <a href="#" target="_blank">Instagram</a>
-            <a href="#" target="_blank">YouTube</a>
+            <a href="https://www.instagram.com/dinnoismusic/" target="_blank">Instagram</a>
+            <a href="https://www.youtube.com/@dinnoismusic" target="_blank">YouTube</a>
+            <a href="https://www.instagram.com/dr.rexplugin/" target="_blank">Instagram Dr.Rex</a>
+            <a href="https://open.spotify.com/intl-es/artist/3aXIFSRXGumUCodgUQl2IM?si=P_r3FC_mTdiKapwSLQyZsw" target="_blank">Spotify</a>
             <a href="https://dinnoismusic.gumroad.com" target="_blank">Gumroad</a>
         </div>
         © 2026 DINNO IS MUSIC.
     </footer>
+    <a href="https://www.instagram.com/dinnoismusic/" target="_blank" class="float-ig" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.06 2.16.24 2.91.55a5.9 5.9 0 0 1 2.13 1.39 5.9 5.9 0 0 1 1.39 2.13c.3.75.49 1.74.55 2.91.06 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.06 1.17-.24 2.16-.55 2.91a5.9 5.9 0 0 1-1.39 2.13 5.9 5.9 0 0 1-2.13 1.39c-.75.3-1.74.49-2.91.55-1.25.06-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.06-2.16-.24-2.91-.55a5.9 5.9 0 0 1-2.13-1.39 5.9 5.9 0 0 1-1.39-2.13c-.3-.75-.49-1.74-.55-2.91C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.06-1.17.24-2.16.55-2.91A5.9 5.9 0 0 1 4.21 2.1 5.9 5.9 0 0 1 6.34.72c.75-.3 1.74-.49 2.91-.55C10.4 2.2 10.8 2.2 12 2.2zm0 1.8c-3.15 0-3.52 0-4.76.07-1.02.05-1.58.21-1.95.36-.49.19-.84.42-1.21.79-.37.37-.6.72-.79 1.21-.15.37-.31.93-.36 1.95C2.86 8.48 2.86 8.85 2.86 12s0 3.52.07 4.76c.05 1.02.21 1.58.36 1.95.19.49.42.84.79 1.21.37.37.72.6 1.21.79.37.15.93.31 1.95.36 1.24.07 1.61.07 4.76.07s3.52 0 4.76-.07c1.02-.05 1.58-.21 1.95-.36.49-.19.84-.42 1.21-.79.37-.37.6-.72.79-1.21.15-.37.31-.93.36-1.95.07-1.24.07-1.61.07-4.76s0-3.52-.07-4.76c-.05-1.02-.21-1.58-.36-1.95a3.26 3.26 0 0 0-.79-1.21 3.26 3.26 0 0 0-1.21-.79c-.37-.15-.93-.31-1.95-.36-1.24-.07-1.61-.07-4.76-.07zm0 4.32a5.68 5.68 0 1 1 0 11.36 5.68 5.68 0 0 1 0-11.36zm0 1.8a3.88 3.88 0 1 0 0 7.76 3.88 3.88 0 0 0 0-7.76zm5.91-3.6a1.32 1.32 0 1 1 0 2.64 1.32 1.32 0 0 1 0-2.64z"/></svg>
+    </a>
 </div>
 
 <script>
