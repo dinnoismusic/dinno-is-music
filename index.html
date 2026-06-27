@@ -44,7 +44,6 @@ html, body {
     overflow-x: hidden;
 }
 
-/* NAVBAR */
 nav {
     position: fixed;
     top: 0;
@@ -77,12 +76,12 @@ nav {
 .hamburger-wrapper.active .hamburger div:nth-child(2) { opacity: 0; }
 .hamburger-wrapper.active .hamburger div:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-/* OVERLAY MENU */
 .overlay {
     position: fixed;
     top: -100%;
     left: 0;
     width: 100%;
+    height: 100vh;
     height: 100dvh;
     background: var(--menu-bg);
     display: flex;
@@ -93,18 +92,11 @@ nav {
     z-index: 1000;
 }
 .overlay.show { top: 0; }
-.overlay a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2rem;
-    padding: 15px;
-    width: 100%;
-    text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
+.overlay a { color: #fff; text-decoration: none; font-size: 1.2rem; padding: 15px; width: 100%; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
 
-/* HERO CORREGIDO */
+/* CORRECCIÓN: Estilos para el fondo estático inicial */
 .hero {
+    height: 100vh;
     height: 100dvh;
     display: flex;
     justify-content: center;
@@ -129,44 +121,41 @@ nav {
     inset: 0;
     background: rgba(0,0,0,0.35);
     pointer-events: none;
-    z-index: 1;
-}
-
-.hero-content {
-    position: relative;
     z-index: 2;
-    padding: 0 20px;
-    width: 100%;
 }
 
+.hero-content { position: relative; z-index: 3; padding: 0 20px; margin-top: 60px; width: 100%; }
 .hero-content h1 { font-size: clamp(2rem, 8vw, 4rem); color: #fff; font-weight: 700; margin-bottom: 5px; }
 .hero-content p { font-size: clamp(0.9rem, 4vw, 1.3rem); color: #ffff00; margin-bottom: 35px; }
 
-/* RESTO DEL CSS SE MANTIENE IGUAL */
 .btn-explorar { display: inline-block; padding: 14px 40px; font-size: 1.1rem; font-weight: 600; text-decoration: none; border-radius: 50px; background: #fff; color: #111; cursor: pointer; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-.btn-action { display: inline-block; padding: 12px 28px; font-size: 0.9rem; font-weight: 600; border-radius: 50px; }
+.btn-action { display: inline-block; padding: 12px 28px; font-size: 0.9rem; font-weight: 600; border-radius: 50px; text-decoration: none; }
 .btn-free-card { background: #444; color: #fff; }
 .btn-premium-card { background: var(--ff-blue); color: #fff; }
-.container { width: 100%; max-width: 1050px; margin: auto; padding: 60px 20px; }
+
+.container { width: 100%; max-width: 1050px; margin: auto; padding: 60px 20px; overflow: hidden; }
 section { margin-bottom: 80px; opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
 section.visible { opacity: 1; transform: translateY(0); }
+h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 40px; }
+
 .plugins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
 .plugin-card { background: var(--card); border: 1px solid #eee; padding: 25px 20px; border-radius: 12px; text-align: center; }
+.plugin-card img { width: 100%; height: auto; display: block; }
 .video-wrapper { position: relative; padding-bottom: 56.25%; background: #000; border-radius: 8px; overflow: hidden; }
 .video-wrapper iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
 .audio-box { background: var(--card); padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; border: 1px solid #eee; }
+
 .libraries-scroll { display: flex; gap: 15px; overflow-x: auto; padding: 10px 20px 25px 20px; scroll-snap-type: x mandatory; }
-.library-card { min-width: 220px; background: #f9f9f9; border-radius: 14px; padding: 15px; text-align: center; scroll-snap-align: center; }
+.library-card { min-width: 220px; max-width: 220px; background: #f9f9f9; border-radius: 14px; padding: 15px; text-align: center; scroll-snap-align: center; border: 1px solid #eee; }
+.library-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
+
 footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(--muted); border-top: 1px solid #eee; }
 
-@media (max-width: 480px) {
-    .hero-content h1 { font-size: 2.2rem; }
-}
+@media (max-width: 480px) { .container { padding: 40px 15px; } .plugins-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 
 <body>
-
 <div class="main-wrapper">
     <nav>
         <div class="hamburger-wrapper" id="menuBtn">
@@ -207,29 +196,33 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
             <h2>Antes / Después</h2>
             <div class="audio-box">
                 <p>Antes</p>
-                <audio controls style="width:100%; margin-bottom: 20px;"><source src="antes.mp3" type="audio/mpeg"></audio>
-                <p>Después</p>
-                <audio controls style="width:100%;"><source src="despues.mp3" type="audio/mpeg"></audio>
+                <audio controls style="width:100%;"><source src="antes.mp3" type="audio/mpeg"></audio>
+                <div style="margin-top:20px;">
+                    <p>Después</p>
+                    <audio controls style="width:100%;"><source src="despues.mp3" type="audio/mpeg"></audio>
+                </div>
             </div>
         </section>
 
         <section id="sobre-mi">
             <h2>Sobre Mí</h2>
-            <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">Hola, soy Dinno, productor musical y creador de plugins de audio.</p>
+            <p style="text-align:center; max-width:700px; margin:auto; color: var(--muted);">Hola, soy Dinno, productor musical y creador de plugins de audio innovadores.</p>
         </section>
 
         <section id="plugins">
             <h2>Plugins Destacados</h2>
             <div class="plugins-grid">
                 <div class="plugin-card">
+                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" target="_blank"><img src="WIDER DR.REX.png" alt="Wider Dr.Rex"></a>
                     <h3>Wider Dr.Rex</h3>
-                    <p class="desc">Plugin gratuito para expandir tu sonido.</p>
-                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn-action btn-free-card" target="_blank">Descargar Gratis</a>
+                    <p>Plugin gratuito.</p>
+                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn-action btn-free-card" target="_blank">Descargar</a>
                 </div>
                 <div class="plugin-card">
+                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" target="_blank"><img src="DRIVER DR.REX.png" alt="Drive Dr.Rex"></a>
                     <h3>Drive Dr.Rex</h3>
-                    <p class="desc">Añadí saturación y color analógico.</p>
-                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card" target="_blank">Comprar Premium</a>
+                    <p>Saturación analógica.</p>
+                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card" target="_blank">Comprar</a>
                 </div>
             </div>
         </section>
@@ -238,30 +231,28 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
     <section id="librerias" class="libraries">
         <h2>Librerías de Sonido</h2>
         <div class="libraries-scroll">
-            <div class="library-card"><p>Dinno Pack Machine</p></div>
-            <div class="library-card"><p>Librería Vol 1</p></div>
+            <div class="library-card"><img src="DIINO PACK MACHINE.png"><p>Diino Pack Machine</p></div>
+            <div class="library-card"><img src="Libreria Vol 1 Dinno Is Music.png"><p>Librería Vol 1</p></div>
+            <div class="library-card"><img src="libreria flocklore.png"><p>Librería Flocklore</p></div>
         </div>
     </section>
 
     <div class="container">
         <section id="contacto">
-            <h2>Contacto & Redes</h2>
-            <p style="text-align:center;"><a href="mailto:dinnoismusic@gmail.com">dinnoismusic@gmail.com</a></p>
+            <h2>Contacto</h2>
+            <p><a href="mailto:dinnoismusic@gmail.com">dinnoismusic@gmail.com</a></p>
         </section>
     </div>
-
     <footer>© 2026 DINNO IS MUSIC.</footer>
 </div>
 
 <script>
-  // Intersection Observer para animaciones
   const sections = document.querySelectorAll('section');
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   sections.forEach(s => observer.observe(s));
 
-  // Menú
   const menuBtn = document.getElementById('menuBtn');
   const menuOverlay = document.getElementById('menuOverlay');
   menuBtn.addEventListener('click', () => {
@@ -269,7 +260,7 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
     menuBtn.classList.toggle('active');
   });
 
-  // Parallax optimizado
+  // Parallax: solo manipulamos la transformación, ya no creamos el elemento por JS
   const heroBg = document.getElementById('heroBg');
   let scrollY = 0;
   let current = 0;
