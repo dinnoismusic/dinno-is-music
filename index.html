@@ -147,7 +147,7 @@ nav .logo img {
 .hero-content p { font-size: clamp(0.9rem, 4vw, 1.3rem); color: #ffff00; margin-bottom: 35px; }
 
 .btn-explorar { display: inline-block; padding: 14px 40px; font-size: 1.1rem; font-weight: 600; text-decoration: none; border-radius: 50px; background: #fff; color: #111; cursor: pointer; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-.btn-action { display: inline-block; padding: 12px 28px; font-size: 0.9rem; font-weight: 600; border-radius: 50px; text-decoration: none; }
+.btn-action { display: inline-block; padding: 12px 28px; font-size: 0.9rem; font-weight: 600; border-radius: 50px; text-decoration: none; margin-top: 10px; }
 .btn-free-card { background: #444; color: #fff; }
 .btn-premium-card { background: var(--ff-blue); color: #fff; }
 
@@ -157,7 +157,7 @@ section.visible { opacity: 1; transform: translateY(0); }
 h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 40px; }
 
 .plugins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
-.plugin-card { background: var(--card); border: 1px solid #eee; padding: 25px 20px; border-radius: 12px; text-align: center; }
+.plugin-card { background: var(--card); border: 1px solid #eee; padding: 25px 20px; border-radius: 12px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
 .plugin-card img { width: 100%; height: auto; display: block; border-radius: 8px; }
 .plugin-card .specs { font-size: 0.75rem; color: var(--muted); margin: 8px 0; letter-spacing: 0.5px; }
 .video-wrapper { position: relative; padding-bottom: 56.25%; background: #000; border-radius: 8px; overflow: hidden; }
@@ -261,19 +261,37 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
         <section id="plugins">
             <h2>Plugins Destacados</h2>
             <div class="plugins-grid">
+                <!-- Wider Dr.Rex -->
                 <div class="plugin-card">
-                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" target="_blank"><img src="wider-dr-rex.png" alt="Wider Dr.Rex"></a>
-                    <h3>Wider Dr.Rex</h3>
-                    <p>Plugin gratuito.</p>
-                    <p class="specs">VST3 · Windows</p>
+                    <div>
+                        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" target="_blank"><img src="wider-dr-rex.png" alt="Wider Dr.Rex"></a>
+                        <h3>Wider Dr.Rex</h3>
+                        <p>Plugin gratuito.</p>
+                        <p class="specs">VST3 · Windows</p>
+                    </div>
                     <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn-action btn-free-card" target="_blank">Descargar</a>
                 </div>
+
+                <!-- Drive Dr.Rex -->
                 <div class="plugin-card">
-                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" target="_blank"><img src="driver-dr-rex.png" alt="Drive Dr.Rex"></a>
-                    <h3>Drive Dr.Rex</h3>
-                    <p>Saturación analógica.</p>
-                    <p class="specs">VST3 · Windows · USD $5</p>
+                    <div>
+                        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" target="_blank"><img src="driver-dr-rex.png" alt="Drive Dr.Rex"></a>
+                        <h3>Drive Dr.Rex</h3>
+                        <p>Saturación analógica.</p>
+                        <p class="specs">VST3 · Windows · USD $5</p>
+                    </div>
                     <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card" target="_blank">Comprar</a>
+                </div>
+
+                <!-- Trigger Dr.Rex (NUEVO) -->
+                <div class="plugin-card">
+                    <div>
+                        <a href="AQUÍ_TU_ENLACE_DE_GUMROAD" target="_blank"><img src="TRIGGER.jpg" alt="Trigger Dr.Rex"></a>
+                        <h3>Trigger Dr.Rex</h3>
+                        <p>Trigger de audio profesional.</p>
+                        <p class="specs">VST3 · Windows</p>
+                    </div>
+                    <a href="AQUÍ_TU_ENLACE_DE_GUMROAD" class="btn-action btn-premium-card" target="_blank">Ver más</a>
                 </div>
             </div>
         </section>
@@ -318,6 +336,7 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
 
   const menuBtn = document.getElementById('menuBtn');
   const menuOverlay = document.getElementById('menuOverlay');
+  menuBtn.button?.addEventListener?.('click', () => {}); // safe guard
   menuBtn.addEventListener('click', () => {
     menuOverlay.classList.toggle('show');
     menuBtn.classList.toggle('active');
