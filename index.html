@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://dinnoismusic.com/">
 
 <link rel="icon" type="image/png" href="logo-sin-fondo.png">
-<link rel="preload" as="image" href="Fondo-Abstracto.png">
+<link rel="preload" as="image" href="Fondo-Abstracto.png" fetchpriority="high">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -27,6 +27,7 @@
     --ff-blue-hover: #0080cc;
     --ff-border: #cccccc;
     --menu-bg: #222222;
+    --hero-fallback: #ffffff;
 }
 
 * {
@@ -113,23 +114,26 @@ nav .logo img {
 .overlay.show { top: 0; }
 .overlay a { color: #fff; text-decoration: none; font-size: 1.2rem; padding: 15px; width: 100%; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
 
+/* ===== HERO (corregido) ===== */
 .hero {
     height: 100vh;
-    height: 100dvh;
+    height: 100svh;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     text-align: center;
     overflow: hidden;
+    background: var(--hero-fallback);
 }
 
 .hero-bg {
     position: absolute;
     inset: 0;
     background: url('Fondo-Abstracto.png') center/cover no-repeat;
-    transform: scale(1.5);
+    transform: scale(1.2) translateZ(0);
     will-change: transform;
+    backface-visibility: hidden;
     z-index: 1;
 }
 
@@ -235,10 +239,24 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
     text-decoration: none;
 }
 .float-ig svg { width: 28px; height: 28px; fill: #fff; }
+
+/* ===== Pantalla de carga: la página se muestra recién cuando todo está listo ===== */
+html:not(.ready) .main-wrapper { visibility: hidden; }
+#loader {
+    position: fixed;
+    inset: 0;
+    background: #ffffff;
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+html.ready #loader { display: none; }
 </style>
 </head>
 
 <body>
+<div id="loader"><img src="logo-sin-fondo.png" alt="" style="height:60px"></div>
 <div class="main-wrapper">
     <nav>
         <div class="logo">
@@ -384,18 +402,39 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
     });
   });
 
+  /* ===== Parallax del hero (corregido) ===== */
   const heroBg = document.getElementById('heroBg');
-  let scrollY = 0;
-  let current = 0;
-  window.addEventListener('scroll', () => { scrollY = window.scrollY; });
+  const hero = document.querySelector('.hero');
+  let target = 0, current = 0, ticking = false;
 
-  function animateHero() {
-    current += (scrollY - current) * 0.12;
-    const scaleValue = Math.max(1, Math.min(1.2, 1.5 - current * 0.002));
-    heroBg.style.transform = `scale(${scaleValue}) translate3d(0,0,0)`;
-    requestAnimationFrame(animateHero);
+  function updateHero() {
+    current += (target - current) * 0.12;
+    const progress = Math.min(current / hero.offsetHeight, 1);
+    const scale = 1.2 - progress * 0.2;
+    heroBg.style.transform = `scale(${scale}) translateZ(0)`;
+
+    if (Math.abs(target - current) > 0.1) {
+      requestAnimationFrame(updateHero);
+    } else {
+      ticking = false;
+    }
   }
-  animateHero();
+
+  window.addEventListener('scroll', () => {
+    target = window.scrollY;
+    if (!ticking && target < window.innerHeight * 1.2) {
+      ticking = true;
+      requestAnimationFrame(updateHero);
+    }
+  }, { passive: true });
+
+  /* ===== Mostrar la página cuando todo esté cargado ===== */
+  const showPage = () => document.documentElement.classList.add('ready');
+  Promise.all([
+    new Promise(res => window.addEventListener('load', res)),
+    document.fonts ? document.fonts.ready : Promise.resolve()
+  ]).then(showPage);
+  setTimeout(showPage, 6000);
 </script>
 </body>
 </html>
