@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Dinno Is Music</title>
-<meta name="description" content="Dinno Is Music - Plugins de audio y librerías de sonido creados por Dinno, productor musical. Descargá Wider Dr.Rex y Drive Dr.Rex.">
+<meta name="description" content="Dinno Is Music - Plugins de audio y librerías de sonido creados por Dinno, productor musical. Descargá Trigger Dr.Rex, Wider Dr.Rex y Drive Dr.Rex.">
 
 <meta property="og:title" content="Dinno Is Music">
 <meta property="og:description" content="Plugins de audio y librerías de sonido creados por Dinno, productor musical.">
@@ -156,10 +156,65 @@ section { margin-bottom: 80px; opacity: 0; transform: translateY(30px); transiti
 section.visible { opacity: 1; transform: translateY(0); }
 h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 40px; }
 
-.plugins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
-.plugin-card { background: var(--card); border: 1px solid #eee; padding: 25px 20px; border-radius: 12px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
-.plugin-card img { width: 100%; height: auto; display: block; border-radius: 8px; }
-.plugin-card .specs { font-size: 0.75rem; color: var(--muted); margin: 8px 0; letter-spacing: 0.5px; }
+/* Cartel de bienvenida */
+.welcome-banner {
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 10px;
+}
+.welcome-banner h3 {
+    font-size: clamp(1.3rem, 4.5vw, 1.8rem);
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text);
+}
+
+/* Tarjeta Destacada Arriba (Trigger) */
+.featured-plugin {
+    background: var(--card);
+    border: 1px solid #eee;
+    padding: 30px 20px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 40px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.featured-plugin img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* Grilla para los 2 plugins de abajo */
+.secondary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+.plugin-card {
+    background: var(--card);
+    border: 1px solid #eee;
+    padding: 25px 20px;
+    border-radius: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.plugin-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+.plugin-card .specs, .featured-plugin .specs { font-size: 0.75rem; color: var(--muted); margin: 8px 0; letter-spacing: 0.5px; }
 .video-wrapper { position: relative; padding-bottom: 56.25%; background: #000; border-radius: 8px; overflow: hidden; }
 .video-wrapper iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
 .audio-box { background: var(--card); padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; border: 1px solid #eee; }
@@ -177,7 +232,7 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
 .social-links a { color: var(--text); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
 .social-links a:hover { color: var(--ff-blue); }
 
-@media (max-width: 480px) { .container { padding: 40px 15px; } .plugins-grid { grid-template-columns: 1fr; } .about-box img { width: 120px; height: 120px; } .social-links { flex-wrap: wrap; gap: 12px 18px; } }
+@media (max-width: 480px) { .container { padding: 40px 15px; } .secondary-grid { grid-template-columns: 1fr; } .about-box img { width: 120px; height: 120px; } .social-links { flex-wrap: wrap; gap: 12px 18px; } }
 
 .float-ig {
     position: fixed;
@@ -259,104 +314,26 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
         </section>
 
         <section id="plugins">
+            <div class="welcome-banner">
+                <h3>BIENVENIDO A LA FAMILIA</h3>
+            </div>
             <h2>Plugins Destacados</h2>
-            <div class="plugins-grid">
+
+            <!-- TRIGGER DR.REX (PRIMERO ARRIBA CENTRALIZADO) -->
+            <div class="featured-plugin">
+                <a href="https://dinnoismusic.gumroad.com" target="_blank"><img src="TRIGGER.png" alt="Trigger Dr.Rex"></a>
+                <h3>Trigger Dr.Rex</h3>
+                <p>Trigger de audio profesional.</p>
+                <p class="specs">VST3 · Windows</p>
+                <a href="https://dinnoismusic.gumroad.com" class="btn-action btn-premium-card" target="_blank">Ver más</a>
+            </div>
+
+            <!-- LOS OTROS DOS PLUGINS ABAJO EN DOS COLUMNAS -->
+            <div class="secondary-grid">
+                <!-- Wider Dr.Rex -->
                 <div class="plugin-card">
                     <div>
                         <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" target="_blank"><img src="wider-dr-rex.png" alt="Wider Dr.Rex"></a>
                         <h3>Wider Dr.Rex</h3>
                         <p>Plugin gratuito.</p>
-                        <p class="specs">VST3 · Windows</p>
-                    </div>
-                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn-action btn-free-card" target="_blank">Descargar</a>
-                </div>
-
-                <div class="plugin-card">
-                    <div>
-                        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" target="_blank"><img src="driver-dr-rex.png" alt="Drive Dr.Rex"></a>
-                        <h3>Drive Dr.Rex</h3>
-                        <p>Saturación analógica.</p>
-                        <p class="specs">VST3 · Windows · USD $5</p>
-                    </div>
-                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card" target="_blank">Comprar</a>
-                </div>
-
-                <div class="plugin-card">
-                    <div>
-                        <a href="https://dinnoismusic.gumroad.com" target="_blank"><img src="TRIGGER.png" alt="Trigger Dr.Rex"></a>
-                        <h3>Trigger Dr.Rex</h3>
-                        <p>Trigger de audio profesional.</p>
-                        <p class="specs">VST3 · Windows</p>
-                    </div>
-                    <a href="https://dinnoismusic.gumroad.com" class="btn-action btn-premium-card" target="_blank">Ver más</a>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <section id="librerias" class="libraries">
-        <h2>Librerías de Sonido</h2>
-        <div class="libraries-scroll">
-            <div class="library-card"><img src="dinno-pack-machine.png" alt="Dinno Pack Machine"><p>Dinno Pack Machine</p></div>
-            <div class="library-card"><img src="Libreria-Vol-1-Dinno-Is-Music.png" alt="Librería Vol 1"><p>Librería Vol 1</p></div>
-            <div class="library-card"><img src="libreria-flocklore.png" alt="Librería Flocklore"><p>Librería Flocklore</p></div>
-        </div>
-    </section>
-
-    <div class="container">
-        <section id="contacto">
-            <h2>Contacto</h2>
-            <p><a href="mailto:dinnoismusic@gmail.com">dinnoismusic@gmail.com</a></p>
-        </section>
-    </div>
-    <footer>
-        <div class="social-links">
-            <a href="https://www.instagram.com/dinnoismusic/" target="_blank">Instagram</a>
-            <a href="https://www.youtube.com/@dinnoismusic" target="_blank">YouTube</a>
-            <a href="https://www.instagram.com/dr.rexplugin/" target="_blank">Instagram Dr.Rex</a>
-            <a href="https://open.spotify.com/intl-es/artist/3aXIFSRXGumUCodgUQl2IM?si=P_r3FC_mTdiKapwSLQyZsw" target="_blank">Spotify</a>
-            <a href="https://dinnoismusic.gumroad.com" target="_blank">Gumroad</a>
-        </div>
-        © 2026 DINNO IS MUSIC.
-    </footer>
-    <a href="https://www.instagram.com/dinnoismusic/" target="_blank" class="float-ig" aria-label="Instagram">
-        <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.06 2.16.24 2.91.55a5.9 5.9 0 0 1 2.13 1.39 5.9 5.9 0 0 1 1.39 2.13c.3.75.49 1.74.55 2.91.06 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.06 1.17-.24 2.16-.55 2.91a5.9 5.9 0 0 1-1.39 2.13 5.9 5.9 0 0 1-2.13 1.39c-.75.3-1.74.49-2.91.55-1.25.06-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.06-2.16-.24-2.91-.55a5.9 5.9 0 0 1-2.13-1.39 5.9 5.9 0 0 1-1.39-2.13c-.3-.75-.49-1.74-.55-2.91C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.06-1.17.24-2.16.55-2.91A5.9 5.9 0 0 1 4.21 2.1 5.9 5.9 0 0 1 6.34.72c.75-.3 1.74-.49 2.91-.55C10.4 2.2 10.8 2.2 12 2.2zm0 1.8c-3.15 0-3.52 0-4.76.07-1.02.05-1.58.21-1.95.36-.49.19-.84.42-1.21.79-.37.37-.6.72-.79 1.21-.15.37-.31.93-.36 1.95C2.86 8.48 2.86 8.85 2.86 12s0 3.52.07 4.76c.05 1.02.21 1.58.36 1.95.19.49.42.84.79 1.21.37.37.72.6 1.21.79.37.15.93.31 1.95.36 1.24.07 1.61.07 4.76.07s3.52 0 4.76-.07c1.02-.05 1.58-.21 1.95-.36.49-.19.84-.42 1.21-.79.37-.37.6-.72.79-1.21.15-.37.31-.93.36-1.95.07-1.24.07-1.61.07-4.76s0-3.52-.07-4.76c-.05-1.02-.21-1.58-.36-1.95a3.26 3.26 0 0 0-.79-1.21 3.26 3.26 0 0 0-1.21-.79c-.37-.15-.93-.31-1.95-.36-1.24-.07-1.61-.07-4.76-.07zm0 4.32a5.68 5.68 0 1 1 0 11.36 5.68 5.68 0 0 1 0-11.36zm0 1.8a3.88 3.88 0 1 0 0 7.76 3.88 3.88 0 0 0 0-7.76zm5.91-3.6a1.32 1.32 0 1 1 0 2.64 1.32 1.32 0 0 1 0-2.64z"/></svg>
-    </a>
-</div>
-
-<script>
-  const sections = document.querySelectorAll('section');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  sections.forEach(s => observer.observe(s));
-
-  const menuBtn = document.getElementById('menuBtn');
-  const menuOverlay = document.getElementById('menuOverlay');
-  menuBtn.addEventListener('click', () => {
-    menuOverlay.classList.toggle('show');
-    menuBtn.classList.toggle('active');
-  });
-
-  document.querySelectorAll('.overlay a').forEach(link => {
-    link.addEventListener('click', () => {
-      menuOverlay.classList.remove('show');
-      menuBtn.classList.remove('active');
-    });
-  });
-
-  const heroBg = document.getElementById('heroBg');
-  let scrollY = 0;
-  let current = 0;
-  window.addEventListener('scroll', () => { scrollY = window.scrollY; });
-
-  function animateHero() {
-    current += (scrollY - current) * 0.12;
-    const scaleValue = Math.max(1, Math.min(1.2, 1.5 - current * 0.002));
-    heroBg.style.transform = `scale(${scaleValue}) translate3d(0,0,0)`;
-    requestAnimationFrame(animateHero);
-  }
-  animateHero();
-</script>
-</body>
-</html>
+                        <p class="specs">VST3
