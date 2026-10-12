@@ -114,7 +114,7 @@ nav .logo img {
 .overlay.show { top: 0; }
 .overlay a { color: #fff; text-decoration: none; font-size: 1.2rem; padding: 15px; width: 100%; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
 
-/* ===== HERO (corregido) ===== */
+/* ===== HERO ===== */
 .hero {
     height: 100vh;
     height: 100svh;
@@ -240,7 +240,7 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
 }
 .float-ig svg { width: 28px; height: 28px; fill: #fff; }
 
-/* ===== Pantalla de carga: la página se muestra recién cuando todo está listo ===== */
+/* ===== Pantalla de carga ===== */
 html:not(.ready) .main-wrapper { visibility: hidden; }
 #loader {
     position: fixed;
@@ -256,7 +256,7 @@ html.ready #loader { display: none; }
 </head>
 
 <body>
-<div id="loader"><img src="logo-sin-fondo.png" alt="" style="height:60px"></div>
+<div id="loader"><img src="logo-sin-fondo.png" alt="Cargando..." style="height:60px"></div>
 <div class="main-wrapper">
     <nav>
         <div class="logo">
@@ -311,7 +311,7 @@ html.ready #loader { display: none; }
         <section id="sobre-mi">
             <h2>Sobre Mí</h2>
             <div class="about-box">
-                <img src="logo-sin-fondo.png" alt="Dinno">
+                <img src="logo-sin-fondo.png" alt="Dinno" loading="lazy">
                 <p>Hola, soy Dinno, productor musical nacido en Buenos Aires, Argentina, con más de 23 años de trayectoria en la música. A lo largo de este camino me especialicé en herramientas de procesamiento de sonido pensadas para hacer más simple y profesional el trabajo de otros productores. A través de Dinno Is Music comparto plugins, librerías de sonido y recursos creados con el mismo cuidado que pongo en mi propia música.</p>
             </div>
         </section>
@@ -330,7 +330,7 @@ html.ready #loader { display: none; }
             <div class="secondary-grid">
                 <div class="plugin-card">
                     <div>
-                        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" target="_blank"><img src="wider-dr-rex.png" alt="Wider Dr.Rex"></a>
+                        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" target="_blank"><img src="wider-dr-rex.png" alt="Wider Dr.Rex" loading="lazy"></a>
                         <h3>Wider Dr.Rex</h3>
                         <p>Plugin gratuito.</p>
                         <p class="specs">VST3 · Windows</p>
@@ -340,7 +340,7 @@ html.ready #loader { display: none; }
 
                 <div class="plugin-card">
                     <div>
-                        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" target="_blank"><img src="driver-dr-rex.png" alt="Drive Dr.Rex"></a>
+                        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" target="_blank"><img src="driver-dr-rex.png" alt="Drive Dr.Rex" loading="lazy"></a>
                         <h3>Drive Dr.Rex</h3>
                         <p>Saturación analógica.</p>
                         <p class="specs">VST3 · Windows · USD $5</p>
@@ -354,9 +354,9 @@ html.ready #loader { display: none; }
     <section id="librerias" class="libraries">
         <h2>Librerías de Sonido</h2>
         <div class="libraries-scroll">
-            <div class="library-card"><img src="dinno-pack-machine.png" alt="Dinno Pack Machine"><p>Dinno Pack Machine</p></div>
-            <div class="library-card"><img src="Libreria-Vol-1-Dinno-Is-Music.png" alt="Librería Vol 1"><p>Librería Vol 1</p></div>
-            <div class="library-card"><img src="libreria-flocklore.png" alt="Librería Flocklore"><p>Librería Flocklore</p></div>
+            <div class="library-card"><img src="dinno-pack-machine.png" alt="Dinno Pack Machine" loading="lazy"><p>Dinno Pack Machine</p></div>
+            <div class="library-card"><img src="Libreria-Vol-1-Dinno-Is-Music.png" alt="Librería Vol 1" loading="lazy"><p>Librería Vol 1</p></div>
+            <div class="library-card"><img src="libreria-flocklore.png" alt="Librería Flocklore" loading="lazy"><p>Librería Flocklore</p></div>
         </div>
     </section>
 
@@ -390,19 +390,39 @@ html.ready #loader { display: none; }
 
   const menuBtn = document.getElementById('menuBtn');
   const menuOverlay = document.getElementById('menuOverlay');
-  menuBtn.addEventListener('click', () => {
+
+  const closeMenu = () => {
+    menuOverlay.classList.remove('show');
+    menuBtn.classList.remove('active');
+  };
+
+  const toggleMenu = () => {
     menuOverlay.classList.toggle('show');
     menuBtn.classList.toggle('active');
-  });
+  };
 
+  menuBtn.addEventListener('click', toggleMenu);
+
+  /* Cierre al hacer clic en un enlace del menú */
   document.querySelectorAll('.overlay a').forEach(link => {
-    link.addEventListener('click', () => {
-      menuOverlay.classList.remove('show');
-      menuBtn.classList.remove('active');
-    });
+    link.addEventListener('click', closeMenu);
   });
 
-  /* ===== Parallax del hero (corregido) ===== */
+  /* Cierre al hacer clic en el fondo del overlay fuera de un link */
+  menuOverlay.addEventListener('click', (e) => {
+    if (e.target === menuOverlay) {
+      closeMenu();
+    }
+  });
+
+  /* Cierre al presionar la tecla Escape */
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuOverlay.classList.contains('show')) {
+      closeMenu();
+    }
+  });
+
+  /* ===== Parallax del hero ===== */
   const heroBg = document.getElementById('heroBg');
   const hero = document.querySelector('.hero');
   let target = 0, current = 0, ticking = false;
@@ -411,30 +431,4 @@ html.ready #loader { display: none; }
     current += (target - current) * 0.12;
     const progress = Math.min(current / hero.offsetHeight, 1);
     const scale = 1.2 - progress * 0.2;
-    heroBg.style.transform = `scale(${scale}) translateZ(0)`;
-
-    if (Math.abs(target - current) > 0.1) {
-      requestAnimationFrame(updateHero);
-    } else {
-      ticking = false;
-    }
-  }
-
-  window.addEventListener('scroll', () => {
-    target = window.scrollY;
-    if (!ticking && target < window.innerHeight * 1.2) {
-      ticking = true;
-      requestAnimationFrame(updateHero);
-    }
-  }, { passive: true });
-
-  /* ===== Mostrar la página cuando todo esté cargado ===== */
-  const showPage = () => document.documentElement.classList.add('ready');
-  Promise.all([
-    new Promise(res => window.addEventListener('load', res)),
-    document.fonts ? document.fonts.ready : Promise.resolve()
-  ]).then(showPage);
-  setTimeout(showPage, 6000);
-</script>
-</body>
-</html>
+    heroBg.style.transform =
