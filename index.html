@@ -156,20 +156,6 @@ section { margin-bottom: 80px; opacity: 0; transform: translateY(30px); transiti
 section.visible { opacity: 1; transform: translateY(0); }
 h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 40px; }
 
-/* Cartel de bienvenida */
-.welcome-banner {
-    text-align: center;
-    margin-bottom: 25px;
-    padding: 10px;
-}
-.welcome-banner h3 {
-    font-size: clamp(1.3rem, 4.5vw, 1.8rem);
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--text);
-}
-
-/* Tarjeta Destacada Arriba (Trigger) */
 .featured-plugin {
     background: var(--card);
     border: 1px solid #eee;
@@ -191,7 +177,6 @@ h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 4
     margin-bottom: 15px;
 }
 
-/* Grilla para los 2 plugins de abajo */
 .secondary-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -314,12 +299,8 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
         </section>
 
         <section id="plugins">
-            <div class="welcome-banner">
-                <h3>BIENVENIDO A LA FAMILIA</h3>
-            </div>
             <h2>Plugins Destacados</h2>
 
-            <!-- TRIGGER DR.REX (PRIMERO ARRIBA CENTRALIZADO) -->
             <div class="featured-plugin">
                 <a href="https://dinnoismusic.gumroad.com" target="_blank"><img src="TRIGGER.png" alt="Trigger Dr.Rex"></a>
                 <h3>Trigger Dr.Rex</h3>
@@ -328,9 +309,7 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
                 <a href="https://dinnoismusic.gumroad.com" class="btn-action btn-premium-card" target="_blank">Ver más</a>
             </div>
 
-            <!-- LOS OTROS DOS PLUGINS ABAJO EN DOS COLUMNAS -->
             <div class="secondary-grid">
-                <!-- Wider Dr.Rex -->
                 <div class="plugin-card">
                     <div>
                         <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" target="_blank"><img src="wider-dr-rex.png" alt="Wider Dr.Rex"></a>
@@ -341,7 +320,6 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
                     <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn-action btn-free-card" target="_blank">Descargar</a>
                 </div>
 
-                <!-- Drive Dr.Rex -->
                 <div class="plugin-card">
                     <div>
                         <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" target="_blank"><img src="driver-dr-rex.png" alt="Drive Dr.Rex"></a>
