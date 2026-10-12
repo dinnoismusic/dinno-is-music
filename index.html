@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://dinnoismusic.com/">
 
 <link rel="icon" type="image/png" href="logo-sin-fondo.png">
-<link rel="preload" as="image" href="Fondo-Abstracto.png" fetchpriority="high">
+<link rel="preload" as="image" href="TRIGGERINTRO.jpg" fetchpriority="high">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -130,7 +130,7 @@ nav .logo img {
 .hero-bg {
     position: absolute;
     inset: 0;
-    background: url('Fondo-Abstracto.png') center/cover no-repeat;
+    background: url('TRIGGERINTRO.jpg') center/cover no-repeat;
     transform: scale(1.2) translateZ(0);
     will-change: transform;
     backface-visibility: hidden;
@@ -431,4 +431,26 @@ html.ready #loader { display: none; }
     current += (target - current) * 0.12;
     const progress = Math.min(current / hero.offsetHeight, 1);
     const scale = 1.2 - progress * 0.2;
-    heroBg.style.transform =
+    heroBg.style.transform = `scale(${scale}) translateY(${current * 0.3}px) translateZ(0)`;
+    
+    if (Math.abs(target - current) > 0.1) {
+      requestAnimationFrame(updateHero);
+    } else {
+      ticking = false;
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    target = window.pageYOffset;
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateHero);
+    }
+  }, { passive: true });
+
+  window.addEventListener('load', () => {
+    document.documentElement.classList.add('ready');
+  });
+</script>
+</body>
+</html>
