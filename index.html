@@ -205,7 +205,7 @@ h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 4
 
 .plugin-card .specs, .featured-plugin .specs { font-size: 0.75rem; color: var(--muted); margin: 8px 0; letter-spacing: 0.5px; }
 .video-wrapper { position: relative; padding-bottom: 56.25%; background: #000; border-radius: 8px; overflow: hidden; }
-.video-wrapper iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
+.video-wrapper img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; border:0; }
 .audio-box { background: var(--card); padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; border: 1px solid #eee; }
 
 .about-box { display: flex; flex-wrap: wrap; gap: 30px; align-items: center; justify-content: center; max-width: 800px; margin: auto; }
@@ -292,7 +292,7 @@ html.ready #loader { display: none; }
         <section id="plugin-demo">
             <h2>Demo del Plugin</h2>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/kGxzkAeb94o" allowfullscreen></iframe>
+                <img src="DESARROLLO.jpg" alt="Demo del Plugin">
             </div>
         </section>
 
@@ -325,3 +325,9 @@ html.ready #loader { display: none; }
                 <p>Trigger de audio profesional.</p>
                 <p class="specs">VST3 · Windows</p>
                 <a href="https://dinnoismusic.gumroad.com/l/acwrao?layout=profile" class="btn-action btn-premium-card" target="_blank">Ver más</a>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>
