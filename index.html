@@ -30,7 +30,7 @@
     --hero-fallback: #ffffff;
 }
 
-* {
+- {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -291,8 +291,8 @@ html.ready #loader { display: none; }
     <div class="container">
         <section id="plugin-demo">
             <h2>Demo del Plugin</h2>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/kGxzkAeb94o" allowfullscreen></iframe>
+            <div class="featured-plugin" style="max-width: 100%;">
+                <img src="DESARROLLO.jpg" alt="Desarrollo Trigger Dr.Rex" loading="lazy" style="max-width: 100%;">
             </div>
         </section>
 
@@ -403,26 +403,22 @@ html.ready #loader { display: none; }
 
   menuBtn.addEventListener('click', toggleMenu);
 
-  /* Cierre al hacer clic en un enlace del menú */
   document.querySelectorAll('.overlay a').forEach(link => {
     link.addEventListener('click', closeMenu);
   });
 
-  /* Cierre al hacer clic en el fondo del overlay fuera de un link */
   menuOverlay.addEventListener('click', (e) => {
     if (e.target === menuOverlay) {
       closeMenu();
     }
   });
 
-  /* Cierre al presionar la tecla Escape */
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menuOverlay.classList.contains('show')) {
       closeMenu();
     }
   });
 
-  /* ===== Parallax del hero ===== */
   const heroBg = document.getElementById('heroBg');
   const hero = document.querySelector('.hero');
   let target = 0, current = 0, ticking = false;
