@@ -8,11 +8,11 @@
 
 <meta property="og:title" content="Dinno Is Music">
 <meta property="og:description" content="Plugins de audio y librerías de sonido creados por Dinno, productor musical.">
-<meta property="og:image" content="https://dinnoismusic.com/LOGOOK-SINFONDO.png">
+<meta property="og:image" content="https://dinnoismusic.com/LOGOOK-SINFONDO.jpg">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dinnoismusic.com/">
 
-<link rel="icon" type="image/png" href="LOGOOK-SINFONDO.png">
+<link rel="icon" type="image/jpeg" href="LOGOOK-SINFONDO.jpg">
 <link rel="preload" as="image" href="TRIGGERINTRO.jpg" fetchpriority="high">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -63,7 +63,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 20px;
+    padding: 10px 20px;
     z-index: 2000;
     border-bottom: 1px solid #eeeeee;
 }
@@ -73,7 +73,8 @@ nav .logo {
     align-items: center;
 }
 nav .logo img {
-    height: 36px;
+    height: 75px; /* Logo superior más grande y adaptado a su formato horizontal */
+    width: auto;
     display: block;
 }
 
@@ -209,7 +210,14 @@ h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 4
 .audio-box { background: var(--card); padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; border: 1px solid #eee; }
 
 .about-box { display: flex; flex-wrap: wrap; gap: 30px; align-items: center; justify-content: center; max-width: 800px; margin: auto; }
-.about-box img { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+/* Logo en Sobre Mí corregido: sin cortes, sin círculo forzado, mostrando el logo completo */
+.about-box img { 
+    width: 220px; 
+    height: auto; 
+    object-fit: contain; 
+    flex-shrink: 0; 
+    border-radius: 0;
+}
 .about-box p { color: var(--muted); flex: 1 1 300px; line-height: 1.6; }
 
 .libraries-scroll { display: flex; gap: 15px; overflow-x: auto; padding: 10px 20px 25px 20px; scroll-snap-type: x mandatory; }
@@ -221,7 +229,12 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
 .social-links a { color: var(--text); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
 .social-links a:hover { color: var(--ff-blue); }
 
-@media (max-width: 480px) { .container { padding: 40px 15px; } .secondary-grid { grid-template-columns: 1fr; } .about-box img { width: 120px; height: 120px; } .social-links { flex-wrap: wrap; gap: 12px 18px; } }
+@media (max-width: 480px) { 
+    .container { padding: 40px 15px; } 
+    .secondary-grid { grid-template-columns: 1fr; } 
+    .about-box img { width: 180px; } 
+    .social-links { flex-wrap: wrap; gap: 12px 18px; } 
+}
 
 .float-ig {
     position: fixed;
@@ -256,11 +269,11 @@ html.ready #loader { display: none; }
 </head>
 
 <body>
-<div id="loader"><img src="LOGOOK-SINFONDO.png" alt="Cargando..." style="height:60px"></div>
+<div id="loader"><img src="LOGOOK-SINFONDO.jpg" alt="Cargando..." style="height:60px"></div>
 <div class="main-wrapper">
     <nav>
         <div class="logo">
-            <img src="LOGOOK-SINFONDO.png" alt="Dinno Is Music">
+            <img src="LOGOOK-SINFONDO.jpg" alt="Dinno Is Music">
         </div>
         <div class="hamburger-wrapper" id="menuBtn">
             <span style="font-weight: 500; font-size: 14px;">MENU</span>
@@ -311,7 +324,7 @@ html.ready #loader { display: none; }
         <section id="sobre-mi">
             <h2>Sobre Mí</h2>
             <div class="about-box">
-                <img src="LOGOOK-SINFONDO.png" alt="Dinno" loading="lazy">
+                <img src="LOGOOK-SINFONDO.jpg" alt="Dinno" loading="lazy">
                 <p>Hola, soy Dinno, productor musical nacido en Buenos Aires, Argentina, con más de 23 años de trayectoria en la música. A lo largo de este camino me especialicé en herramientas de procesamiento de sonido pensadas para hacer más simple y profesional el trabajo de otros productores. A través de Dinno Is Music comparto plugins, librerías de sonido y recursos creados con el mismo cuidado que pongo en mi propia música.</p>
             </div>
         </section>
