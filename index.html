@@ -73,9 +73,10 @@ nav .logo {
     align-items: center;
 }
 nav .logo img {
-    height: 75px; /* Logo superior más grande y adaptado a su formato horizontal */
+    height: 65px; /* Logo superior más grande y visible */
     width: auto;
     display: block;
+    max-width: 180px;
 }
 
 .hamburger-wrapper {
@@ -210,9 +211,10 @@ h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 4
 .audio-box { background: var(--card); padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; border: 1px solid #eee; }
 
 .about-box { display: flex; flex-wrap: wrap; gap: 30px; align-items: center; justify-content: center; max-width: 800px; margin: auto; }
-/* Logo en Sobre Mí corregido: sin cortes, mostrando el logo completo */
+/* Logo en Sobre Mí: sin cortes, completo y adaptado a su formato */
 .about-box img { 
-    width: 220px; 
+    width: 100%;
+    max-width: 240px;
     height: auto; 
     object-fit: contain; 
     flex-shrink: 0; 
@@ -232,7 +234,7 @@ footer { padding: 50px 20px; text-align: center; font-size: 0.8rem; color: var(-
 @media (max-width: 480px) { 
     .container { padding: 40px 15px; } 
     .secondary-grid { grid-template-columns: 1fr; } 
-    .about-box img { width: 180px; } 
+    .about-box img { max-width: 200px; } 
     .social-links { flex-wrap: wrap; gap: 12px 18px; } 
 }
 
