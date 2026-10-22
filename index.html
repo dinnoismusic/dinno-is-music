@@ -904,8 +904,8 @@ html.ready #loader { display: none; }
       const currentTime = activeTrack.currentTime;
       const wasPlaying = isPlaying;
 
-      audioA.pause();
-      audioB.pause();
+      activeTrack.pause();
+      activeTrack.currentTime = 0;
 
       activeTrack = targetAudio;
       activeTrack.currentTime = currentTime;
@@ -921,31 +921,35 @@ html.ready #loader { display: none; }
     btnA.addEventListener('click', () => switchTrack(audioA, btnA, btnB));
     btnB.addEventListener('click', () => switchTrack(audioB, btnB, btnA));
 
-    function updateProgress() {
-      if (activeTrack.duration) {
-        const progressPercent = (activeTrack.currentTime / activeTrack.duration) * 100;
-        progressBar.style.width = `${progressPercent}%`;
-        currentTimeEl.textContent = formatTime(activeTrack.currentTime);
-        durationTimeEl.textContent = formatTime(activeTrack.duration);
-      }
-      requestAnimationFrame(updateProgress);
-    }
-    requestAnimationFrame(updateProgress);
+    [audioA, audioB].forEach(audio => {
+      audio.addEventListener('timeupdate', () => {
+        if (activeTrack === audio && audio.duration) {
+          const progressPercent = (audio.currentTime / audio.duration) * 100;
+          progressBar.style.width = `${progressPercent}%`;
+          currentTimeEl.textContent = formatTime(audio.currentTime);
+        }
+      });
+      audio.addEventListener('ended', () => {
+        if (activeTrack === audio) {
+          playerInstance.pause();
+          audio.currentTime = 0;
+          progressBar.style.width = '0%';
+        }
+      });
+    });
 
     progressContainer.addEventListener('click', (e) => {
-      const width = progressContainer.clientWidth;
-      const clickX = e.offsetX;
+      const rect = progressContainer.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const width = rect.width;
       const duration = activeTrack.duration;
-
-      if (duration) {
-        const newTime = (clickX / width) * duration;
-        audioA.currentTime = newTime;
-        audioB.currentTime = newTime;
+      if (!isNaN(duration)) {
+        activeTrack.currentTime = (clickX / width) * duration;
       }
     });
   }
 
-  /* INICIALIZAR REPRODUCTORES DE WIDER Y DRIVE */
+  // Inicializar reproductores A/B
   createABPlayer({
     audioAId: 'audioWiderAntes',
     audioBId: 'audioWiderDespues',
@@ -970,78 +974,49 @@ html.ready #loader { display: none; }
     durationTimeId: 'durationTimeDrive'
   });
 
-  /* ===== LÓGICA DEL CARRUSEL DE IMÁGENES ===== */
+  // Carrusel
   const track = document.getElementById('carouselTrack');
-  const slides = Array.from(track.children);
-  const nextButton = document.getElementById('nextBtn');
-  const prevButton = document.getElementById('prevBtn');
-  const dots = Array.from(document.getElementById('carouselNav').children);
+  if (track) {
+    const slides = Array.from(track.children);
+    const nextButton = document.getElementById('nextBtn');
+    const prevButton = document.getElementById('prevBtn');
+    const dotsNav = document.getElementById('carouselNav');
+    const dots = dotsNav ? Array.from(dotsNav.children) : [];
+    let currentIndex = 0;
 
-  let currentIndex = 0;
+    const updateSlidePosition = (index) => {
+      track.style.transform = 'translateX(-' + (index * 100) + '%)';
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('current-slide', i === index);
+      });
+    };
 
-  function updateCarousel(index) {
-    track.style.transform = `translateX(-${index * 100}%)`;
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('current-slide', i === index);
-    });
-  }
+    if (nextButton) {
+      nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlidePosition(currentIndex);
+      });
+    }
 
-  nextButton.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateCarousel(currentIndex);
-  });
+    if (prevButton) {
+      prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateSlidePosition(currentIndex);
+      });
+    }
 
-  prevButton.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateCarousel(currentIndex);
-  });
-
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      currentIndex = index;
-      updateCarousel(currentIndex);
-    });
-  });
-
-  // Autoplay cada 5 segundos (se pausa al pasar el mouse por encima)
-  let carouselInterval = setInterval(() => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateCarousel(currentIndex);
-  }, 5000);
-
-  const carouselContainer = document.querySelector('.custom-carousel');
-  carouselContainer.addEventListener('mouseenter', () => clearInterval(carouselInterval));
-  carouselContainer.addEventListener('mouseleave', () => {
-    carouselInterval = setInterval(() => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      updateCarousel(currentIndex);
-    }, 5000);
-  });
-
-  const heroBg = document.getElementById('heroBg');
-  const hero = document.querySelector('.hero');
-  let target = 0, current = 0, ticking = false;
-
-  function updateHero() {
-    current += (target - current) * 0.12;
-    const progress = Math.min(current / hero.offsetHeight, 1);
-    const scale = 1.2 - progress * 0.2;
-    heroBg.style.transform = `scale(${scale}) translateY(${current * 0.3}px) translateZ(0)`;
-
-    if (Math.abs(target - current) > 0.1) {
-      requestAnimationFrame(updateHero);
-    } else {
-      ticking = false;
+    if (dotsNav) {
+      dotsNav.addEventListener('click', e => {
+        const targetDot = e.target.closest('button.carousel-indicator');
+        if (!targetDot) return;
+        const targetIndex = dots.findIndex(dot => dot === targetDot);
+        if (targetIndex !== -1) {
+          currentIndex = targetIndex;
+          updateSlidePosition(currentIndex);
+        }
+      });
     }
   }
-
-  window.addEventListener('scroll', () => {
-    target = window.pageYOffset;
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(updateHero);
-    }
-  }, { passive: true });
 
   window.addEventListener('load', () => {
     document.documentElement.classList.add('ready');
