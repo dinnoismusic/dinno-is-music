@@ -745,30 +745,25 @@ html.ready #loader { display: none; }
         </div>
     </section>
 
-    <!-- SECCIÓN CARRUSEL DE IMÁGENES ANTES DEL FOOTER -->
+    <!-- SECCIÓN CARRUSEL DE IMÁGENES -->
     <section class="carousel-section">
         <h2>Galería Dinno Is Music</h2>
         <div class="custom-carousel">
             <div class="carousel-track-container">
                 <div class="carousel-track" id="carouselTrack">
-                    <!-- Imagen Sonido Real -->
                     <div class="carousel-slide">
                         <img src="SONIDO_REAL.png" alt="Sonido Real, Criterio Independiente" loading="lazy">
                     </div>
-                    <!-- Imagen de desarrollo/plugins -->
                     <div class="carousel-slide">
                         <img src="DESARROLLO.jpg" alt="Desarrollo Trigger Dinno" loading="lazy">
                     </div>
-                    <!-- Imagen Trigger -->
                     <div class="carousel-slide">
                         <img src="TRIGGER.png" alt="Trigger Dinno Plugins" loading="lazy">
                     </div>
                 </div>
             </div>
-            <!-- Botones de navegación -->
             <button class="carousel-button carousel-button--left" id="prevBtn" aria-label="Anterior">&#10094;</button>
             <button class="carousel-button carousel-button--right" id="nextBtn" aria-label="Siguiente">&#10095;</button>
-            <!-- Indicadores / Dots -->
             <div class="carousel-nav" id="carouselNav">
                 <button class="carousel-indicator current-slide" aria-label="Slide 1"></button>
                 <button class="carousel-indicator" aria-label="Slide 2"></button>
@@ -777,10 +772,9 @@ html.ready #loader { display: none; }
         </div>
     </section>
 
-    <!-- FOOTER ESTILO FABFILTER EN ESPAÑOL -->
+    <!-- FOOTER -->
     <footer>
         <div class="footer-container">
-            <!-- Columna 1: Sobre Dinno Is Music -->
             <div class="footer-col">
                 <h4>Sobre Dinno Is Music</h4>
                 <ul>
@@ -793,7 +787,6 @@ html.ready #loader { display: none; }
                 </ul>
             </div>
 
-            <!-- Columna 2: Redes Sociales / Mantente al día -->
             <div class="footer-col">
                 <h4>Mantenete al día</h4>
                 <ul>
@@ -805,7 +798,6 @@ html.ready #loader { display: none; }
                 </ul>
             </div>
 
-            <!-- Columna 3: Suscribite al boletín -->
             <div class="footer-col" id="contacto">
                 <h4>Suscribite a nuestro boletín</h4>
                 <p style="color: #999; margin-bottom: 15px; font-size: 0.8rem;">
@@ -831,12 +823,14 @@ html.ready #loader { display: none; }
 </div>
 
 <script>
+  // Intersection Observer para secciones
   const sections = document.querySelectorAll('section');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   sections.forEach(s => observer.observe(s));
 
+  // Menú Hamburguesa
   const menuBtn = document.getElementById('menuBtn');
   const menuOverlay = document.getElementById('menuOverlay');
 
@@ -851,24 +845,11 @@ html.ready #loader { display: none; }
   };
 
   menuBtn.addEventListener('click', toggleMenu);
+  document.querySelectorAll('.overlay a').forEach(link => { link.addEventListener('click', closeMenu); });
+  menuOverlay.addEventListener('click', (e) => { if (e.target === menuOverlay) closeMenu(); });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menuOverlay.classList.contains('show')) closeMenu(); });
 
-  document.querySelectorAll('.overlay a').forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
-
-  menuOverlay.addEventListener('click', (e) => {
-    if (e.target === menuOverlay) {
-      closeMenu();
-    }
-  });
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menuOverlay.classList.contains('show')) {
-      closeMenu();
-    }
-  });
-
-  // Array global para controlar todas las instancias de reproductores y pausarlas entre sí
+  // REPRODUCTORES A/B
   const activePlayers = [];
 
   function createABPlayer(config) {
@@ -910,20 +891,14 @@ html.ready #loader { display: none; }
       if (isPlaying) {
         playerInstance.pause();
       } else {
-        // Pausar todos los demás reproductores antes de arrancar este
-        activePlayers.forEach(p => {
-          if (p !== playerInstance) p.pause();
-        });
-
-        activeTrack.play();
-        btnPlay.textContent = '❚❚';
+        activePlayers.forEach(p => { if (p !== playerInstance) p.pause(); });
         isPlaying = true;
+        btnPlay.textContent = '❚❚';
+        activeTrack.play();
       }
     });
 
-    function switchTrack(targetAudio, activeButton, inactiveButton) {
-      if (activeTrack === targetAudio) return;
-
+    function switchTrack(targetAudio, activateBtn, deactivateBtn) {
       const currentTime = activeTrack.currentTime;
       const wasPlaying = isPlaying;
 
@@ -933,8 +908,8 @@ html.ready #loader { display: none; }
       activeTrack = targetAudio;
       activeTrack.currentTime = currentTime;
 
-      activeButton.classList.add('active');
-      inactiveButton.classList.remove('active');
+      activateBtn.classList.add('active');
+      deactivateBtn.classList.remove('active');
 
       if (wasPlaying) {
         activeTrack.play();
@@ -944,35 +919,28 @@ html.ready #loader { display: none; }
     btnA.addEventListener('click', () => switchTrack(audioA, btnA, btnB));
     btnB.addEventListener('click', () => switchTrack(audioB, btnB, btnA));
 
-    [audioA, audioB].forEach(audio => {
-      audio.addEventListener('timeupdate', () => {
-        if (activeTrack === audio && audio.duration) {
-          const progressPercent = (audio.currentTime / audio.duration) * 100;
-          progressBar.style.width = `${progressPercent}%`;
-          currentTimeEl.textContent = formatTime(audio.currentTime);
-        }
-      });
-      audio.addEventListener('ended', () => {
-        if (activeTrack === audio) {
-          playerInstance.pause();
-          audio.currentTime = 0;
-          progressBar.style.width = '0%';
-        }
-      });
+    activeTrack.addEventListener('timeupdate', () => {
+      if (activeTrack.duration) {
+        const percent = (activeTrack.currentTime / activeTrack.duration) * 100;
+        progressBar.style.width = `${percent}%`;
+        currentTimeEl.textContent = formatTime(activeTrack.currentTime);
+      }
     });
 
     progressContainer.addEventListener('click', (e) => {
       const rect = progressContainer.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const width = rect.width;
-      const duration = activeTrack.duration;
-      if (!isNaN(duration)) {
-        activeTrack.currentTime = (clickX / width) * duration;
-      }
+      const pos = (e.clientX - rect.left) / rect.width;
+      activeTrack.currentTime = pos * activeTrack.duration;
+    });
+
+    activeTrack.addEventListener('ended', () => {
+      playerInstance.pause();
+      activeTrack.currentTime = 0;
+      progressBar.style.width = '0%';
     });
   }
 
-  // Inicializar reproductores A/B
+  // Inicializar Wider
   createABPlayer({
     audioAId: 'audioWiderAntes',
     audioBId: 'audioWiderDespues',
@@ -985,6 +953,7 @@ html.ready #loader { display: none; }
     durationTimeId: 'durationTimeWider'
   });
 
+  // Inicializar Drive
   createABPlayer({
     audioAId: 'audioDriveAntes',
     audioBId: 'audioDriveDespues',
@@ -997,50 +966,64 @@ html.ready #loader { display: none; }
     durationTimeId: 'durationTimeDrive'
   });
 
-  // Carrusel estilo Waves
+  // CARRUSEL DE IMÁGENES LÓGICA
   const track = document.getElementById('carouselTrack');
   if (track) {
     const slides = Array.from(track.children);
     const nextButton = document.getElementById('nextBtn');
     const prevButton = document.getElementById('prevBtn');
     const dotsNav = document.getElementById('carouselNav');
-    const dots = dotsNav ? Array.from(dotsNav.children) : [];
-    let currentIndex = 0;
+    const dots = Array.from(dotsNav.children);
 
-    const updateSlidePosition = (index) => {
-      track.style.transform = 'translateX(-' + (index * 100) + '%)';
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('current-slide', i === index);
+    let currentIndex = 0;
+    const slideCount = slides.length;
+
+    const updateCarousel = (index) => {
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('current-slide', idx === index);
       });
     };
 
-    if (nextButton) {
-      nextButton.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % slides.length;
-        updateSlidePosition(currentIndex);
+    nextButton.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % slideCount;
+      updateCarousel(currentIndex);
+      resetAutoplay();
+    });
+
+    prevButton.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+      updateCarousel(currentIndex);
+      resetAutoplay();
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentIndex = index;
+        updateCarousel(currentIndex);
+        resetAutoplay();
       });
+    });
+
+    let autoplayTimer = setInterval(() => {
+      currentIndex = (currentIndex + 1) % slideCount;
+      updateCarousel(currentIndex);
+    }, 5000);
+
+    function resetAutoplay() {
+      clearInterval(autoplayTimer);
+      autoplayTimer = setInterval(() => {
+        currentIndex = (currentIndex + 1) % slideCount;
+        updateCarousel(currentIndex);
+      }, 5000);
     }
 
-    if (prevButton) {
-      prevButton.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-        updateSlidePosition(currentIndex);
-      });
-    }
-
-    if (dotsNav) {
-      dotsNav.addEventListener('click', e => {
-        const targetDot = e.target.closest('button.carousel-indicator');
-        if (!targetDot) return;
-        const targetIndex = dots.findIndex(dot => dot === targetDot);
-        if (targetIndex !== -1) {
-          currentIndex = targetIndex;
-          updateSlidePosition(currentIndex);
-        }
-      });
-    }
+    const carouselContainer = document.querySelector('.custom-carousel');
+    carouselContainer.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
+    carouselContainer.addEventListener('mouseleave', () => resetAutoplay());
   }
 
+  // Ocultar loader al terminar de cargar
   window.addEventListener('load', () => {
     document.documentElement.classList.add('ready');
   });
