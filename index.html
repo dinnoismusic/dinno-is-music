@@ -600,8 +600,8 @@ html.ready #loader { display: none; }
                             <span id="durationTimeDrive">0:00</span>
                         </div>
 
-                        <audio id="audioDriveAntes" src="GTR CRUDA BUCLE.wav" preload="metadata" loop></audio>
-                        <audio id="audioDriveDespues" src="GTR FX DRIVE.wav" preload="metadata" loop></audio>
+                        <audio id="audioDriveAntes" src="GTR DRIVE CRUDA.wav" preload="metadata" loop></audio>
+                        <audio id="audioDriveDespues" src="GTR_DRIVE_50_FX.wav" preload="metadata" loop></audio>
                     </div>
 
                     <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card" target="_blank" style="margin-top: 15px;">Comprar</a>
@@ -726,7 +726,9 @@ html.ready #loader { display: none; }
     }
   });
 
-  /* FUNCIÓN GENERADORA DE REPRODUCTORES A/B INDEPENDIENTES */
+  // Array global para controlar todas las instancias de reproductores y pausarlas entre sí
+  const activePlayers = [];
+
   function createABPlayer(config) {
     const audioA = document.getElementById(config.audioAId);
     const audioB = document.getElementById(config.audioBId);
@@ -741,6 +743,16 @@ html.ready #loader { display: none; }
     let activeTrack = audioA;
     let isPlaying = false;
 
+    const playerInstance = {
+      pause: () => {
+        audioA.pause();
+        audioB.pause();
+        btnPlay.textContent = '▶';
+        isPlaying = false;
+      }
+    };
+    activePlayers.push(playerInstance);
+
     function formatTime(seconds) {
       if (isNaN(seconds)) return "0:00";
       const mins = Math.floor(seconds / 60);
@@ -754,11 +766,13 @@ html.ready #loader { display: none; }
 
     btnPlay.addEventListener('click', () => {
       if (isPlaying) {
-        audioA.pause();
-        audioB.pause();
-        btnPlay.textContent = '▶';
-        isPlaying = false;
+        playerInstance.pause();
       } else {
+        // Pausar todos los demás reproductores antes de arrancar este
+        activePlayers.forEach(p => {
+          if (p !== playerInstance) p.pause();
+        });
+
         activeTrack.play();
         btnPlay.textContent = '❚❚';
         isPlaying = true;
