@@ -338,6 +338,93 @@ h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 4
 .library-card { min-width: 220px; max-width: 220px; background: #f9f9f9; border-radius: 14px; padding: 15px; text-align: center; scroll-snap-align: center; border: 1px solid #eee; }
 .library-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
 
+/* ===== CARRUSEL DE IMÁGENES ANTES DEL FOOTER ===== */
+.carousel-section {
+    max-width: 1050px;
+    margin: 0 auto 60px auto;
+    padding: 0 20px;
+}
+.custom-carousel {
+    position: relative;
+    background: var(--card);
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 25px 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+.carousel-track-container {
+    overflow: hidden;
+    width: 100%;
+    border-radius: 8px;
+}
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    width: 100%;
+}
+.carousel-slide {
+    min-width: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: contain;
+    border-radius: 8px;
+    display: block;
+}
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    z-index: 10;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+.carousel-button:hover {
+    background: rgba(0, 0, 0, 0.85);
+    transform: translateY(-50%) scale(1.05);
+}
+.carousel-button--left {
+    left: 20px;
+}
+.carousel-button--right {
+    right: 20px;
+}
+.carousel-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+.carousel-indicator {
+    border: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #cccccc;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.carousel-indicator.current-slide {
+    background: var(--ff-blue);
+}
+
 /* ===== FOOTER ESTILO FABFILTER ===== */
 footer {
     background: var(--footer-bg);
@@ -618,7 +705,7 @@ html.ready #loader { display: none; }
                     <p>Dino, nombre artístico de Marcelo Pablo Cóspide, es un productor musical, músico y compositor argentino con más de 23 años de trayectoria en la industria musical.</p>
                     <p>Su historia está marcada por una conexión directa con la música, tanto desde la interpretación instrumental como desde la composición y la producción. Formó parte de <strong>18 Kilates</strong> como guitarrista y corista, participó en la creación de algunas de sus canciones y trabajó en el estudio de grabación del grupo, desarrollando una visión integral del proceso musical.</p>
                     <p>A lo largo de su carrera colaboró en producciones para artistas como <strong>Antonio Ríos</strong>, <strong>Diego Ríos</strong> y <strong>Aneley</strong>, y realizó trabajos para <strong>Azteka Records</strong>, sello discográfico con presencia en Texas, Estados Unidos. Su experiencia abarca la producción musical, los arreglos, la grabación de instrumentos, la mezcla y el mastering.</p>
-                    <p>También se desempeña como músico de sesión, aportando su interpretación y criterio musical a proyectos de otros artistas. Su versatilidad instrumental incluye piano, guitarra, trompeta, bajo y percusión, una combinación que enriquece su enfoque creativo y técnico.</p>
+                    <p>También se desempeña como músico de sesión, aportando su interpretación y criterio musical a proyectos de otros artistas. Su versatilidad instrumental incluye piano, guitarra, trompeta, bass y percusión, una combinación que enriquece su enfoque creativo y técnico.</p>
                     <p>Actualmente, canaliza su experiencia a través de <strong>DINNO IS MUSIC</strong>, su proyecto discográfico y de producción musical, y <strong>DINNO PLUGINS</strong>, una línea de herramientas de audio desarrolladas para acompañar y optimizar el trabajo de otros productores.</p>
                     <p>Su trabajo une experiencia artística, conocimiento técnico y desarrollo tecnológico, con una mirada que abarca tanto la creación musical como las herramientas que hacen posible llevar cada producción a su mejor resultado.</p>
                 </div>
@@ -632,6 +719,38 @@ html.ready #loader { display: none; }
             <div class="library-card"><img src="dinno-pack-machine.png" alt="Dinno Pack Machine" loading="lazy"><p>Dinno Pack Machine</p></div>
             <div class="library-card"><img src="Libreria-Vol-1-Dinno-Is-Music.png" alt="Librería Vol 1" loading="lazy"><p>Librería Vol 1</p></div>
             <div class="library-card"><img src="libreria-flocklore.png" alt="Librería Flocklore" loading="lazy"><p>Librería Flocklore</p></div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CARRUSEL DE IMÁGENES ANTES DEL FOOTER -->
+    <section class="carousel-section">
+        <h2>Galería Dinno Is Music</h2>
+        <div class="custom-carousel">
+            <div class="carousel-track-container">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Imagen Sonido Real -->
+                    <div class="carousel-slide">
+                        <img src="SONIDO_REAL.jpg" alt="Sonido Real, Criterio Independiente" loading="lazy">
+                    </div>
+                    <!-- Imagen de desarrollo/plugins -->
+                    <div class="carousel-slide">
+                        <img src="DESARROLLO.jpg" alt="Desarrollo Trigger Dinno" loading="lazy">
+                    </div>
+                    <!-- Imagen Trigger -->
+                    <div class="carousel-slide">
+                        <img src="TRIGGER.png" alt="Trigger Dinno Plugins" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            <!-- Botones de navegación -->
+            <button class="carousel-button carousel-button--left" id="prevBtn" aria-label="Anterior">&#10094;</button>
+            <button class="carousel-button carousel-button--right" id="nextBtn" aria-label="Siguiente">&#10095;</button>
+            <!-- Indicadores / Dots -->
+            <div class="carousel-nav" id="carouselNav">
+                <button class="carousel-indicator current-slide" aria-label="Slide 1"></button>
+                <button class="carousel-indicator" aria-label="Slide 2"></button>
+                <button class="carousel-indicator" aria-label="Slide 3"></button>
+            </div>
         </div>
     </section>
 
@@ -849,6 +968,54 @@ html.ready #loader { display: none; }
     progressContainerId: 'progressDriveContainer',
     currentTimeId: 'currentTimeDrive',
     durationTimeId: 'durationTimeDrive'
+  });
+
+  /* ===== LÓGICA DEL CARRUSEL DE IMÁGENES ===== */
+  const track = document.getElementById('carouselTrack');
+  const slides = Array.from(track.children);
+  const nextButton = document.getElementById('nextBtn');
+  const prevButton = document.getElementById('prevBtn');
+  const dots = Array.from(document.getElementById('carouselNav').children);
+
+  let currentIndex = 0;
+
+  function updateCarousel(index) {
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('current-slide', i === index);
+    });
+  }
+
+  nextButton.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % slides.length;
+    updateCarousel(currentIndex);
+  });
+
+  prevButton.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    updateCarousel(currentIndex);
+  });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      currentIndex = index;
+      updateCarousel(currentIndex);
+    });
+  });
+
+  // Autoplay cada 5 segundos (se pausa al pasar el mouse por encima)
+  let carouselInterval = setInterval(() => {
+    currentIndex = (currentIndex + 1) % slides.length;
+    updateCarousel(currentIndex);
+  }, 5000);
+
+  const carouselContainer = document.querySelector('.custom-carousel');
+  carouselContainer.addEventListener('mouseenter', () => clearInterval(carouselInterval));
+  carouselContainer.addEventListener('mouseleave', () => {
+    carouselInterval = setInterval(() => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateCarousel(currentIndex);
+    }, 5000);
   });
 
   const heroBg = document.getElementById('heroBg');
