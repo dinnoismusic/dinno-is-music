@@ -187,6 +187,7 @@ h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 4
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 30px;
+    align-items: start;
 }
 .plugin-card {
     background: var(--card);
@@ -206,9 +207,83 @@ h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 4
 }
 
 .plugin-card .specs, .featured-plugin .specs { font-size: 0.75rem; color: var(--muted); margin: 8px 0; letter-spacing: 0.5px; }
-.video-wrapper { position: relative; padding-bottom: 56.25%; background: #000; border-radius: 8px; overflow: hidden; }
-.video-wrapper iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
-.audio-box { background: var(--card); padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; border: 1px solid #eee; }
+
+/* ===== DEMO COMPACTA A/B DE WIDER ===== */
+.wider-demo-compact {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #e0e0e0;
+    text-align: center;
+}
+.wider-demo-compact h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.ab-controls-compact {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+.btn-ab-compact {
+    padding: 6px 12px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: var(--muted);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-ab-compact.active {
+    background: var(--text);
+    color: #fff;
+    border-color: var(--text);
+}
+.btn-play-compact {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--ff-blue);
+    color: #fff;
+    border: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px auto 8px auto;
+    box-shadow: 0 3px 8px rgba(0, 160, 255, 0.25);
+    transition: transform 0.2s ease;
+}
+.btn-play-compact:hover { transform: scale(1.06); }
+.ab-progress-container-compact {
+    width: 100%;
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.ab-progress-bar-compact {
+    width: 0%;
+    height: 100%;
+    background: var(--ff-blue);
+    border-radius: 2px;
+}
+.ab-time-compact {
+    font-size: 0.68rem;
+    color: var(--muted);
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
 
 /* ===== SOBRE MÍ ESTILIZADO ===== */
 .about-box { 
@@ -321,9 +396,8 @@ html.ready #loader { display: none; }
 
     <div class="overlay" id="menuOverlay">
         <a href="#plugin-demo">Demo</a>
-        <a href="#antes-despues">Antes / Después</a>
-        <a href="#sobre-mi">Sobre Mí</a>
         <a href="#plugins">Plugins</a>
+        <a href="#sobre-mi">Sobre Mí</a>
         <a href="#librerias">Librerías</a>
         <a href="#contacto">Contacto</a>
     </div>
@@ -347,14 +421,62 @@ html.ready #loader { display: none; }
             </div>
         </section>
 
-        <section id="antes-despues">
-            <h2>Antes / Después</h2>
-            <div class="audio-box">
-                <p>Antes</p>
-                <audio controls style="width:100%;"><source src="antes.mp3" type="audio/mpeg"></audio>
-                <div style="margin-top:20px;">
-                    <p>Después</p>
-                    <audio controls style="width:100%;"><source src="despues.mp3" type="audio/mpeg"></audio>
+        <section id="plugins">
+            <h2>Plugins Destacados</h2>
+
+            <div class="featured-plugin">
+                <a href="https://dinnoismusic.gumroad.com/l/acwrao?layout=profile" target="_blank"><img src="TRIGGER.png" alt="Trigger Dinno Plugins"></a>
+                <h3>Trigger Dinno Plugins</h3>
+                <p>Trigger de audio profesional.</p>
+                <p class="specs">VST3 · Windows</p>
+                <a href="https://dinnoismusic.gumroad.com/l/acwrao?layout=profile" class="btn-action btn-premium-card" target="_blank">Ver más</a>
+            </div>
+
+            <div class="secondary-grid">
+                <!-- TARJETA WIDER DINNO PLUGINS -->
+                <div class="plugin-card">
+                    <div>
+                        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" target="_blank"><img src="wider-dr-rex.png" alt="Wider Dinno Plugins" loading="lazy"></a>
+                        <h3>Wider Dinno Plugins</h3>
+                        <p>Plugin gratuito.</p>
+                        <p class="specs">VST3 · Windows</p>
+                    </div>
+
+                    <!-- PRUEBA / ESCUCHA LA MAGIA DE WIDER COMPACTO -->
+                    <div class="wider-demo-compact">
+                        <h4>Escuchá la magia de Wider</h4>
+                        <div class="ab-controls-compact">
+                            <button class="btn-ab-compact active" id="btnAntes">CRUDA</button>
+                            <button class="btn-ab-compact" id="btnDespues">CON WIDER</button>
+                        </div>
+
+                        <button class="btn-play-compact" id="btnPlayAB" aria-label="Reproducir">▶</button>
+
+                        <div class="ab-progress-container-compact" id="progressContainer">
+                            <div class="ab-progress-bar-compact" id="progressBar"></div>
+                        </div>
+
+                        <div class="ab-time-compact">
+                            <span id="currentTime">0:00</span>
+                            <span id="durationTime">0:00</span>
+                        </div>
+
+                        <audio id="audioAntes" src="GTR CRUDA BUCLE.wav" preload="metadata" loop></audio>
+                        <audio id="audioDespues" src="GTR FX BUCLE.wav" preload="metadata" loop></audio>
+                    </div>
+
+                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn-action btn-free-card" target="_blank" style="margin-top: 15px;">Descargar</a>
+                </div>
+
+                <!-- TARJETA DRIVE DINNO PLUGINS -->
+                <div class="plugin-card">
+                    <div>
+                        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" target="_blank"><img src="driver-dr-rex.png" alt="Drive Dinno Plugins" loading="lazy"></a>
+                        <h3>Drive Dinno Plugins</h3>
+                        <p>Saturación analógica.</p>
+                        <p class="specs">VST3 · Windows · USD $5</p>
+                    </div>
+                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card" target="_blank">Comprar</a>
                 </div>
             </div>
         </section>
@@ -371,40 +493,6 @@ html.ready #loader { display: none; }
                     <p>También se desempeña como músico de sesión, aportando su interpretación y criterio musical a proyectos de otros artistas. Su versatilidad instrumental incluye piano, guitarra, trompeta, bajo y percusión, una combinación que enriquece su enfoque creativo y técnico.</p>
                     <p>Actualmente, canaliza su experiencia a través de <strong>DINNO IS MUSIC</strong>, su proyecto discográfico y de producción musical, y <strong>DINNO PLUGINS</strong>, una línea de herramientas de audio desarrolladas para acompañar y optimizar el trabajo de otros productores.</p>
                     <p>Su trabajo une experiencia artística, conocimiento técnico y desarrollo tecnológico, con una mirada que abarca tanto la creación musical como las herramientas que hacen posible llevar cada producción a su mejor resultado.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="plugins">
-            <h2>Plugins Destacados</h2>
-
-            <div class="featured-plugin">
-                <a href="https://dinnoismusic.gumroad.com/l/acwrao?layout=profile" target="_blank"><img src="TRIGGER.png" alt="Trigger Dinno Plugins"></a>
-                <h3>Trigger Dinno Plugins</h3>
-                <p>Trigger de audio profesional.</p>
-                <p class="specs">VST3 · Windows</p>
-                <a href="https://dinnoismusic.gumroad.com/l/acwrao?layout=profile" class="btn-action btn-premium-card" target="_blank">Ver más</a>
-            </div>
-
-            <div class="secondary-grid">
-                <div class="plugin-card">
-                    <div>
-                        <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" target="_blank"><img src="wider-dr-rex.png" alt="Wider Dinno Plugins" loading="lazy"></a>
-                        <h3>Wider Dinno Plugins</h3>
-                        <p>Plugin gratuito.</p>
-                        <p class="specs">VST3 · Windows</p>
-                    </div>
-                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn-action btn-free-card" target="_blank">Descargar</a>
-                </div>
-
-                <div class="plugin-card">
-                    <div>
-                        <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" target="_blank"><img src="driver-dr-rex.png" alt="Drive Dinno Plugins" loading="lazy"></a>
-                        <h3>Drive Dinno Plugins</h3>
-                        <p>Saturación analógica.</p>
-                        <p class="specs">VST3 · Windows · USD $5</p>
-                    </div>
-                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card" target="_blank">Comprar</a>
                 </div>
             </div>
         </section>
@@ -475,6 +563,95 @@ html.ready #loader { display: none; }
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menuOverlay.classList.contains('show')) {
       closeMenu();
+    }
+  });
+
+  /* LÓGICA REPRODUCTOR COMPACTO WIDER */
+  const audioAntes = document.getElementById('audioAntes');
+  const audioDespues = document.getElementById('audioDespues');
+  const btnPlayAB = document.getElementById('btnPlayAB');
+  const btnAntes = document.getElementById('btnAntes');
+  const btnDespues = document.getElementById('btnDespues');
+  const progressBar = document.getElementById('progressBar');
+  const progressContainer = document.getElementById('progressContainer');
+  const currentTimeEl = document.getElementById('currentTime');
+  const durationTimeEl = document.getElementById('durationTime');
+
+  let activeTrack = audioAntes;
+  let isPlaying = false;
+
+  function formatTime(seconds) {
+    if (isNaN(seconds)) return "0:00";
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  }
+
+  audioAntes.addEventListener('loadedmetadata', () => {
+    durationTimeEl.textContent = formatTime(audioAntes.duration);
+  });
+
+  btnPlayAB.addEventListener('click', () => {
+    if (isPlaying) {
+      audioAntes.pause();
+      audioDespues.pause();
+      btnPlayAB.textContent = '▶';
+      isPlaying = false;
+    } else {
+      activeTrack.play();
+      btnPlayAB.textContent = '❚❚';
+      isPlaying = true;
+    }
+  });
+
+  function switchTrack(targetAudio, activeButton, inactiveButton) {
+    if (activeTrack === targetAudio) return;
+
+    const currentTime = activeTrack.currentTime;
+    const wasPlaying = isPlaying;
+
+    audioAntes.pause();
+    audioDespues.pause();
+
+    activeTrack = targetAudio;
+    activeTrack.currentTime = currentTime;
+
+    activeButton.classList.add('active');
+    inactiveButton.classList.remove('active');
+
+    if (wasPlaying) {
+      activeTrack.play();
+    }
+  }
+
+  btnAntes.addEventListener('click', () => {
+    switchTrack(audioAntes, btnAntes, btnDespues);
+  });
+
+  btnDespues.addEventListener('click', () => {
+    switchTrack(audioDespues, btnDespues, btnAntes);
+  });
+
+  function updateProgress() {
+    if (activeTrack.duration) {
+      const progressPercent = (activeTrack.currentTime / activeTrack.duration) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+      currentTimeEl.textContent = formatTime(activeTrack.currentTime);
+      durationTimeEl.textContent = formatTime(activeTrack.duration);
+    }
+    requestAnimationFrame(updateProgress);
+  }
+  requestAnimationFrame(updateProgress);
+
+  progressContainer.addEventListener('click', (e) => {
+    const width = progressContainer.clientWidth;
+    const clickX = e.offsetX;
+    const duration = activeTrack.duration;
+
+    if (duration) {
+      const newTime = (clickX / width) * duration;
+      audioAntes.currentTime = newTime;
+      audioDespues.currentTime = newTime;
     }
   });
 
