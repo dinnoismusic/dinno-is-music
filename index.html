@@ -718,6 +718,18 @@ html.ready #loader { display: none; }
 
                     <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card" target="_blank" style="margin-top: 15px;">Comprar</a>
                 </div>
+
+                <!-- TARJETA DOUBLER FX DINNO PLUGINS -->
+                <div class="plugin-card">
+                    <div>
+                        <a href="https://dinnoismusic.gumroad.com/l/Doubler-Fx-DinnoPlugins" target="_blank"><img src="DOUBLER-FX.png" alt="Doubler Fx Dinno Plugins" loading="lazy"></a>
+                        <h3>Doubler Fx Dinno Plugins</h3>
+                        <p>Efecto de doblaje estéreo.</p>
+                        <p class="specs">VST3 · Windows</p>
+                    </div>
+
+                    <a href="https://dinnoismusic.gumroad.com/l/Doubler-Fx-DinnoPlugins" class="btn-action btn-premium-card" target="_blank" style="margin-top: 15px;">Ver más</a>
+                </div>
             </div>
         </section>
 
@@ -910,50 +922,53 @@ html.ready #loader { display: none; }
     });
 
     function switchTrack(targetAudio, activateBtn, deactivateBtn) {
+      if (activeTrack === targetAudio) return;
+      
       const currentTime = activeTrack.currentTime;
-      const wasPlaying = isPlaying;
-
       activeTrack.pause();
+      activeTrack.currentTime = 0;
+
       activeTrack = targetAudio;
       activeTrack.currentTime = currentTime;
 
       activateBtn.classList.add('active');
       deactivateBtn.classList.remove('active');
 
-      if (wasPlaying) {
+      if (isPlaying) {
         activeTrack.play();
       }
     }
 
-    btnA.addEventListener('click', () => {
-      switchTrack(audioA, btnA, btnB);
-    });
-
-    btnB.addEventListener('click', () => {
-      switchTrack(audioB, btnB, btnA);
-    });
+    btnA.addEventListener('click', () => switchTrack(audioA, btnA, btnB));
+    btnB.addEventListener('click', () => switchTrack(audioB, btnB, btnA));
 
     activeTrack.addEventListener('timeupdate', () => {
-      if (audioA.duration) {
-        const percent = (activeTrack.currentTime / audioA.duration) * 100;
+      if (durationTimeEl.textContent === "0:00" && !isNaN(activeTrack.duration)) {
+        durationTimeEl.textContent = formatTime(activeTrack.duration);
+      }
+      currentTimeEl.textContent = formatTime(activeTrack.currentTime);
+      if (activeTrack.duration > 0) {
+        const percent = (activeTrack.currentTime / activeTrack.duration) * 100;
         progressBar.style.width = percent + '%';
-        currentTimeEl.textContent = formatTime(activeTrack.currentTime);
       }
     });
 
     progressContainer.addEventListener('click', (e) => {
       const rect = progressContainer.getBoundingClientRect();
-      const pos = (e.clientX - rect.left) / rect.width;
-      if (audioA.duration) {
-        const newTime = pos * audioA.duration;
+      const clickX = e.clientX - rect.left;
+      const width = rect.width;
+      if (activeTrack.duration > 0) {
+        const newTime = (clickX / width) * activeTrack.duration;
         audioA.currentTime = newTime;
         audioB.currentTime = newTime;
-        progressBar.style.width = (pos * 100) + '%';
       }
     });
+
+    audioA.addEventListener('ended', () => { playerInstance.pause(); audioA.currentTime = 0; audioB.currentTime = 0; });
+    audioB.addEventListener('ended', () => { playerInstance.pause(); audioA.currentTime = 0; audioB.currentTime = 0; });
   }
 
-  // Inicializar Wider
+  // Inicializar reproductor Wider
   createABPlayer({
     audioAId: 'audioWiderAntes',
     audioBId: 'audioWiderDespues',
@@ -966,7 +981,7 @@ html.ready #loader { display: none; }
     durationTimeId: 'durationTimeWider'
   });
 
-  // Inicializar Drive
+  // Inicializar reproductor Drive
   createABPlayer({
     audioAId: 'audioDriveAntes',
     audioBId: 'audioDriveDespues',
@@ -981,66 +996,48 @@ html.ready #loader { display: none; }
 
   // Carrusel de imágenes
   const track = document.getElementById('carouselTrack');
-  if (track) {
-    const slides = Array.from(track.children);
-    const nextButton = document.getElementById('nextBtn');
-    const prevButton = document.getElementById('prevBtn');
-    const dotsNav = document.getElementById('carouselNav');
-    const dots = Array.from(dotsNav.children);
+  const slides = Array.from(track.children);
+  const nextButton = document.getElementById('nextBtn');
+  const prevButton = document.getElementById('prevBtn');
+  const dotsNav = document.getElementById('carouselNav');
+  const dots = Array.from(dotsNav.children);
 
-    let currentIndex = 0;
-    let autoPlayTimer;
+  let currentIndex = 0;
 
-    const updateSlide = (index) => {
-      track.style.transform = 'translateX(-' + (index * 100) + '%)';
-      dots.forEach((dot, idx) => {
-        dot.classList.toggle('current-slide', idx === index);
-      });
-      currentIndex = index;
-    };
-
-    const nextSlide = () => {
-      let nextIndex = currentIndex + 1;
-      if (nextIndex >= slides.length) nextIndex = 0;
-      updateSlide(nextIndex);
-    };
-
-    const prevSlide = () => {
-      let prevIndex = currentIndex - 1;
-      if (prevIndex < 0) prevIndex = slides.length - 1;
-      updateSlide(prevIndex);
-    };
-
-    nextButton.addEventListener('click', () => {
-      nextSlide();
-      resetTimer();
+  function updateSlidePosition(index) {
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('current-slide', i === index);
     });
-
-    prevButton.addEventListener('click', () => {
-      prevSlide();
-      resetTimer();
-    });
-
-    dotsNav.addEventListener('click', e => {
-      const targetDot = e.target.closest('button');
-      if (!targetDot) return;
-      const targetIndex = dots.findIndex(dot => dot === targetDot);
-      updateSlide(targetIndex);
-      resetTimer();
-    });
-
-    const startTimer = () => {
-      autoPlayTimer = setInterval(nextSlide, 4500);
-    };
-
-    const resetTimer = () => {
-      clearInterval(autoPlayTimer);
-      startTimer();
-    };
-
-    startTimer();
   }
 
+  nextButton.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % slides.length;
+    updateSlidePosition(currentIndex);
+  });
+
+  prevButton.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    updateSlidePosition(currentIndex);
+  });
+
+  dotsNav.addEventListener('click', e => {
+    const targetDot = e.target.closest('button');
+    if (!targetDot) return;
+    const targetIndex = dots.findIndex(dot => dot === targetDot);
+    if (targetIndex !== -1) {
+      currentIndex = targetIndex;
+      updateSlidePosition(currentIndex);
+    }
+  });
+
+  // Auto-avance del carrusel cada 5 segundos
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % slides.length;
+    updateSlidePosition(currentIndex);
+  }, 5000);
+
+  // Quitar el loader cuando cargue todo
   window.addEventListener('load', () => {
     document.documentElement.classList.add('ready');
   });
