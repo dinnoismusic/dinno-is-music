@@ -337,6 +337,8 @@ h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 4
 .libraries-scroll { display: flex; gap: 15px; overflow-x: auto; padding: 10px 20px 25px 20px; scroll-snap-type: x mandatory; }
 .library-card { min-width: 220px; max-width: 220px; background: #f9f9f9; border-radius: 14px; padding: 15px; text-align: center; scroll-snap-align: center; border: 1px solid #eee; }
 .library-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
+.library-card a { color: inherit; text-decoration: none; display: block; }
+.library-card a:hover p { color: var(--ff-blue); }
 
 /* ===== CARRUSEL DE IMÁGENES ESTILO WAVES ===== */
 .carousel-section {
@@ -742,6 +744,12 @@ html.ready #loader { display: none; }
             <div class="library-card"><img src="dinno-pack-machine.png" alt="Dinno Pack Machine" loading="lazy"><p>Dinno Pack Machine</p></div>
             <div class="library-card"><img src="Libreria-Vol-1-Dinno-Is-Music.png" alt="Librería Vol 1" loading="lazy"><p>Librería Vol 1</p></div>
             <div class="library-card"><img src="libreria-flocklore.png" alt="Librería Flocklore" loading="lazy"><p>Librería Flocklore</p></div>
+            <div class="library-card">
+                <a href="https://dinnoismusic.gumroad.com/l/ezknjs" target="_blank">
+                    <img src="YAMAHA DTX MULTI 12.png" alt="Yamaha DTX Multi 12" loading="lazy">
+                    <p>Yamaha DTX Multi 12</p>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -903,8 +911,6 @@ html.ready #loader { display: none; }
       const wasPlaying = isPlaying;
 
       activeTrack.pause();
-      activeTrack.currentTime = 0;
-
       activeTrack = targetAudio;
       activeTrack.currentTime = currentTime;
 
@@ -916,39 +922,33 @@ html.ready #loader { display: none; }
       }
     }
 
-    btnA.addEventListener('click', () => {
-      if (activeTrack !== audioA) switchTrack(audioA, btnA, btnB);
-    });
-
-    btnB.addEventListener('click', () => {
-      if (activeTrack !== audioB) switchTrack(audioB, btnB, btnA);
-    });
+    btnA.addEventListener('click', () => switchTrack(audioA, btnA, btnB));
+    btnB.addEventListener('click', () => switchTrack(audioB, btnB, btnA));
 
     activeTrack.addEventListener('timeupdate', () => {
-      if (activeTrack.duration) {
-        const progressPercent = (activeTrack.currentTime / activeTrack.duration) * 100;
-        progressBar.style.width = `${progressPercent}%`;
+      if (audioA.duration) {
+        const percent = (activeTrack.currentTime / audioA.duration) * 100;
+        progressBar.style.width = percent + '%';
         currentTimeEl.textContent = formatTime(activeTrack.currentTime);
       }
     });
 
     progressContainer.addEventListener('click', (e) => {
       const rect = progressContainer.getBoundingClientRect();
-      const clickPosition = (e.clientX - rect.left) / rect.width;
-      if (activeTrack.duration) {
-        activeTrack.currentTime = clickPosition * activeTrack.duration;
+      const pos = (e.clientX - rect.left) / rect.width;
+      if (audioA.duration) {
+        audioA.currentTime = pos * audioA.duration;
+        audioB.currentTime = pos * audioA.duration;
       }
     });
 
     activeTrack.addEventListener('ended', () => {
-      if (!activeTrack.loop) {
-        playerInstance.pause();
-        activeTrack.currentTime = 0;
-      }
+      playerInstance.pause();
+      activeTrack.currentTime = 0;
+      progressBar.style.width = '0%';
     });
   }
 
-  // Inicializar reproductores A/B
   createABPlayer({
     audioAId: 'audioWiderAntes',
     audioBId: 'audioWiderDespues',
@@ -973,7 +973,7 @@ html.ready #loader { display: none; }
     durationTimeId: 'durationTimeDrive'
   });
 
-  // Carrusel de imágenes
+  // Carrusel
   const track = document.getElementById('carouselTrack');
   const slides = Array.from(track.children);
   const nextButton = document.getElementById('nextBtn');
@@ -983,21 +983,21 @@ html.ready #loader { display: none; }
 
   let currentIndex = 0;
 
-  const updateCarousel = (index) => {
+  function updateSlide(index) {
     track.style.transform = `translateX(-${index * 100}%)`;
     dots.forEach((dot, i) => {
       dot.classList.toggle('current-slide', i === index);
     });
-  };
+  }
 
   nextButton.addEventListener('click', () => {
     currentIndex = (currentIndex + 1) % slides.length;
-    updateCarousel(currentIndex);
+    updateSlide(currentIndex);
   });
 
   prevButton.addEventListener('click', () => {
     currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateCarousel(currentIndex);
+    updateSlide(currentIndex);
   });
 
   dotsNav.addEventListener('click', e => {
@@ -1005,13 +1005,13 @@ html.ready #loader { display: none; }
     if (!targetDot) return;
     const index = dots.indexOf(targetDot);
     currentIndex = index;
-    updateCarousel(currentIndex);
+    updateSlide(currentIndex);
   });
 
   setInterval(() => {
     currentIndex = (currentIndex + 1) % slides.length;
-    updateCarousel(currentIndex);
-  }, 4000);
+    updateSlide(currentIndex);
+  }, 5000);
 
   window.addEventListener('load', () => {
     document.documentElement.classList.add('ready');
