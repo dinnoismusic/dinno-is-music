@@ -645,7 +645,7 @@ html.ready #loader { display: none; }
                 <h3>Trigger Dinno Plugins</h3>
                 <p>Trigger de audio profesional.</p>
                 <p class="specs">VST3 · Windows</p>
-                <a href="https://dinnoismusic.gumroad.com/l/acwrao?layout=profile" class="btn-action btn-premium-card" target="_blank">Ver más</a>
+                <a href="https://dinnoismusic.gumroad.com/l/acwrao?layout=profile" class="btn-action btn-premium-card" target="_blank">COMPRAR</a>
             </div>
 
             <!-- TARJETA WOTITI DINNO PLUGINS -->
@@ -654,7 +654,7 @@ html.ready #loader { display: none; }
                 <h3>Wotiti Dinno Plugins</h3>
                 <p>Procesador de audio avanzado.</p>
                 <p class="specs">VST3 · Windows</p>
-                <a href="https://dinnoismusic.gumroad.com/l/Wotiti-DinnoPlugins" class="btn-action btn-premium-card" target="_blank">Ver más</a>
+                <a href="https://dinnoismusic.gumroad.com/l/Wotiti-DinnoPlugins" class="btn-action btn-premium-card" target="_blank">COMPRAR</a>
             </div>
 
             <div class="secondary-grid">
@@ -663,7 +663,7 @@ html.ready #loader { display: none; }
                     <div>
                         <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" target="_blank"><img src="wider-dr-rex.png" alt="Wider Dinno Plugins" loading="lazy"></a>
                         <h3>Wider Dinno Plugins</h3>
-                        <p>Plugin gratuito.</p>
+                        <p>Plugin Stereo Enhancer</p>
                         <p class="specs">VST3 · Windows</p>
                     </div>
 
@@ -690,7 +690,7 @@ html.ready #loader { display: none; }
                         <audio id="audioWiderDespues" src="GTR FX BUCLE.wav" preload="metadata" loop></audio>
                     </div>
 
-                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn-action btn-free-card" target="_blank" style="margin-top: 15px;">Descargar</a>
+                    <a href="https://dinnoismusic.gumroad.com/l/Wider-Dr-Rex-plugin" class="btn-action btn-free-card" target="_blank" style="margin-top: 15px;">DESCARGAR GRATIS</a>
                 </div>
 
                 <!-- TARJETA DRIVE DINNO PLUGINS -->
@@ -725,7 +725,7 @@ html.ready #loader { display: none; }
                         <audio id="audioDriveDespues" src="GTR_DRIVE_50_FX.wav" preload="metadata" loop></audio>
                     </div>
 
-                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card" target="_blank" style="margin-top: 15px;">Comprar</a>
+                    <a href="https://dinnoismusic.gumroad.com/l/Drive-Dr-Rex-Plugin" class="btn-action btn-premium-card" target="_blank" style="margin-top: 15px;">COMPRAR</a>
                 </div>
 
                 <!-- TARJETA DOUBLER FX DINNO PLUGINS -->
@@ -733,11 +733,11 @@ html.ready #loader { display: none; }
                     <div>
                         <a href="https://dinnoismusic.gumroad.com/l/Doubler-Fx-DinnoPlugins" target="_blank"><img src="DOUBLER-FX.png" alt="Doubler Fx Dinno Plugins" loading="lazy"></a>
                         <h3>Doubler Fx Dinno Plugins</h3>
-                        <p>Efecto de doblaje estéreo.</p>
+                        <p>Doubler, Reverb & Delay</p>
                         <p class="specs">VST3 · Windows</p>
                     </div>
 
-                    <a href="https://dinnoismusic.gumroad.com/l/Doubler-Fx-DinnoPlugins" class="btn-action btn-premium-card" target="_blank" style="margin-top: 15px;">Ver más</a>
+                    <a href="https://dinnoismusic.gumroad.com/l/Doubler-Fx-DinnoPlugins" class="btn-action btn-premium-card" target="_blank" style="margin-top: 15px;">COMPRAR</a>
                 </div>
             </div>
         </section>
@@ -907,7 +907,149 @@ html.ready #loader { display: none; }
       }
     };
     activePlayers.push(playerInstance);
-    // (Resto de la lógica del reproductor original intacta...)
+
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return "0:00";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    audioA.addEventListener('loadedmetadata', () => {
+      durationTimeEl.textContent = formatTime(audioA.duration);
+    });
+
+    btnPlay.addEventListener('click', () => {
+      if (isPlaying) {
+        playerInstance.pause();
+      } else {
+        activePlayers.forEach(p => { if (p !== playerInstance) p.pause(); });
+        isPlaying = true;
+        btnPlay.textContent = '❚❚';
+        activeTrack.play();
+      }
+    });
+
+    function switchTrack(targetAudio, activateBtn, deactivateBtn) {
+      if (activeTrack === targetAudio) return;
+      
+      const currentTime = activeTrack.currentTime;
+      activeTrack.pause();
+      activeTrack.currentTime = 0;
+
+      activeTrack = targetAudio;
+      activeTrack.currentTime = currentTime;
+
+      activateBtn.classList.add('active');
+      deactivateBtn.classList.remove('active');
+
+      if (isPlaying) {
+        activeTrack.play();
+      }
+    }
+
+    btnA.addEventListener('click', () => switchTrack(audioA, btnA, btnB));
+    btnB.addEventListener('click', () => switchTrack(audioB, btnB, btnA));
+
+    activeTrack.addEventListener('timeupdate', () => {
+      if (durationTimeEl.textContent === "0:00" && !isNaN(activeTrack.duration)) {
+        durationTimeEl.textContent = formatTime(activeTrack.duration);
+      }
+      currentTimeEl.textContent = formatTime(activeTrack.currentTime);
+      if (activeTrack.duration > 0) {
+        const percent = (activeTrack.currentTime / activeTrack.duration) * 100;
+        progressBar.style.width = percent + '%';
+      }
+    });
+
+    progressContainer.addEventListener('click', (e) => {
+      const rect = progressContainer.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const width = rect.width;
+      if (activeTrack.duration > 0) {
+        const newTime = (clickX / width) * activeTrack.duration;
+        audioA.currentTime = newTime;
+        audioB.currentTime = newTime;
+      }
+    });
+
+    audioA.addEventListener('ended', () => { playerInstance.pause(); audioA.currentTime = 0; audioB.currentTime = 0; });
+    audioB.addEventListener('ended', () => { playerInstance.pause(); audioA.currentTime = 0; audioB.currentTime = 0; });
+  }
+
+  // Inicializar reproductor Wider
+  createABPlayer({
+    audioAId: 'audioWiderAntes',
+    audioBId: 'audioWiderDespues',
+    btnPlayId: 'btnPlayWider',
+    btnAId: 'btnWiderAntes',
+    btnBId: 'btnWiderDespues',
+    progressBarId: 'progressWiderBar',
+    progressContainerId: 'progressWiderContainer',
+    currentTimeId: 'currentTimeWider',
+    durationTimeId: 'durationTimeWider'
+  });
+
+  // Inicializar reproductor Drive
+  createABPlayer({
+    audioAId: 'audioDriveAntes',
+    audioBId: 'audioDriveDespues',
+    btnPlayId: 'btnPlayDrive',
+    btnAId: 'btnDriveAntes',
+    btnBId: 'btnDriveDespues',
+    progressBarId: 'progressDriveBar',
+    progressContainerId: 'progressDriveContainer',
+    currentTimeId: 'currentTimeDrive',
+    durationTimeId: 'durationTimeDrive'
+  });
+
+  // Carrusel de imágenes
+  const track = document.getElementById('carouselTrack');
+  const slides = Array.from(track.children);
+  const nextButton = document.getElementById('nextBtn');
+  const prevButton = document.getElementById('prevBtn');
+  const dotsNav = document.getElementById('carouselNav');
+  const dots = Array.from(dotsNav.children);
+
+  let currentIndex = 0;
+
+  function updateSlidePosition(index) {
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('current-slide', i === index);
+    });
+  }
+
+  nextButton.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % slides.length;
+    updateSlidePosition(currentIndex);
+  });
+
+  prevButton.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    updateSlidePosition(currentIndex);
+  });
+
+  dotsNav.addEventListener('click', e => {
+    const targetDot = e.target.closest('button');
+    if (!targetDot) return;
+    const targetIndex = dots.findIndex(dot => dot === targetDot);
+    if (targetIndex !== -1) {
+      currentIndex = targetIndex;
+      updateSlidePosition(currentIndex);
+    }
+  });
+
+  // Auto-avance del carrusel cada 5 segundos
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % slides.length;
+    updateSlidePosition(currentIndex);
+  }, 5000);
+
+  // Quitar el loader cuando cargue todo
+  window.addEventListener('load', () => {
+    document.documentElement.classList.add('ready');
+  });
 </script>
 </body>
 </html>
