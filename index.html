@@ -185,6 +185,17 @@ h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 4
     margin-bottom: 15px;
 }
 
+/* Estilo para el video de reemplazo */
+.featured-plugin video {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    outline: none;
+}
+
 .secondary-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -633,7 +644,7 @@ html.ready #loader { display: none; }
         <section id="plugin-demo">
             <h2>Demo del Plugin</h2>
             <div class="featured-plugin" style="max-width: 100%;">
-                <img src="DESARROLLO.jpg" alt="Desarrollo Trigger Dinno Plugins" loading="lazy" style="max-width: 100%;">
+                <video src="TEASER.mp4" controls autoplay muted loop playsinline style="max-width: 100%;"></video>
             </div>
         </section>
 
