@@ -348,8 +348,7 @@ h2 { text-align: center; font-size: clamp(1.5rem, 5vw, 1.8rem); margin-bottom: 4
 .libraries-scroll { display: flex; gap: 15px; overflow-x: auto; padding: 10px 20px 25px 20px; scroll-snap-type: x mandatory; justify-content: center; }
 .library-card { min-width: 220px; max-width: 220px; background: #f9f9f9; border-radius: 14px; padding: 15px; text-align: center; scroll-snap-align: center; border: 1px solid #eee; }
 .library-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
-.library-card a { color: inherit; text-decoration: none; display: block; }
-.library-card a:hover p { color: var(--ff-blue); }
+.library-card p { font-weight: 500; }
 
 /* ===== CARRUSEL DE IMÁGENES ESTILO WAVES ===== */
 .carousel-section {
@@ -659,15 +658,6 @@ html.ready #loader { display: none; }
                 <a href="https://dinnoismusic.gumroad.com/l/acwrao?layout=profile" class="btn-action btn-premium-card" target="_blank">COMPRAR</a>
             </div>
 
-            <!-- TARJETA WOTITI DINNO PLUGINS -->
-            <div class="featured-plugin">
-                <a href="https://dinnoismusic.gumroad.com/l/Wotiti-DinnoPlugins" target="_blank"><img src="WOTITI.png" alt="Wotiti Dinno Plugins"></a>
-                <h3>Wotiti Dinno Plugins</h3>
-                <p>Procesador de audio avanzado.</p>
-                <p class="specs">VST3 · Windows</p>
-                <a href="https://dinnoismusic.gumroad.com/l/Wotiti-DinnoPlugins" class="btn-action btn-premium-card" target="_blank">COMPRAR</a>
-            </div>
-
             <div class="secondary-grid">
                 <!-- TARJETA WIDER DINNO PLUGINS -->
                 <div class="plugin-card">
@@ -755,7 +745,7 @@ html.ready #loader { display: none; }
 
         <section id="sobre-mi">
             <h2>Sobre Mí</h2>
-            <div class="about-box">
+            <div class="about-box"> 
                 <img src="LOGOOK-SINFONDO.png" alt="Dinno" loading="lazy">
                 <div class="about-content">
                     <h3>Dino <span>Productor musical · Músico · Compositor</span></h3>
@@ -774,16 +764,12 @@ html.ready #loader { display: none; }
         <h2>Librerías de Sonido</h2>
         <div class="libraries-scroll">
             <div class="library-card">
-                <a href="https://dinnoismusic.gumroad.com/l/ezknjs" target="_blank">
-                    <img src="YAMAHA DTX MULTI 12.png" alt="Yamaha DTX Multi 12" loading="lazy">
-                    <p>Yamaha DTX Multi 12</p>
-                </a>
+                <img src="YAMAHA DTX MULTI 12.png" alt="Yamaha DTX Multi 12" loading="lazy">
+                <p>Yamaha DTX Multi 12</p>
             </div>
             <div class="library-card">
-                <a href="https://dinnoismusic.gumroad.com/l/SPD20Roland" target="_blank">
-                    <img src="SPD20.png" alt="Roland SPD-20" loading="lazy">
-                    <p>Roland SPD-20</p>
-                </a>
+                <img src="SPD20.png" alt="Roland SPD-20" loading="lazy">
+                <p>Roland SPD-20</p>
             </div>
         </div>
     </section>
@@ -898,116 +884,143 @@ html.ready #loader { display: none; }
   function createABPlayer(config) {
     const audioA = document.getElementById(config.audioAId);
     const audioB = document.getElementById(config.audioBId);
-    const btnPlay = document.getElementById(config.btnPlayId);
     const btnA = document.getElementById(config.btnAId);
     const btnB = document.getElementById(config.btnBId);
+    const btnPlay = document.getElementById(config.btnPlayId);
     const progressBar = document.getElementById(config.progressBarId);
     const progressContainer = document.getElementById(config.progressContainerId);
     const currentTimeEl = document.getElementById(config.currentTimeId);
     const durationTimeEl = document.getElementById(config.durationTimeId);
 
-    let activeTrack = audioA;
+    if (!audioA || !audioB || !btnPlay) return;
+
+    let currentActiveAudio = audioA;
     let isPlaying = false;
 
-    const playerInstance = {
-      pause: () => {
-        audioA.pause();
-        audioB.pause();
-        btnPlay.textContent = '▶';
-        isPlaying = false;
-      }
-    };
-    activePlayers.push(playerInstance);
-
     function formatTime(seconds) {
-      if (isNaN(seconds)) return "0:00";
       const mins = Math.floor(seconds / 60);
       const secs = Math.floor(seconds % 60);
       return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     }
 
-    audioA.addEventListener('loadedmetadata', () => {
-      durationTimeEl.textContent = formatTime(audioA.duration);
-    });
-
-    btnPlay.addEventListener('click', () => {
-      if (isPlaying) {
-        playerInstance.pause();
-      } else {
-        activePlayers.forEach(p => { if (p !== playerInstance) p.pause(); });
-        isPlaying = true;
-        btnPlay.textContent = '❚❚';
-        activeTrack.play();
-      }
-    });
-
-    function switchTrack(targetAudio, activateBtn, deactivateBtn) {
-      if (activeTrack === targetAudio) return;
-      
-      const currentTime = activeTrack.currentTime;
-      activeTrack.pause();
-      activeTrack.currentTime = 0;
-
-      activeTrack = targetAudio;
-      activeTrack.currentTime = currentTime;
-
-      activateBtn.classList.add('active');
-      deactivateBtn.classList.remove('active');
-
-      if (isPlaying) {
-        activeTrack.play();
+    function updateDuration() {
+      if (!isNaN(audioA.duration)) {
+        durationTimeEl.textContent = formatTime(audioA.duration);
       }
     }
 
-    btnA.addEventListener('click', () => switchTrack(audioA, btnA, btnB));
-    btnB.addEventListener('click', () => switchTrack(audioB, btnB, btnA));
+    audioA.addEventListener('loadedmetadata', updateDuration);
+    audioB.addEventListener('loadedmetadata', updateDuration);
+    if (audioA.readyState >= 1) updateDuration();
+    if (audioB.readyState >= 1) updateDuration();
 
-    activeTrack.addEventListener('timeupdate', () => {
-      if (durationTimeEl.textContent === "0:00" && !isNaN(activeTrack.duration)) {
-        durationTimeEl.textContent = formatTime(activeTrack.duration);
+    function stopAllOthers() {
+      activePlayers.forEach(player => {
+        if (player !== stopCurrentPlayer && player.isPlaying) {
+          player.pause();
+        }
+      });
+    }
+
+    const stopCurrentPlayer = {
+      isPlaying: () => isPlaying,
+      pause: () => {
+        if (isPlaying) {
+          audioA.pause();
+          audioB.pause();
+          isPlaying = false;
+          btnPlay.textContent = "▶";
+        }
       }
-      currentTimeEl.textContent = formatTime(activeTrack.currentTime);
-      if (activeTrack.duration > 0) {
-        const percent = (activeTrack.currentTime / activeTrack.duration) * 100;
-        progressBar.style.width = percent + '%';
+    };
+    activePlayers.push(stopCurrentPlayer);
+
+    btnPlay.addEventListener('click', () => {
+      if (isPlaying) {
+        audioA.pause();
+        audioB.pause();
+        isPlaying = false;
+        btnPlay.textContent = "▶";
+      } else {
+        stopAllOthers();
+        currentActiveAudio.currentTime = 0;
+        currentActiveAudio.play().then(() => {
+          isPlaying = true;
+          btnPlay.textContent = "❚❚";
+        }).catch(err => console.log(err));
+      }
+    });
+
+    function switchAudio(newAudio) {
+      if (currentActiveAudio === newAudio) return;
+      const currentTime = currentActiveAudio.currentTime;
+      
+      currentActiveAudio.pause();
+      currentActiveAudio = newAudio;
+      currentActiveAudio.currentTime = currentTime;
+
+      if (isPlaying) {
+        currentActiveAudio.play().catch(err => console.log(err));
+      }
+    }
+
+    btnA.addEventListener('click', () => {
+      btnA.classList.add('active');
+      btnB.classList.remove('active');
+      switchAudio(audioA);
+    });
+
+    btnB.addEventListener('click', () => {
+      btnB.classList.add('active');
+      btnA.classList.remove('active');
+      switchAudio(audioB);
+    });
+
+    audioA.addEventListener('timeupdate', () => {
+      if (currentActiveAudio === audioA && audioA.duration) {
+        const percent = (audioA.currentTime / audioA.duration) * 100;
+        progressBar.style.width = `${percent}%`;
+        currentTimeEl.textContent = formatTime(audioA.currentTime);
+      }
+    });
+
+    audioB.addEventListener('timeupdate', () => {
+      if (currentActiveAudio === audioB && audioB.duration) {
+        const percent = (audioB.currentTime / audioB.duration) * 100;
+        progressBar.style.width = `${percent}%`;
+        currentTimeEl.textContent = formatTime(audioB.currentTime);
       }
     });
 
     progressContainer.addEventListener('click', (e) => {
       const rect = progressContainer.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const width = rect.width;
-      if (activeTrack.duration > 0) {
-        const newTime = (clickX / width) * activeTrack.duration;
-        audioA.currentTime = newTime;
-        audioB.currentTime = newTime;
+      const pos = (e.clientX - rect.left) / rect.width;
+      if (audioA.duration) {
+        const targetTime = pos * audioA.duration;
+        audioA.currentTime = targetTime;
+        audioB.currentTime = targetTime;
       }
     });
-
-    audioA.addEventListener('ended', () => { playerInstance.pause(); audioA.currentTime = 0; audioB.currentTime = 0; });
-    audioB.addEventListener('ended', () => { playerInstance.pause(); audioA.currentTime = 0; audioB.currentTime = 0; });
   }
 
-  // Inicializar reproductor Wider
   createABPlayer({
     audioAId: 'audioWiderAntes',
-    audioBId: 'audioWiderDespues',
-    btnPlayId: 'btnPlayWider',
+    audioBId: 'audioBId' in window ? 'audioBId' : 'audioWiderDespues',
     btnAId: 'btnWiderAntes',
     btnBId: 'btnWiderDespues',
+    btnPlayId: 'btnPlayWider',
     progressBarId: 'progressWiderBar',
     progressContainerId: 'progressWiderContainer',
     currentTimeId: 'currentTimeWider',
     durationTimeId: 'durationTimeWider'
   });
 
-  // Inicializar reproductor Drive
   createABPlayer({
     audioAId: 'audioDriveAntes',
     audioBId: 'audioDriveDespues',
-    btnPlayId: 'btnPlayDrive',
     btnAId: 'btnDriveAntes',
     btnBId: 'btnDriveDespues',
+    btnPlayId: 'btnPlayDrive',
     progressBarId: 'progressDriveBar',
     progressContainerId: 'progressDriveContainer',
     currentTimeId: 'currentTimeDrive',
@@ -1016,48 +1029,57 @@ html.ready #loader { display: none; }
 
   // Carrusel de imágenes
   const track = document.getElementById('carouselTrack');
-  const slides = Array.from(track.children);
-  const nextButton = document.getElementById('nextBtn');
-  const prevButton = document.getElementById('prevBtn');
-  const dotsNav = document.getElementById('carouselNav');
-  const dots = Array.from(dotsNav.children);
+  if (track) {
+    const slides = Array.from(track.children);
+    const nextButton = document.getElementById('nextBtn');
+    const prevButton = document.getElementById('prevBtn');
+    const dotsNav = document.getElementById('carouselNav');
+    const dots = Array.from(dotsNav.children);
 
-  let currentIndex = 0;
+    let currentIndex = 0;
 
-  function updateSlidePosition(index) {
-    track.style.transform = `translateX(-${index * 100}%)`;
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('current-slide', i === index);
+    const updateSlidePosition = (index) => {
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('current-slide', idx === index);
+      });
+    };
+
+    nextButton.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateSlidePosition(currentIndex);
+    });
+
+    prevButton.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      updateSlidePosition(currentIndex);
+    });
+
+    dotsNav.addEventListener('click', e => {
+      const targetDot = e.target.closest('button');
+      if (!targetDot) return;
+      const targetIndex = dots.findIndex(dot => dot === targetDot);
+      if (targetIndex !== -1) {
+        currentIndex = targetIndex;
+        updateSlidePosition(currentIndex);
+      }
+    });
+
+    let autoSlide = setInterval(() => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateSlidePosition(currentIndex);
+    }, 5000);
+
+    const carouselContainer = document.querySelector('.custom-carousel');
+    carouselContainer.addEventListener('mouseenter', () => clearInterval(autoSlide));
+    carouselContainer.addEventListener('mouseleave', () => {
+      autoSlide = setInterval(() => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlidePosition(currentIndex);
+      }, 5000);
     });
   }
 
-  nextButton.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateSlidePosition(currentIndex);
-  });
-
-  prevButton.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateSlidePosition(currentIndex);
-  });
-
-  dotsNav.addEventListener('click', e => {
-    const targetDot = e.target.closest('button');
-    if (!targetDot) return;
-    const targetIndex = dots.findIndex(dot => dot === targetDot);
-    if (targetIndex !== -1) {
-      currentIndex = targetIndex;
-      updateSlidePosition(currentIndex);
-    }
-  });
-
-  // Auto-avance del carrusel cada 5 segundos
-  setInterval(() => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateSlidePosition(currentIndex);
-  }, 5000);
-
-  // Quitar el loader cuando cargue todo
   window.addEventListener('load', () => {
     document.documentElement.classList.add('ready');
   });
